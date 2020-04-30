@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
+	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-3.0.xsd
+	http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp-3.0.xsd">
+	
+	<!-- 
+		Viene istanziato un contesto per ogni edicola inforiv in it.dpe.inforiv.job.in.InforivImportFtpAdapterFactory
+	 -->
+	<context:mbean-server id="mbeanServer" />
+	<int-jmx:mbean-export id="mBeanExport" default-domain="igeriv-ws.ftp.importer" />
+	
+	<bean id="ftpClientFactory"
+		class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
+		<property name="host" value="${host}" />
+		<property name="port" value="21" />
+		<property name="username" value="${user}" />
+		<property name="password" value="${password}" />
+	</bean>
+
+	<int:channel id="fromFtpChannel"/>
+	
+	<int-ftp:inbound-channel-adapter 
+				id="inboundChannelAdapter"
+				channel="fromFtpChannel" 
+				cache-sessions="false"
+				session-factory="ftpClientFactory"
+				filter="customFilter"
+				auto-create-local-directory="true"
+				delete-remote-files="false"
+				local-directory="${inforiv.zip.file.import.path.dir}"
+				remote-directory="${igeriv.inforiv.remote.working.dir}">
+		<int:poller max-messages-per-poll="1" cron="${igeriv.inforiv.scheduler.cron.expr}"/>
+	</int-ftp:inbound-channel-adapter>
+	 
+	<bean id="customFilter" class="it.dpe.igeriv.util.FTPFileFilter">
+		<property name="dir" value="${local.directory}" />
+		<property name="iGerivBatchService" ref="IGerivBatchService"/>
+	</bean>
+	
+	<bean id="fileInforivFtpImporter" class="it.dpe.igeriv.importer.FileInforivFtpImporter">
+		<property name="inputFileInforivDir" value="${inforiv.file.import.path.dir}"/>
+		<property name="iGerivBatchBo" ref="IGerivBatchService"/>
+		<property name="mailingListService" ref="MailingListService"/>
+	</bean>
+		
+	<int:service-activator id="serviceActivator" input-channel="fromFtpChannel" ref="fileInforivFtpImporter" method="importaFile"/>
+	
+</beans>
