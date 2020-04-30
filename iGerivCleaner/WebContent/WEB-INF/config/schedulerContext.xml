@@ -1,0 +1,92 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	   http://www.springframework.org/schema/jee
+	   http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+	default-autowire="no">
+	
+	<!-- 
+		Scheduler che pulisce le istanze di tomcat, lasciando solo la versione più recente di igeriv  
+	 --> 
+	<bean id="tomcatCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="tomcatCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- JOB1 -->
+	<bean id="tomcatCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="tomcatJobDetail" />		
+		<!-- ogni giorno alle ore 00:00 -->
+		<property name="cronExpression" value="0 0/3 * * * ?" />
+	</bean>
+
+	<bean name="tomcatJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="it.dpe.igeriv.cleaner.job.IGerivManutenzioneTomcatJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<!-- Lista di prefissi (separati da ,) dei files .war che possono avere multiple versioni -->
+				<entry key="igerivFilesPrefixes" value="${igeriv.war.files.prefixes}" />
+				<!-- Lista di directories (separate da ,) delle instanze tomcat da pulire e riavviare -->
+				<entry key="tomcatDirs" value="${tomcat.path.dirs}" />
+				<!-- Lista di nomi windows (separati da ,) dei servizi tomcat da pulire e riavviare -->
+				<entry key="tomcatWinServiceNames" value="${tomcat.windows.service.names}" />
+				<entry key="igerivBkpDir" value="${igeriv.bkp.dir}" />
+				<!-- Nome dell'ambiente in cui e' deployata l'applicazione (es. DPE,CDL)-->
+				<entry key="envDeployName" value="${igeriv.env.deploy.name}" />
+				<!-- Nomi degli ambienti (separati da virgola) dove deve avvenire sempre il riavvio delle istanze tomcat (anche in assenza di nuovi deploy) -->
+				<!-- Il nome contenuto in enabledEnvNames deve corrispondere al valore della chiave "igeriv.env.deploy.name" in iGeriv.properties -->
+				<entry key="enabledEnvNames" value="" /> 
+				<!-- Valore massimo (in bytes) di utilizzo di memoria RAM per le istanze 1 e 2 di Tomcat al di la' delle quali le 2 istanze vengono riavviate -->
+				<entry key="maxMemorySize" value="${tomcat.max.memory.usage.bytes}" />
+				<!-- Se "true" pulisce i file di log nella cartella C:\igeriv\logs -->
+				<entry key="cleanLogFilesAtStartup" value="${tomcat.clean.log.files.at.startup}" />
+				<!-- Nome windows del servizio tomcat dove risiede il batch da riavviare -->
+				<entry key="tomcatWinServiceBatchName" value="${tomcat.windows.service.batch.name}" />
+				<!-- Cartella dove risiedono i log di iGeriv -->
+				<entry key="logFolderPath" value="${igeriv.log.path}" />
+				<entry key="timeout" value="50" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- JOB2 -->
+	<bean id="tomcatCronTrigger2" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="tomcatJobDetail2" />		
+		<!-- ogni giorno alle ore 00:00 -->
+		<property name="cronExpression" value="0 0 2 * * ?" />
+	</bean>
+	<bean name="tomcatJobDetail2" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="it.dpe.igeriv.cleaner.job.IGerivMonitoraggioTomcatJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<!-- Lista di directories (separate da ,) delle instanze tomcat da pulire e riavviare -->
+				<entry key="tomcatDirs" value="${tomcat.path.dirs}" />
+				<!-- Lista di nomi windows (separati da ,) dei servizi tomcat da pulire e riavviare -->
+				<entry key="tomcatWinServiceNames" value="${tomcat.windows.service.names}" />
+				<!-- Nome windows del servizio tomcat dove risiede il batch da riavviare -->
+				<entry key="tomcatWinServiceBatchName" value="${tomcat.windows.service.batch.name}" />
+				
+				<entry key="mailingListService" value-ref="MailingListService" />
+				
+				<entry key="timeout" value="50" />
+			</map>
+		</property>
+	</bean>
+
+
+</beans>

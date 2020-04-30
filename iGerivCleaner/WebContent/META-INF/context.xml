@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context path="/igerivbatch" docBase="igerivbatch" debug="5" crossContext="false" reloadable="true" antiJARLocking="true">
+
+    <!-- JavaMail session factory -->
+    
+    <!-- Cancellare per deploy in produzione-->
+    <Resource name="mail/Session"
+              auth="Container"
+              type="javax.mail.Session"
+              mail.debug="false"
+              mail.user="Admin169372@dpe.it"
+              mail.password="flq_5Rvcuy"
+              mail.transport.protocol="smtp"
+              mail.smtp.host="out.impresasemplice.it"
+              mail.smtp.auth="true"
+              mail.smtp.port="25"
+              mail.smtp.starttls.enable="false"/>	
+    
+    <!-- Javamelody Monitor -->
+    <Parameter name='javamelody.system-actions-enabled' value='true' override='false'/>
+    <Parameter name='javamelody.admin-emails' value='dpe.tecnico@dpe.it' override='false'/>
+    <Parameter name='javamelody.mail-session' value='mail/Session' override='false'/>  
+    <Parameter name='javamelody.mail-periods' value='day' override='false'/>
+</Context>
