@@ -1,0 +1,136 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd
+       					   http://www.springframework.org/schema/util 
+       					   http://www.springframework.org/schema/util/spring-util.xsd   
+       					   http://www.springframework.org/schema/security   
+       					   http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<global-method-security secured-annotations="enabled" />
+	
+	<http auto-config="false" use-expressions="true" access-denied-page="/login.action?authfailed=true" entry-point-ref="entryPoint">
+		<intercept-url pattern="/**/*login*" access="permitAll" />
+		<intercept-url pattern="/**/*changePwd*" access="permitAll" />
+		<intercept-url pattern="/**/*image*/**" access="permitAll" />
+		<intercept-url pattern="/**/*upload*/**" access="permitAll" />
+		<intercept-url pattern="/**/js*/**" access="permitAll" />
+		<intercept-url pattern="/**/css/**" access="permitAll" />
+		<intercept-url pattern="/**/html/**" access="permitAll" />
+		<intercept-url pattern="/**/monitoring/**" access="permitAll" />
+		<intercept-url pattern="/**/applet/**" access="permitAll" />
+		<intercept-url pattern="/**/dojo*/**" access="permitAll" />
+		<intercept-url pattern="/**/ws/**" access="permitAll" />
+		<intercept-url pattern="/**" access="hasAnyRole('ROLE_IGERIV_CLIENTE_EDICOLA','ROLE_ADMIN')" />
+		<logout />
+		<custom-filter position="PRE_AUTH_FILTER" ref="emailValidationFilter" />
+		<custom-filter position="FORM_LOGIN_FILTER" ref="userPwdAuthFilter" />
+		<custom-filter position="OPENID_FILTER" ref="openIdAuthFilter" />
+	</http>
+    
+    
+    
+    
+    
+    
+    
+    
+	<beans:bean id="userPwdAuthFilter" class="it.dpe.igeriv.security.IGerivClientUsernamePasswordAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />	
+		<beans:property name="accountService" ref="AccountService" />
+		<beans:property name="iGerivLoginSessionConfigurer" ref="IGerivLoginSessionConfigurer" />
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+				<beans:property name="defaultTargetUrl" value="/home.action" />
+			</beans:bean>
+		</beans:property>
+		<beans:property name="authenticationFailureHandler">
+			<beans:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<beans:property name="defaultFailureUrl" value="/login.action?authfailed=true" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+	
+	
+<!-- 	<bean id="authenticationProcessingFilterForEmployee" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"> -->
+<!--         <property name="authenticationManager" ref="authenticationManager" /> -->
+<!--         <property name="filterProcessesUrl" value="/j_spring_security_check_for_employee" /> -->
+<!--     </bean> -->
+
+    
+	
+	
+	<beans:bean id="openIdAuthFilter" class="it.dpe.igeriv.security.openid.IGerivOpenIDAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+				<beans:property name="defaultTargetUrl" value="/home.action" />
+			</beans:bean>
+		</beans:property>
+		<beans:property name="authenticationFailureHandler">
+			<beans:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<beans:property name="defaultFailureUrl" value="/login.action?authfailed=true" />
+			</beans:bean>
+		</beans:property>
+		<beans:property name="consumer">
+			<beans:bean class="it.dpe.igeriv.security.openid.IGerivOpenID4JavaConsumer">
+				<beans:constructor-arg index="0">
+					<beans:bean class="org.openid4java.consumer.ConsumerManager" />
+				</beans:constructor-arg>
+				<beans:constructor-arg index="1">
+					<beans:list value-type="org.springframework.security.openid.OpenIDAttribute">
+						<beans:bean class="org.springframework.security.openid.OpenIDAttribute">
+							<beans:constructor-arg index="0" value="email" />
+							<beans:constructor-arg index="1" value="http://schema.openid.net/contact/email" />
+							<beans:property name="required" value="true" />
+						</beans:bean>
+						<beans:bean class="org.springframework.security.openid.OpenIDAttribute">
+							<beans:constructor-arg index="0" value="firstName" />
+							<beans:constructor-arg index="1" value="http://axschema.org/namePerson/first" />
+							<beans:property name="required" value="true" />
+						</beans:bean>
+						<beans:bean class="org.springframework.security.openid.OpenIDAttribute">
+							<beans:constructor-arg index="0" value="lastName" />
+							<beans:constructor-arg index="1" value="http://axschema.org/namePerson/last" />
+							<beans:property name="required" value="true" />
+						</beans:bean>
+					</beans:list>
+				</beans:constructor-arg>
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean name="org.springframework.security.authenticationManager" id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<beans:property name="providers">
+			<beans:list>
+				<beans:ref bean="authProvider"/>
+				<beans:ref bean="openIdAuthProvider"/>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="authProvider" class="it.dpe.igeriv.security.IGerivDaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="IGerivClienteEdicolaUserDetailsService" />
+		<beans:property name="saltSource" ref="saltSource"/>
+		<beans:property name="passwordEncoder" ref="passwordEncoder"/>
+	</beans:bean>
+	
+	<beans:bean id="openIdAuthProvider" class="it.dpe.igeriv.security.openid.IGerivOpenIDAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="IGerivOpenIdUserDetailsService" />
+	</beans:bean>
+	
+	<beans:bean id="entryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/login.action" />
+	</beans:bean>
+	
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<beans:constructor-arg value="1" />
+	</beans:bean>
+	
+	<beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+        <beans:property name="userPropertyToUse" value="userSalt" />
+    </beans:bean>
+
+</beans:beans>

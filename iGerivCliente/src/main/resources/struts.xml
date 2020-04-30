@@ -1,0 +1,352 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.freemarker.templatesCache" value="true" />
+	<constant name="struts.staticContentLoader" value="it.dpe.igeriv.web.struts.IGerivStaticContentLoader" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="true" />
+	<constant name="struts.custom.i18n.resources" value="package" />
+	<constant name="struts.i18n.encoding" value="ISO-8859-1" />
+	<constant name="struts.ui.templateSuffix" value="java" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.javatemplates.customThemes" value="it.dpe.igeriv.web.struts.IGerivTheme" /> <!-- comma delimited list of custom theme class names -->
+	<constant name="struts.multipart.maxSize" value="50000000000" />
+	<constant name="struts.mapper.action.prefix.enabled" value="false"/>
+    <constant name="struts.mapper.action.prefix.crossNamespaces" value="false"/>
+    	
+	<package name="default" extends="struts-default" namespace="/">
+	
+		<result-types>
+			<result-type name="captchaImage"
+				class="it.dpe.igeriv.web.captcha.CaptchaImageResult" />
+		</result-types>
+		
+		<action name="jcaptcha_image"
+			class="com.google.code.jcaptcha4struts2.core.actions.JCaptchaImageAction">
+			<result type="captchaImage" />
+		</action>
+		
+	</package>
+	
+	<!-- IGeriv Comune a Edicola e Clienti Edicole -->
+	<package name="igerivBase" extends="tiles-default,it.dpe.interceptors.breadcrumbs" namespace="/">
+		<interceptors>
+			<interceptor name="jcaptchaValidation"
+				class="it.dpe.igeriv.web.captcha.JCaptchaValidationIntercepter" />
+			<interceptor name="redirectMessage"
+      			class="it.dpe.igeriv.web.interceptor.RedirectMessageInterceptor" />
+      		<interceptor name="cachingHeadersInterceptor"
+      			class="it.dpe.igeriv.web.interceptor.CachingHeadersInterceptor" />
+      		<interceptor name="monitoring" class="net.bull.javamelody.StrutsInterceptor" />
+	
+			<interceptor-stack name="jcaptcha-tiles-default">
+				<interceptor-ref name="exception"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params">
+                  <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="jcaptchaValidation" />
+                <interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			
+			<interceptor-stack name="dpeStack">
+				<interceptor-ref name="monitoring"/>
+				<interceptor-ref name="exception"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="fileUpload">
+			    	<param name="maximumSize">2000000</param>
+			        <param name="allowedTypes">application/pdf,application/msword,text/plain,image/jpeg,image/gif,image/png</param>
+			    </interceptor-ref>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params">
+                	<param name="excludeParams">dojo\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+				<interceptor-ref name="breadCrumbs">
+					<param name="wildCardSeparator">!</param>
+					<param name="uniqueCrumbsOnly">true</param>
+					<param name="getRequestsOnly">false</param>
+					<param name="crumbMax">24</param>
+					<param name="excludeMethods">save,update,remove</param>
+					<param name="menuXml">/WEB-INF/config/menu.xml</param>
+				</interceptor-ref>
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			
+			<interceptor-stack name="uploadImagesStack">
+				<interceptor-ref name="exception"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="fileUpload">
+			    	<param name="maximumSize">1000000</param>
+			        <param name="allowedTypes">image/jpeg,image/gif,image/png</param>
+			    </interceptor-ref>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params">
+                	<param name="excludeParams">dojo\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="breadCrumbs">
+					<param name="wildCardSeparator">!</param>
+					<param name="uniqueCrumbsOnly">true</param>
+					<param name="getRequestsOnly">false</param>
+					<param name="crumbMax">24</param>
+					<param name="excludeMethods">save,update,remove</param>
+					<param name="menuXml">/WEB-INF/config/menu.xml</param>
+				</interceptor-ref>
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			
+			<interceptor-stack name="noPrepareStack">
+				<interceptor-ref name="monitoring"/>
+				<interceptor-ref name="exception"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params">
+                	<param name="excludeParams">dojo\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="breadCrumbs">
+					<param name="wildCardSeparator">!</param>
+					<param name="uniqueCrumbsOnly">true</param>
+					<param name="getRequestsOnly">false</param>
+					<param name="crumbMax">24</param>
+					<param name="excludeMethods">save,update,remove</param>
+					<param name="menuXml">/WEB-INF/config/menu.xml</param>
+				</interceptor-ref>
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			
+		</interceptors>
+		
+		<default-interceptor-ref name="dpeStack" />
+		
+		<!-- 
+		<global-results>
+			<result name="AccessDeniedException">accessDenied.action</result>
+			<result name="StaleDataException">staleData.action</result>
+			<result name="IGerivRuntimeException">iGerivException.action</result>
+			<result name="invalidsession">login.action</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping exception="org.springframework.security.access.AccessDeniedException" result="AccessDeniedException" />
+			<exception-mapping exception="org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException" result="StaleDataException" />
+			<exception-mapping exception="it.dpe.igeriv.exception.IGerivRuntimeException" result="IGerivRuntimeException" />
+			<exception-mapping exception="java.lang.Exception" result="AccessDeniedException" />
+		</global-exception-mappings>
+		 -->
+		<action name="edImg" method="execute" class="secureStaticContentAction">
+			<result name="success">plgHomeTiles</result>
+		</action>
+		
+		<action name="attachment" method="execute" class="uploadAction">
+			<result name="success">plgHomeTiles</result>
+		</action>
+		
+		<action name="accessDenied" method="execute" class="homeAction">
+			<result name="success" type="tiles">accessDeniedTiles</result>
+		</action>
+		
+		<action name="staleData" method="execute" class="homeAction">
+			<result name="success" type="tiles">staleDataTiles</result>
+		</action>
+		
+		<action name="iGerivException" method="execute" class="homeAction">
+			<result name="success" type="tiles">iGerivExceptionTiles</result>
+		</action>
+		
+		<action name="logout" method="execute" class="logoutAction">
+			<result name="redirect" type="redirectAction">
+	            <param name="actionName">login.action</param>
+	        </result>
+		</action>
+	</package>
+	
+	<!-- IGeriv Clienti Edicole -->
+	<package name="igerivClient" extends="igerivBase" namespace="/">
+
+		<action name="login" method="execute" class="loginAction">
+			<interceptor-ref name="jcaptcha-tiles-default" />
+			<param name="loginType"></param>
+			<result name="input" type="tiles">loginTiles</result>
+			<result name="success" type="tiles">loginTiles</result>
+		</action>
+		
+		<action name="loginResetPwd_*" method="{1}" class="resetPwdManagerAction">
+			<interceptor-ref name="jcaptcha-tiles-default" />
+			<param name="loginType"></param>
+			<result name="input" type="tiles">inputSendPasswordTiles</result>
+			<result name="success" type="tiles">inputSendPasswordTiles</result>
+			<result name="redirect" type="redirectAction">
+	            <param name="actionName">login.action</param>
+	            <param name="pwdSent">true</param>
+	        </result>
+	        <exception-mapping exception="it.dpe.igeriv.exception.IGerivBusinessException" result="input" />
+		</action>
+		
+		<action name="changePwd_*" method="{1}" class="changePwdManagerAction">
+			<interceptor-ref name="jcaptcha-tiles-default" />
+			<param name="loginType"></param>
+			<result name="input" type="tiles">inputChangePasswordTiles</result>
+			<result name="success" type="tiles">inputChangePasswordTiles</result>
+			<result name="redirect" type="redirectAction">
+	            <param name="actionName">login.action</param>
+	            <param name="pwdChanged">true</param>
+	        </result>
+	        <exception-mapping exception="it.dpe.igeriv.exception.IGerivBusinessException" result="input" />
+		</action>
+		
+		<action name="home" method="execute" class="homeAction">
+			<result name="success" type="tiles">homeTiles</result>
+		</action>
+		
+		<action name="pubblicazioni_*" method="{1}" class="pubblicazioniAction">
+			<param name="actionName">pubblicazioni_showPubblicazioni.action</param>
+			<param name="tableStyle">bollaScrollDivContent</param>
+			<result name="input" type="tiles">pubblicazioniViewTiles</result>
+			<result name="success" type="tiles">pubblicazioniViewTiles</result>
+		</action>
+		
+		<action name="prenotazioneClienti_*" method="{1}" class="pubblicazioniAction">
+			<param name="actionName">prenotazioneClienti_showPubblicazioniPrenotazioneClienti.action</param>
+			<param name="tableStyle">bollaScrollDiv</param>
+			<result name="input" type="tiles">prenotazioneClientiEdicolaViewTiles</result>
+			<result name="success" type="tiles">prenotazioneClientiEdicolaViewTiles</result>
+		</action>
+		
+		<action name="clientiEdicola_*" method="{1}" class="clientiEdicolaAction">
+			<param name="actionName1">clientiEdicola_showPrenotazioniInseriteClienteEdicola.action</param>
+			<result name="input" type="tiles">viewPrenotazioniInseriteClientiEdicolaTiles</result>
+			<result name="prenotazioniClienteEdicola" type="tiles">prenotazioneClientiEdicolaEditTiles</result>
+			<result name="viewPrenotazioniInseriteClienteEdicola" type="tiles">viewPrenotazioniInseriteClientiEdicolaTiles</result>
+		</action>
+		
+		<action name="viewClienteEdicola_*" method="{1}" class="bollaRivenditaAction">
+			<result name="save" type="tiles">blankTiles</result>
+		</action>
+		
+		<action name="ritiri_*" method="{1}" class="ritiriAction">
+			<param name="actionName">ritiri_show.action</param>
+			<result name="input" type="tiles">ritiriTiles</result>
+			<result name="success" type="tiles">ritiriTiles</result>
+		</action>
+		
+		<action name="reportEcFatture_*" method="{1}" class="reportEstrattiContoFattureClientiAction">
+			<result name="input" type="tiles">reportECFattureClientiTiles</result>
+			<result name="success" type="tiles">reportECFattureClientiTiles</result>
+		</action>
+		
+		<action name="params_*" method="{1}" class="paramClienteAction">
+			<interceptor-ref name="uploadImagesStack" />
+			<result name="input" type="tiles">errorTiles</result>
+			<result name="error" type="tiles">errorTiles</result>
+			<result name="success" type="tiles">viewParamsClienteTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+		
+		<action name="pubblicazioniClienti_*" method="{1}" class="pubblicazioniClientiAction">
+			<result name="input" type="tiles">ricercaPubEdicolaClientiTiles</result>
+		    <result name="ricercaPubEdicolaInput" type="tiles">ricercaPubEdicolaClientiTiles</result>
+		    <result name="pubblicazioni" type="tiles">ricercaPubEdicolaClientiTiles</result>
+		    <result name="pubblicazioniEdicola" type="tiles">ricercaPubEdicolaClientiPopupEdicoleTiles</result>
+		</action>
+		
+		<action name="pubblicazioniClientiUsciteData_*" method="{1}" class="pubblicazioniClientiAction">
+			<result name="input" type="tiles">pubblicazioniUsciteDataClientiTiles</result>
+		    <result name="pubUsciteDataInput" type="tiles">pubblicazioniUsciteDataClientiTiles</result>
+		    <result name="pubblicazioniUsciteData" type="tiles">pubblicazioniUsciteDataClientiTiles</result>
+		</action>
+		
+		<!-- TRACKING -->
+		<action name="libriScolasticiTrackingClient_*" method="{1}" class="libriScolasticiTrackingClientAction">
+			<result name="success" type="tiles">libriScolasticiViewTrackingOrdiniClienteTiles</result>
+			<result name="viewPageTracking" type="tiles">libriScolasticiViewTrackingOrdiniClienteTiles</result>
+		</action>
+		
+		
+		
+		
+		
+	</package>
+	
+	<package name="igeriv-json" extends="json-default">
+		<action name="automcomplete_*" method="{1}" class="automcompleteAction">
+			<result name="successLocalita" type="json"><param name="root">localita</param></result>
+		</action>
+		
+		<action name="pubblicazioniRpc_*" method="{1}" class="jsonAction">
+			<result name="successPubByCpu" type="json"><param name="root">mapPubblicazionePiuVenduta</param></result>
+			<result name="successResultList" type="json"><param name="root">resultList</param></result>
+			<result name="successResultMap" type="json"><param name="root">resultMap</param></result>
+			<result name="successSendEmail" type="json"></result>
+			<result name="successDateTipiBolla" type="json"><param name="root">dateTipiBollaJson</param></result>
+		</action>
+		
+		<action name="GlobalRpc" method="execute" class="GeneralRpcAction">
+			<interceptor-ref name="servletConfig"/>
+			<interceptor-ref name="json">
+				<param name="enableSMD">true</param>			
+				<param name="enableGZIP">true</param>
+			</interceptor-ref>
+			<result type="json"><param name="enableSMD">true</param></result>
+		</action>
+	</package>
+	
+	<package name="igeriv-report" extends="jasperreports-default">
+		
+		<result-types>
+		    <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"/>
+		    <result-type name="stream" class="org.apache.struts2.dispatcher.StreamResult"/>
+		</result-types>
+		
+	    <action name="report_*" method="{1}" class="reportAction">
+	    	<interceptor-ref name="basicStack"/>
+	        <result name="reportEstrattoContoClientiEdicolaPdf" type="jasper">
+	            <param name="location">/WEB-INF/jasper/estratto_conto_clienti.jasper</param>
+	            <param name="dataSource">dataSourceList</param>
+	            <param name="format">PDF</param>
+	            <param name="reportParameters">reportParams</param>
+	            <param name="contentDisposition">filename="${fileName}.pdf"</param>     
+	        </result>
+	    </action>
+	</package>
+	
+	
+	
+	
+	
+</struts>

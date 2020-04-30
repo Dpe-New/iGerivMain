@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu action="/home">
+	<level1 action="/Bolle">
+	    <level2 action="/bollaRivenditaSpunta_showFilter.action" />
+		<level2 action="/bollaRivenditaSpunta_showBolla.action" />
+		<level2 action="/bollaRivendita_showFilter.action" />
+		<level2 action="/bollaRivendita_showBolla.action" />
+		<level2 action="/sonoInoltreUscite_showFilterSonoInoltreUscite.action"/>
+		<level2 action="/sonoInoltreUscite_showBollaSonoInoltreUscite.action"/>
+		<level2 action="/bollaResa_showFilter.action" />
+		<level2 action="/bollaResa_showBollaResa.action" />
+		<level2 action="/manutenzioneBollaConsegna_showFilterBollaConsegna.action" />
+		<level2 action="/manutenzioneBollaResa_showFilterBollaResa.action" />
+		<level2 action="/manutenzioneBollaConsegna_showBolleRiassunto.action" />
+		<level2 action="/manutenzioneBollaResa_showBolleResaRiassunto.action" />
+		<level2 action="/Reports">
+			<level3 action="/bollaResa_showQuadraturaResaFilter.action" />
+			<level3 action="/bollaResa_showQuadraturaResa.action" />
+			<level3 action="/mancanzeBolla_showMancanzeBollaFilter.action" />
+			<level3 action="/mancanzeBolla_showMancanzeBolla.action" />
+		</level2>
+	</level1>
+	<level1 action="/Contestazioni">
+		<level2 action="/lavorazioneResa_showFilterLavorazioneResa.action" />
+		<level2 action="/lavorazioneResa_showBollaLavorazioneResa.action" />
+		<level2 action="/mancanze_showMancanzeFilter.action" />
+		<level2 action="/mancanze_showMancanze.action" />
+		<level2 action="/contestazioniResa_showFilterContestazioniResa.action" />
+		<level2 action="/contestazioniResa_showContestazioniResa.action" />
+	</level1>
+	<level1 action="/Rifornimenti">
+		<level2 action="/rifornimenti_showFilter.action" />
+		<level2 action="/rifornimenti_showPubblicazioni.action" />
+		<level2 action="/rifornimenti_showFilterRifornimenti.action" />
+		<level2 action="/rifornimenti_showPubblicazioniRifornimenti.action" />
+		<level2 action="/viewRifornimenti_showRichiesteRifornimenti.action"/>
+		<level2 action="/viewRifornimenti_showRichiesteRifornimentoFilter.action" />
+		<level2 action="/variazioni_showFilterVariazioni.action"/>
+		<level2 action="/viewVariazioni_showVariazioniInseriteFilter.action"/>
+		<level2 action="/viewVariazioni_showVariazioniInserite.action"/>
+		<level2 action="/variazioni_showPubblicazioniVariazioni.action"/>
+	</level1>
+	<level1 action="/Contabilità">
+		<level2 action="/estrattoConto_showFilter.action" />
+		<level2 action="/estrattoConto_showEstratto.action" />
+		<level2 action="/venduto_showVendutoFilter.action" />
+		<level2 action="/venduto_showVenduto.action" />
+		<level2 action="/inventario_showFilter.action" />
+	</level1>
+	<level1 action="/Reports">
+		<level2 action="/ritiri_showFilter.action" />
+		<level2 action="/ritiri_show.action" />
+		<level2 action="/reportEcFatture_showFilter.action" />
+		<level2 action="/reportEcFatture_show.action" />
+	</level1>
+	<level1 action="/Pubblicazioni">
+		<level2 action="/infoPubblicazioni_showFilter.action" />
+		<level2 action="/infoPubblicazioni_showPubblicazioni.action" />
+		<level2 action="/infoPubblicazioni_showNumeriPubblicazioni'.action" />
+		<level2 action="/infoPubblicazioni_showFilterStatistica.action" />
+		<level2 action="/infoPubblicazioni_showPubblicazioniStatistica.action" />
+		<level2 action="/infoPubblicazioni_reportContoDepositoFilter.action" />
+		<level2 action="/infoPubblicazioni_reportContoDeposito.action" />
+		<level2 action="/invenduti_showFilter.action" />
+		<level2 action="/invenduti_show.action" />
+		<level2 action="/statisticaPubblicazioni_showFilter.action" />
+		<level2 action="/statisticaPubblicazioni_showFilterStatistica.action" />
+		<level2 action="/statisticaPubblicazioni_showPubblicazioniStatistica.action" />
+		<level2 action="/statisticaPubblicazioni_showPubblicazioni.action" />
+	</level1>
+	<level1 action="/Clienti">
+		<level2 action="/gestioneClienti_showFilter.action" />
+		<level2 action="/gestioneClienti_showClienti.action" />
+		<level2 action="/viewClienteEdicola_viewPrenotazioniClientiEdicola.action"/>	
+		<level2 action="/Prenotazioni">
+			<level3 action="/prenotazioneClienti_showFilter.action"/>		
+			<level3 action="/prenotazioneClienti_showPubblicazioni.action"/>
+			<level3 action="/gestioneClienti_showFilterPrenotazioni.action"/>
+			<level3 action="/gestioneClienti_showClientiPrenotazioni.action"/>
+			<level3 action="/gestioneClienti_showFilterViewPrenotazioni.action"/>
+			<level3 action="/gestioneClienti_showClientiViewPrenotazioni.action"/>	
+			<level3 action="/gestioneClienti_showFilterEvasionePrenotazioni.action"/>
+			<level3 action="/gestioneClienti_showClientiEvasionePrenotazioni.action"/>
+			<level3 action="/gestioneClienti_viewEvasionePrenotazioniClientiEdicola.action"/>
+		</level2>	
+		<level2 action="/Estratto Conto">
+			<level3 action="/estrattoContoClientiEdicola_showFilter.action" />
+			<level3 action="/estrattoContoClientiEdicola_showClientiEstrattoConto.action" />
+			<level3 action="/estrattoContoClientiEdicola_showFilterViewEstrattoContoClienti.action" />
+			<level3 action="/estrattoContoClientiEdicola_showClientiReportEstrattoConto.action" />
+			<level3 action="/ritiri_showFilter.action" />
+			<level3 action="/ritiri_show.action" />
+			<level3 action="/fatture_showFilter.action" />
+			<level3 action="/fatture_showFatture.action" />
+		</level2>	
+		<level2 action="/pagamenti_showFilter.action"/>		
+		<level2 action="/pagamenti_showClienti.action"/>
+	</level1>
+	<level1 action="/Vendite">
+		<level2 action="/vendite_showFilter.action" />
+		<level2 action="/reportVendite_showReportFilter.action" />
+		<level2 action="/reportVendite_showReport.action" />
+		<level2 action="/configurazioni_showMenuSceltaRapidaFilter.action" />
+		<level2 action="/configurazioni_showMenuSceltaRapida.action" />
+	</level1>
+	<level1 action="/Prodotti Vari">
+		<level2 action="/Prodotti Vari DL">
+			<level3 action="/prodotti_showProdottiFilter.action" />
+			<level3 action="/richiesteProdotti_showRichiesteProdottiFilter.action" />
+			<level3 action="/viewRichiesteProdotti_showViewRichiesteProdottiFilter.action" />
+		</level2>
+		<level2 action="/Prodotti Vari Edicola">
+			<level3 action="/pne_showProdottiTemplate.action" />
+			<level3 action="/pneFornitori_showFornitoriFilter.action" />
+			<level3 action="/pneFornitori_showFornitori.action" />
+			<level3 action="/pneBollaCarico_showFilter.action" />
+			<level3 action="/pneBollaCarico_showBolle.action" />
+			<level3 action="/pneReportMagazzino_showFilter.action" />
+			<level3 action="/pneReportMagazzino_showReport.action" />
+			<level3 action="/pneGiacenza_showFilter.action" />
+			<level3 action="/pneGiacenza_showGiacenza.action" />
+		</level2>
+	</level1>
+	<level1 action="/Edicole">
+		<level2 action="/edicole_showFilter.action" />
+		<level2 action="/edicole_showEdicole.action" />
+	</level1>
+	<level1 action="/Messaggi">
+		<level2 action="/messages_newMessage.action" />
+		<level2 action="/messages_showFilter.action" />
+		<level2 action="/messages_showMessages.action" />
+		<level2 action="/messages_showMessagesEdicole.action" />
+		<level2 action="/email_showEmailRivendita.action" />
+		<level2 action="/emailInviati_showEmailInviatiFilter.action" />
+		<level2 action="/showMessageEdicole.action" />
+		<level2 action="/showConfermeLettura.action" />
+	</level1>
+	<level1 action="/Prenotazione">
+		<level2 action="/clientiEdicola_showPrenotazioniInseriteClienteEdicola.action" />
+		<level2 action="/prenotazioneClienti_showFilterPrenotazioneClienti.action" />
+		<level2 action="/prenotazioneClienti_showPubblicazioniPrenotazioneClienti.action"/>
+	</level1>
+	<level1 action="/Pubblicazioni">
+		<level2 action="/pubblicazioniClienti_showFilterRicercaPubEdicola.action" />
+		<level2 action="/pubblicazioniClienti_showFilterPubUsciteData.action" />
+	</level1>
+	<level1 action="/Account">
+		<level2 action="/changePwd_input.action" />
+		<level2 action="/gestioneUtenti_showUtenti.action" />
+	</level1>
+</menu>

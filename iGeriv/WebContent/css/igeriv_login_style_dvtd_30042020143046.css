@@ -1,0 +1,28 @@
+body {
+		position:relative;
+		top:0px;		
+		background:#e0e0e0;
+		/*background:#c69f5b;*/	
+		font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+}
+div#page { position:relative;
+		   top:0%;
+		   left:0%;				   
+		   width:100%; 
+		   height:280px;
+		   margin-left: auto;    
+		   margin-right: auto;		
+}
+div#logoContent { position:relative;
+	   text-align:center;
+	   width:450px;	
+	   height:40px;
+	   margin-left: auto;    
+	   margin-right: auto;
+}
+div#content { position:relative;
+	   margin-left: auto;    
+	   margin-right: auto;	
+	   align:center;			 
+	   text-align:center 
+} 
