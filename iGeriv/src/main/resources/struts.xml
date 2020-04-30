@@ -1,0 +1,1204 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.freemarker.templatesCache" value="true" />
+	<constant name="struts.staticContentLoader"
+		value="it.dpe.igeriv.web.struts.IGerivStaticContentLoader" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="true" />
+	<constant name="struts.custom.i18n.resources" value="package" />
+	<constant name="struts.i18n.encoding" value="ISO-8859-1" />
+	<constant name="struts.ui.templateSuffix" value="java" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.javatemplates.customThemes" value="it.dpe.igeriv.web.struts.IGerivTheme" /> <!-- comma delimited list of custom theme class names -->
+	<constant name="struts.multipart.maxSize" value="50000000000" />
+	<constant name="struts.mapper.action.prefix.enabled" value="false" />
+	<constant name="struts.mapper.action.prefix.crossNamespaces"
+		value="false" />
+
+	<package name="default" extends="struts-default" namespace="/">
+
+		<result-types>
+			<result-type name="captchaImage"
+				class="it.dpe.igeriv.web.captcha.CaptchaImageResult" />
+		</result-types>
+
+		<action name="jcaptcha_image"
+			class="com.google.code.jcaptcha4struts2.core.actions.JCaptchaImageAction">
+			<result type="captchaImage" />
+		</action>
+
+	</package>
+
+	<!-- IGeriv Comune a Edicola e Clienti Edicole -->
+	<package name="igerivBase" extends="tiles-default" namespace="/">
+		<interceptors>
+			<interceptor name="jcaptchaValidation"
+				class="it.dpe.igeriv.web.captcha.JCaptchaValidationIntercepter" />
+			<interceptor name="redirectMessage"
+				class="it.dpe.igeriv.web.struts.interceptor.RedirectMessageInterceptor" />
+			<interceptor name="cachingHeadersInterceptor"
+				class="it.dpe.igeriv.web.struts.interceptor.CachingHeadersInterceptor" />
+			<interceptor name="statisticheInterceptor"
+				class="it.dpe.igeriv.web.struts.interceptor.StatisticheInterceptor" />
+			<!-- Esclusione Melody 04-11-19
+			<interceptor name="monitoring" class="net.bull.javamelody.StrutsInterceptor" />
+			-->
+			<interceptor name="breadCrumbs"
+				class="it.dpe.igeriv.web.struts.interceptor.IGerivBreadCrumbInterceptor">
+				<param name="trail.maxCrumbs">6</param>
+				<param name="trail.rewindMode">AUTO</param>
+				<param name="trail.comparator">org.softwareforge.struts2.breadcrumb.NameComparator</param>
+			</interceptor>
+			<interceptor name="edicolePromo"
+				class="it.dpe.igeriv.web.struts.interceptor.EdicolePromoInterceptor" />
+
+			<interceptor-stack name="jcaptcha-tiles-default">
+				<interceptor-ref name="exception" />
+				<!--<interceptor-ref name="alias"/> -->
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="prepare" />
+				<!--<interceptor-ref name="chain"/> <interceptor-ref name="debugging"/> 
+					<interceptor-ref name="scopedModelDriven"/> <interceptor-ref name="modelDriven"/> 
+					<interceptor-ref name="fileUpload"/> -->
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<!--<interceptor-ref name="actionMappingParams"/> -->
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="jcaptchaValidation" />
+				<!--<interceptor-ref name="workflow"> <param name="excludeMethods">input,back,cancel,browse</param> 
+					</interceptor-ref> -->
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+
+			<interceptor-stack name="dpeStack">
+			
+				<!-- Esclusione Melody 04-11-19
+				<interceptor-ref name="monitoring" />
+				-->
+				<interceptor-ref name="exception" />
+				<!-- <interceptor-ref name="alias"/> -->
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="i18n" />
+				<!--<interceptor-ref name="chain"/> <interceptor-ref name="debugging"/> 
+					<interceptor-ref name="profiling"/> <interceptor-ref name="scopedModelDriven"/> 
+					<interceptor-ref name="modelDriven"/> -->
+				<interceptor-ref name="fileUpload">
+					<param name="maximumSize">2000000</param>
+					<param name="allowedTypes">application/pdf,binary/octet-stream,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,text/plain,application/x-gzip,application/zip,multipart/x-gzip,multipart/x-zip,image/jpeg,image/gif,image/png,image/pjpeg,image/bmp,image/x-bmp,image/x-bitmap,image/x-xbitmap,image/x-win-bitmap,image/x-windows-bmp,image/ms-bmp,image/x-ms-bmp,image/tiff</param>
+				</interceptor-ref>
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*</param>
+					<param name="acceptParamNames">[A-Za-z0-9_'\[\]\|\.]*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="statisticheInterceptor"></interceptor-ref>
+				<interceptor-ref name="edicolePromo"></interceptor-ref>
+				<interceptor-ref name="breadCrumbs"></interceptor-ref>
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+
+			<interceptor-stack name="uploadImagesStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="fileUpload">
+					<param name="maximumSize">2000000</param>
+					<param name="allowedTypes">image/jpeg,image/gif,image/png,image/pjpeg,image/bmp,image/x-bmp,image/x-bitmap,image/x-xbitmap,image/x-win-bitmap,image/x-windows-bmp,image/ms-bmp,image/x-ms-bmp,image/tiff</param>
+				</interceptor-ref>
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*</param>
+					<param name="acceptParamNames">[A-Za-z0-9_'\[\]\|\.]*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="statisticheInterceptor"></interceptor-ref>
+				<interceptor-ref name="edicolePromo"></interceptor-ref>
+				<interceptor-ref name="breadCrumbs"></interceptor-ref>
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+
+			<interceptor-stack name="uploadImagesStackLarger">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="fileUpload">
+					<param name="maximumSize">4000000</param>
+					<param name="allowedTypes">image/jpeg,image/gif,image/png,image/pjpeg,image/bmp,image/x-bmp,image/x-bitmap,image/x-xbitmap,image/x-win-bitmap,image/x-windows-bmp,image/ms-bmp,image/x-ms-bmp,image/tiff</param>
+				</interceptor-ref>
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*</param>
+					<param name="acceptParamNames">[A-Za-z0-9_'\[\]\|\.]*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="statisticheInterceptor"></interceptor-ref>
+				<interceptor-ref name="edicolePromo"></interceptor-ref>
+				<interceptor-ref name="breadCrumbs"></interceptor-ref>
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+
+			<interceptor-stack name="noPrepareStack">
+				<!-- Esclusione Melody 04-11-19
+				<interceptor-ref name="monitoring" />
+				-->
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="edicolePromo"></interceptor-ref>
+				<interceptor-ref name="breadCrumbs"></interceptor-ref>
+				<interceptor-ref name="cachingHeadersInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="dpeStack" />
+
+		<global-results>
+			<result name="AccessDeniedException">accessDenied.action</result>
+			<result name="StaleDataException">staleData.action</result>
+			<result name="IGerivRuntimeException">iGerivException.action</result>
+			<result name="invalidsession">login.action</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping
+				exception="org.springframework.security.access.AccessDeniedException"
+				result="AccessDeniedException" />
+			<exception-mapping
+				exception="org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException"
+				result="StaleDataException" />
+			<exception-mapping exception="it.dpe.igeriv.exception.IGerivRuntimeException"
+				result="IGerivRuntimeException" />
+			<exception-mapping exception="java.lang.Exception"
+				result="AccessDeniedException" />
+		</global-exception-mappings>
+
+		<!-- <action name="edImg" method="execute" class="secureStaticContentAction"> -->
+		<!-- <result name="success">plgHomeTiles</result> -->
+		<!-- </action> -->
+
+		<action name="attachment" method="execute" class="uploadAction">
+			<result name="success">plgHomeTiles</result>
+		</action>
+
+		<action name="accessDenied" method="execute" class="exceptionAction">
+			<result name="success" type="tiles">accessDeniedTiles</result>
+		</action>
+
+		<action name="staleData" method="execute" class="exceptionAction">
+			<result name="success" type="tiles">staleDataTiles</result>
+		</action>
+
+		<action name="iGerivException" method="execute" class="exceptionAction">
+			<result name="success" type="tiles">iGerivExceptionTiles</result>
+		</action>
+
+<!-- 		<action name="logout" method="execute" class="logoutAction"> -->
+<!-- 			<result name="redirect" type="redirectAction"> -->
+<!-- 				<param name="actionName">login.action</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+
+
+	<!-- Ticket Comuzzi- Logout external system -->
+		<action name="logout*" method="execute" class="logoutAction">
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">login.action</param>
+			</result>
+			<result name="redirect_ext_system" type="tiles">loginExtSystemTiles</result>
+		</action>
+	</package>
+
+	<!-- IGeriv Edicole -->
+	<package name="igeriv" extends="igerivBase" namespace="/">
+
+
+		<action name="edImg" method="execute" class="secureStaticContentAction">
+			<result name="success">plgHomeTiles</result>
+		</action>
+
+
+		<action name="login" method="execute" class="loginAction">
+			<interceptor-ref name="jcaptcha-tiles-default" />
+			<param name="loginType">edicola</param>
+			<result name="input" type="tiles">loginTiles</result>
+			<result name="success" type="tiles">loginTiles</result>
+		</action>
+
+		<action name="loginResetPwd_*" method="{1}" class="resetPwdManagerAction">
+			<interceptor-ref name="jcaptcha-tiles-default" />
+			<param name="loginType">edicola</param>
+			<result name="input" type="tiles">inputSendPasswordTiles</result>
+			<result name="success" type="tiles">inputSendPasswordTiles</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">login.action</param>
+				<param name="pwdSent">true</param>
+			</result>
+			<exception-mapping exception="it.dpe.igeriv.exception.IGerivBusinessException"
+				result="input" />
+		</action>
+
+		<action name="changePwd_*" method="{1}" class="changePwdManagerAction">
+			<interceptor-ref name="jcaptcha-tiles-default" />
+			<param name="loginType">edicola</param>
+			<result name="input" type="tiles">inputChangePasswordTiles</result>
+			<result name="success" type="tiles">inputChangePasswordTiles</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">login.action</param>
+				<param name="pwdChanged">true</param>
+			</result>
+			<exception-mapping exception="it.dpe.igeriv.exception.IGerivBusinessException"
+				result="input" />
+		</action>
+
+		<action name="home" method="execute" class="homeAction">
+			<result name="success" type="tiles">homeTiles</result>
+		</action>
+
+		<action name="banner" class="bannerAction">
+			<result name="redirect" type="redirect">
+				<param name="location">${actionName}</param>
+				<param name="parse">true</param>
+			</result>
+		</action>
+
+		<action name="helpVideo_*" method="{1}" class="genericPageAction">
+			<result name="input" type="tiles">helpVideoTiles</result>
+			<result name="success" type="tiles">helpVideoTiles</result>
+		</action>
+
+		<action name="bollaRivendita_*" method="{1}" class="bollaRivenditaAction">
+			<param name="actionName">bollaRivendita_showBolla.action</param>
+			<result name="input" type="tiles">bollaRivenditaViewTiles</result>
+			<result name="success" type="tiles">bollaRivenditaViewTiles</result>
+			<result name="save" type="tiles">blankTiles</result>
+			<result name="ordini" type="tiles">bollaRivenditaViewOrdiniTiles
+			</result>
+			<result name="barcode" type="tiles">venditeCercaPubblicazionePerBarcodeTiles
+			</result>
+			<result name="prenotazioniClienteEdicola" type="tiles">prenotazioneClientiEditTiles
+			</result>
+			<result name="richiesteNonEvase" type="tiles">bollaRivenditaViewRichiesteNonEvaseTiles
+			</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="bollaRivenditaSpunta_*" method="{1}"
+			class="bollaRivenditaSpuntaAction">
+			<param name="actionName">bollaRivenditaSpunta_showBolla.action</param>
+			<result name="input" type="tiles">bollaRivenditaSpuntaViewTiles
+			</result>
+			<result name="success" type="tiles">bollaRivenditaSpuntaViewTiles
+			</result>
+			<result name="save" type="tiles">blankTiles</result>
+			<result name="ordini" type="tiles">bollaRivenditaViewOrdiniTiles
+			</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="sonoInoltreUscite_*" method="{1}"
+			class="bollaRivenditaAction">
+			<param name="actionName">sonoInoltreUscite_showBollaSonoInoltreUscite.action</param>
+			<result name="input" type="tiles">bollaRivenditaViewSonoInoltreUsciteTiles
+			</result>
+			<result name="success" type="tiles">bollaRivenditaViewSonoInoltreUsciteTiles
+			</result>
+			<result name="richiesteRifornimenti" type="tiles">bollaRivenditaViewRichiesteRifornimentiTiles
+			</result>
+			<result name="richiesteVariazioni" type="tiles">bollaRivenditaViewRichiesteVariazioniTiles
+			</result>
+			<result name="richiesteVariazioniSettimana" type="tiles">bollaRivenditaViewRichiesteVariazioniSettimanaTiles
+			</result>
+			<result name="richiesteRifornimentiEdit" type="tiles">bollaRivenditaEditRichiesteRifornimentiTiles
+			</result>
+		</action>
+
+		<action name="anagraficaRivendita_*" method="{1}"
+			class="anagraficaRivenditaAction">
+			<interceptor-ref name="uploadImagesStackLarger" />
+			<result name="input" type="tiles">anagraficaRivenditaViewTiles
+			</result>
+			<result name="success" type="tiles">anagraficaRivenditaViewTiles
+			</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">home.action</param>
+			</result>
+		</action>
+
+		<action name="viewRifornimenti_*" method="{1}" class="bollaRivenditaAction">
+			<result name="input" type="tiles">richiesteRifornimentoViewRichieste
+			</result>
+			<result name="success" type="tiles">richiesteRifornimentoViewRichieste
+			</result>
+			<result name="richiesteRifornimenti" type="tiles">richiesteRifornimentoViewRichieste
+			</result>
+		</action>
+
+		<action name="inventario_*" method="{1}" class="inventarioAction">
+			<result name="input" type="tiles">inventarioTiles</result>
+			<result name="success" type="tiles">inventarioTiles</result>
+			<result name="popup" type="tiles">inventarioPopupTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="inventariop_*" method="{1}" class="inventarioPresuntoAction">
+			<result name="input" type="tiles">inventariopTiles</result>
+			<result name="success" type="tiles">inventariopTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="viewVariazioni_*" method="{1}" class="bollaRivenditaAction">
+			<result name="input" type="tiles">visualizzaVariazioniTiles</result>
+			<result name="success" type="tiles">visualizzaVariazioniTiles</result>
+		</action>
+
+		<action name="viewClienteEdicola_*" method="{1}"
+			class="bollaRivenditaAction">
+			<param name="actionName">gestioneClienti_showClientiViewPrenotazioni.action</param>
+			<param name="actionName1">viewClienteEdicola_viewPrenotazioniClientiEdicola.action</param>
+			<result name="input" type="tiles">viewPrenotazioniInseriteClientiEdicolaTiles
+			</result>
+			<result name="viewPrenotazioniInseriteClienteEdicola" type="tiles">viewPrenotazioniInseriteClientiEdicolaTiles
+			</result>
+			<result name="save" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="bollaResa_*" method="{1}" class="bollaResaAction">
+			<result name="input" type="tiles">bollaResaViewTiles</result>
+			<result name="inputPubblicazioni" type="tiles">pubblicazioniViewTiles
+			</result>
+			<result name="success" type="tiles">bollaResaViewTiles</result>
+			<result name="save" type="tiles">blankTiles</result>
+			<result name="showBollaResaFuoriVoce" type="tiles">bollaResaShowFuoriVoceTiles
+			</result>
+			<result name="showReportQuadraturaResa" type="tiles">bollaResaShowReportQuadraturaResaTiles
+			</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="viewBollaResa_*" method="{1}" class="viewBollaResaAction">
+			<result name="input" type="tiles">viewBollaResaTiles</result>
+			<result name="success" type="tiles">viewBollaResaTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="resaDimenticata_*" method="{1}" class="bollaResaAction">
+			<result name="input" type="tiles">bollaResaViewTiles</result>
+			<result name="success" type="tiles">bollaResaViewTiles</result>
+		</action>
+
+		<action name="lavorazioneResa_*" method="{1}" class="bollaResaAction">
+			<result name="input" type="tiles">bollaLavorazioneResaTiles</result>
+			<result name="success" type="tiles">bollaLavorazioneResaTiles</result>
+		</action>
+
+		<action name="gestioneClienti_*" method="{1}" class="gestioneClientiAction">
+			<result name="input" type="tiles">gestioneClientiViewTiles</result>
+			<result name="success" type="tiles">gestioneClientiViewTiles</result>
+			<result name="successViewPrenotazioni" type="tiles">gestioneClientiViewPrenotazioniTiles
+			</result>
+			<result name="successEvasionePrenotazioni" type="tiles">gestioneClientiEvasionePrenotazioniTiles
+			</result>
+			<result name="successReportEstrattoContoClienti" type="tiles">gestioneClientiEstrattoContoClientiTiles
+			</result>
+			<result name="nuovoClienteEdicola" type="tiles">gestioneClientiViewNuovoClienteTiles
+			</result>
+			<result name="viewEvasionePrenotazioniClienteEdicola" type="tiles">viewEvasionePrenotazioniClienteEdicolaTiles
+			</result>
+			<result name="viewResultEvasionePrenotazioniClienteEdicola"
+				type="tiles">viewResultEvasionePrenotazioniClienteEdicolaTiles</result>
+		</action>
+
+
+		<!-- SCOLASTICA GESTIONE CLIENTI / ORDINE -->
+		<action name="libriScolasticiClienti_*" method="{1}" class="libriScolasticiClientiAction">
+			<result name="input" type="tiles">libriScolasticiClientiViewTiles</result>
+			<result name="success" type="tiles">libriScolasticiClientiViewTiles</result>
+			<result name="success_ordini" type="tiles">libriScolasticiOrdineViewTiles</result>
+			<result name="pagina_ordine_libri" type="tiles">libriScolasticiGestioneOrdineViewTiles</result>
+			<result name="popup_dettaglio_libro" type="tiles">libriScolasticiViewPopupDettaglioTiles</result>
+			<result name="popup_dettaglio_ordine" type="tiles">libriScolasticiViewPopupDettaglioOrdineTiles</result>
+			<result name="popup_dettaglio_ordine_riepilogo" type="tiles">libriScolasticiViewPopupDettaglioOrdineRiepilogoTiles</result>
+			<result name="nuovoClienteEdicolaScolastica" type="tiles">libriScolasticiViewPopupDettaglioClienteTiles</result>
+			<result name="dettaglioGestioneClienteScolasticaPopup" type="tiles">libriScolasticiViewPopupDettaglioGestioneClienteTiles</result>
+			<result name="dettaglioClienteScolasticaPopup" type="tiles">libriScolasticiViewPopupDettaglioClienteOrdineTiles</result>
+			<result name="dettaglioOrdineClientePopup" type="tiles">libriScolasticiViewPopupDettaglioOrdiniClienteTiles</result>
+			
+			<!-- TRACKING -->
+			<result name="viewPageTracking" type="tiles">libriScolasticiViewTrackingOrdiniClienteTiles</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">libriScolasticiClienti_showOrdiniFilter.action</param>
+			</result>
+		</action>
+		
+		<!-- TRACKING -->
+		<action name="libriScolasticiTracking_*" method="{1}" class="libriScolasticiTrackingAction">
+			<result name="success" type="tiles">libriScolasticiViewTrackingOrdiniClienteTiles</result>
+			<result name="viewPageTracking" type="tiles">libriScolasticiViewTrackingOrdiniClienteTiles</result>
+		</action>
+		<!-- CONSEGNA IN EDICOLA -->
+		<action name="libriScolasticiConsegnaEdicola_*" method="{1}" class="libriScolasticiConsegnaEdicolaAction">
+			<result name="success" type="tiles">libriScolasticiViewConsegnaEdicolaTiles</result>
+			<result name="viewPageConsegnaEdicola" type="tiles">libriScolasticiViewConsegnaEdicolaTiles</result>
+		</action>
+		
+		<!-- VENDITA -->
+		<action name="libriScolasticiVendita_*" method="{1}" class="libriScolasticiVenditaAction">
+			<result name="input" type="tiles">viewLibriScolasticiVenditaTiles</result>
+			<result name="success" type="tiles">viewLibriScolasticiVenditaTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+
+
+
+
+		<action name="pubblicazioni_*" method="{1}" class="pubblicazioniAction">
+			<param name="actionName">pubblicazioni_showPubblicazioni.action</param>
+			<param name="tableStyle">bollaScrollDivContent</param>
+			<result name="input" type="tiles">pubblicazioniViewTiles</result>
+			<result name="success" type="tiles">pubblicazioniViewTiles</result>
+		</action>
+
+		<action name="pubblicazioniResa_*" method="{1}" class="pubblicazioniAction">
+			<param name="actionName">pubblicazioniResa_showPubblicazioniResa.action</param>
+			<param name="tableStyle">bollaScrollDivContent</param>
+			<result name="input" type="tiles">pubblicazioniViewTiles</result>
+			<result name="success" type="tiles">pubblicazioniViewTiles</result>
+		</action>
+
+		<action name="configPubblicazioni_*" method="{1}"
+			class="pubblicazioniAction">
+			<param name="actionName">configPubblicazioni_showPubblicazioniBarraSceltaRapida.action</param>
+			<param name="tableStyle">bollaScrollDivContent</param>
+			<result name="input" type="tiles">configPubblicazioniTiles</result>
+			<result name="success" type="tiles">configPubblicazioniTiles</result>
+		</action>
+
+		<action name="rifornimenti_*" method="{1}" class="pubblicazioniAction">
+			<param name="actionName">rifornimenti_showPubblicazioniRifornimenti.action</param>
+			<param name="tableStyle">bollaScrollDiv</param>
+			<result name="input" type="tiles">rifornimentiViewTiles</result>
+			<result name="success" type="tiles">rifornimentiViewTiles</result>
+
+		</action>
+
+		<action name="variazioni_*" method="{1}" class="pubblicazioniAction">
+			<param name="actionName">variazioni_showPubblicazioniVariazioni.action</param>
+			<param name="tableStyle">bollaScrollDiv</param>
+			<result name="input" type="tiles">variazioniViewTiles</result>
+			<result name="success" type="tiles">variazioniViewTiles</result>
+		</action>
+
+		<action name="prenotazioneClienti_*" method="{1}"
+			class="pubblicazioniAction">
+			<param name="actionName">prenotazioneClienti_showPubblicazioniPrenotazioneClienti.action</param>
+			<param name="tableStyle">bollaScrollDiv</param>
+			<result name="input" type="tiles">prenotazioneClientiViewTiles
+			</result>
+			<result name="success" type="tiles">prenotazioneClientiViewTiles
+			</result>
+		</action>
+
+		<action name="estrattoConto_*" method="{1}" class="estrattoContoAction">
+			<param name="actionName">estrattoConto_showEstratto.action</param>
+			<result name="input" type="tiles">estrattoContoTiles</result>
+			<result name="success" type="tiles">estrattoContoTiles</result>
+		</action>
+		
+		<action name="fattureDL_*" method="{1}" class="fattureDLAction">
+			<param name="actionName">fattureDL_showFatture.action</param>
+			<result name="input" type="tiles">fattureDLTiles</result>
+			<result name="success" type="tiles">fattureDLTiles</result>
+		</action>
+
+		<!-- <action name="estrattoConto_*" method="{1}" class="estrattoContoAction"> -->
+		<!-- <param name="actionName">estrattoConto_showEstratto.action</param> -->
+		<!-- <result name="input" type="tiles">estrattoContoTiles</result> -->
+		<!-- <result name="success" type="tiles">estrattoContoTiles</result> -->
+		<!-- </action> -->
+
+		<action name="estrattoContoClientiEdicola_*" method="{1}"
+			class="estrattoContoClientiEdicolaAction">
+			<param name="actionName">estrattoContoClientiEdicola_showClientiReportEstrattoConto.action</param>
+			<result name="input" type="tiles">estrattoContoClientiEdicolaTiles
+			</result>
+			<result name="success" type="tiles">estrattoContoClientiEdicolaTiles
+			</result>
+			<result name="report_ec" type="tiles">reportEstrattiContoClientiEdicolaTiles
+			</result>
+			<result name="popup" type="tiles">reportEstrattiContoClientiEdicolaPopupTiles
+			</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="estrattoContoDinamico_*" method="{1}"
+			class="estrattoContoDinamicoAction">
+			<result name="input" type="tiles">estrattoContoDinamicoTiles</result>
+			<result name="success" type="tiles">estrattoContoDinamicoTiles
+			</result>
+		</action>
+
+		<action name="venduto_*" method="{1}" class="estrattoContoAction">
+			<param name="actionName">venduto_showVenduto.action</param>
+			<result name="input" type="tiles">vendutoEstrattoContoTiles</result>
+			<result name="success" type="tiles">vendutoEstrattoContoTiles</result>
+			<result name="vendutoChart" type="tiles">vendutoChartTiles</result>
+		</action>
+
+		<action name="infoPubblicazioni_*" method="{1}" class="pubblicazioniAction">
+			<param name="actionName">infoPubblicazioni_showPubblicazioni.action</param>
+			<result name="input" type="tiles">infoPubblicazioniTiles</result>
+			<result name="success" type="tiles">infoPubblicazioniTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+			<result name="numeriPrecedenti" type="tiles">infoPubblicazioniNumeriPrecedentiTiles
+			</result>
+			<result name="reportContoDeposito" type="tiles">reportContoDepositoTiles
+			</result>
+		</action>
+
+		<action name="statisticaPubblicazioni_*" method="{1}"
+			class="pubblicazioniAction">
+			<param name="actionName">statisticaPubblicazioni_showPubblicazioniStatistica.action</param>
+			<result name="input" type="tiles">infoPubblicazioniStatisticaTiles
+			</result>
+			<result name="success" type="tiles">infoPubblicazioniStatisticaTiles
+			</result>
+			<result name="numeriPrecedenti" type="tiles">infoPubblicazioniStatisticaNumeriPrecedentiTiles
+			</result>
+			<result name="statisticaDettaglioFornito" type="tiles">infoStatisticaDettaglioFornitoTiles
+			</result>
+			<result name="statisticaDettaglioReso" type="tiles">infoStatisticaDettaglioResoTiles
+			</result>
+			<result name="statisticaDettaglioVenduto" type="tiles">infoStatisticaDettaglioVendutoTiles
+			</result>
+		</action>
+
+		<action name="gestioneUtenti_*" method="{1}" class="utentiAction">
+			<result name="input" type="tiles">gestioneUtentiTiles</result>
+			<result name="success" type="tiles">gestioneUtentiTiles</result>
+			<result name="nuovoUtenteEdicola" type="tiles">gestioneClientiNuovoUtenteEdicolaTiles
+			</result>
+		</action>
+
+		<action name="messages_*" method="{1}" class="messagesAction">
+			<param name="actionName">messages_showMessagesEdicole.action</param>
+			<result name="input" type="tiles">messagesEdicoleTiles</result>
+			<result name="success" type="tiles">messagesEdicoleTiles</result>
+			<result name="showMessaggioIdtn" type="tiles">messagesShowMessaggioIdtnTiles
+			</result>
+		</action>
+
+		<action name="messagesClienti_*" method="{1}" class="messagesClientiAction">
+			<result name="input" type="tiles">messagesClientiTiles</result>
+			<result name="success" type="tiles">messagesClientiTiles</result>
+			<result name="newMessage" type="tiles">messagesClientiNewMessageTiles
+			</result>
+		</action>
+
+		<action name="uploadMessagesClienti_*" method="{1}"
+			class="messagesClientiAction">
+			<interceptor-ref name="uploadImagesStack" />
+			<result name="input" type="tiles">messagesClientiUploadTiles</result>
+			<result name="uploadResult" type="tiles">messagesClientiUploadTiles
+			</result>
+		</action>
+
+		<action name="sentMessagesClienti_*" method="{1}"
+			class="messagesClientiAction">
+			<result name="input" type="tiles">sentMessagesClientiTiles</result>
+			<result name="success" type="tiles">sentMessagesClientiTiles</result>
+			<result name="showMessage" type="tiles">sentMessagesClientiShowMessageTiles
+			</result>
+		</action>
+
+		<action name="promemoria_*" method="{1}" class="promemoriaAction">
+			<param name="actionName">promemoria_showFilter.action</param>
+			<result name="input" type="tiles">promemoriaTiles</result>
+			<result name="success" type="tiles">promemoriaTiles</result>
+			<result name="newMessage" type="tiles">newPromemoriaTiles</result>
+			<result name="showPromemoria" type="tiles">showPromemoriaTiles
+			</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="email_*" method="{1}" class="messagesAction">
+			<param name="actionName">email_showEmailRivendita.action</param>
+			<result name="input" type="tiles">emailRivenditaTiles</result>
+			<result name="success" type="tiles">emailRivenditaTiles</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">email_showEmailRivendita.action</param>
+				<param name="msgSent">true</param>
+			</result>
+			<result name="redirect_error" type="redirectAction">
+				<param name="actionName">email_showEmailRivendita.action</param>
+				<param name="msgSent">false</param>
+			</result>
+		</action>
+
+		<action name="emailInviati_*" method="{1}" class="messagesAction">
+			<result name="input" type="tiles">emailInviatiTiles</result>
+			<result name="success" type="tiles">emailInviatiTiles</result>
+			<result name="showMessage" type="tiles">emailInviatiShowMessageTiles
+			</result>
+		</action>
+
+		<action name="avviso_*" method="{1}" class="messagesAction">
+			<interceptor-ref name="noPrepareStack" />
+			<result name="input" type="tiles">messagesEdicoleTiles</result>
+			<result name="success" type="tiles">messagesShowAvvisoNuovoMessaggioTiles
+			</result>
+			<result name="showMessage" type="tiles">messagesEdicoleShowMessageTiles
+			</result>
+		</action>
+
+		<action name="avvisoLivellamenti_*" method="{1}" class="livellamentiAction">
+			<interceptor-ref name="noPrepareStack" />
+			<result name="showAvvisoLivellamenti" type="tiles">livellamentiEdicoleShowAvvisoTiles
+			</result>
+			<result name="showAvvisoAccettazioneLivellamenti" type="tiles">accettazioneLivellamentiEdicoleShowAvvisoTiles
+			</result>
+			<result name="showLivellamenti" type="tiles">livellamentiEdicoleShowTiles
+			</result>
+			<result name="showAggiornamentoRichiestaRifornimentiLivellamenti"
+				type="tiles">livellamentiAggiornamentoRichiestaRifornimentiShowTiles
+			</result>
+			<!-- Workflow Rete Edicole -->
+			<result name="showRichiesteEffettuateInReteEdicola" type="tiles">livellamentiRichiesteEffettuateInReteEdicolaShowTiles
+			</result>
+			<result name="showRichiesteDaAccettareInReteEdicola" type="tiles">livellamentiRichiesteDaAccettareInReteEdicolaShowTiles
+			</result>
+			<result name="showRichiesteDaRitirareInReteEdicola" type="tiles">livellamentiRichiesteDaRitirareInReteEdicolaShowTiles
+			</result>
+			<result name="showRichiesteRitirateInReteEdicola" type="tiles">livellamentiRichiesteRitirateInReteEdicolaShowTiles
+			</result>
+
+			<result name="showAccettazioneLivellamenti" type="tiles">livellamentiConfermaAccettazioneShowTiles
+			</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="livellamenti_*" method="{1}" class="livellamentiAction">
+			<result name="input" type="tiles">messagesEdicoleTiles</result>
+			<result name="success" type="tiles">livellamentiEdicoleShowAvvisoTiles
+			</result>
+			<result name="showMessage" type="tiles">livellamentiEdicoleShowTiles
+			</result>
+			<result name="showRichiesteLivellamenti" type="tiles">livellamentiRichiesteTiles
+			</result>
+			<result name="showProposteLivellamenti" type="tiles">livellamentiProposteTiles
+			</result>
+		</action>
+
+		<action name="vendite_*" method="{1}" class="venditeCardAction">
+			<result name="input" type="tiles">venditeTiles</result>
+			<result name="success" type="tiles">venditeTiles</result>
+			<result name="vendutoChart" type="tiles">vendutoProdottiVariChartTiles
+			</result>
+		</action>
+
+		<action name="reportVendite_*" method="{1}" class="venditeCardAction">
+			<result name="input" type="tiles">reportsVenditeTiles</result>
+			<result name="success" type="tiles">reportsVenditeTiles</result>
+			<result name="reportsVendite" type="tiles">reportsVenditeTiles
+			</result>
+		</action>
+
+		<action name="configurazioni_*" method="{1}" class="configAction">
+			<result name="input" type="tiles">configTiles</result>
+			<result name="success" type="tiles">configTiles</result>
+			<result name="successEditImgMiniaturaSinistra" type="tiles">configEditImgSxTiles
+			</result>
+			<result name="successEditImgMiniaturaDestra" type="tiles">configEditImgDxTiles
+			</result>
+			<result name="successSaveImgMiniatura" type="tiles">stringTiles
+			</result>
+		</action>
+
+		<action name="mancanze_*" method="{1}" class="mancanzeAction">
+			<result name="input" type="tiles">mancanzeTiles</result>
+			<result name="success" type="tiles">mancanzeTiles</result>
+		</action>
+
+		<action name="mancanzeBolla_*" method="{1}" class="mancanzeAction">
+			<result name="input" type="tiles">mancanzeBollaTiles</result>
+			<result name="success" type="tiles">mancanzeBollaTiles</result>
+			<result name="mancanzeDetail" type="tiles">mancanzeBollaDetailTiles
+			</result>
+		</action>
+
+		<action name="contestazioniResa_*" method="{1}" class="mancanzeAction">
+			<result name="input" type="tiles">contestazioniResaTiles</result>
+			<result name="success" type="tiles">contestazioniResaTiles</result>
+		</action>
+
+		<action name="prodotti_*" method="{1}" class="prodottiAction">
+			<param name="actionName">prodotti_showProdotti.action</param>
+			<result name="input" type="tiles">prodottiTiles</result>
+			<result name="success" type="tiles">prodottiTiles</result>
+		</action>
+
+		<action name="pne_*" method="{1}" class="prodottiNonEditorialiAction">
+			<interceptor-ref name="uploadImagesStack" />
+			<result name="input" type="tiles">errorTiles</result>
+			<result name="error" type="tiles">errorTiles</result>
+			<result name="success" type="tiles">pneProdottiTiles</result>
+			<result name="pneTemplate" type="tiles">pneTemplateTiles</result>
+			<result name="pneTemplateEdicola" type="tiles">pneTemplateEdicolaTiles
+			</result>
+			<result name="editCategoriaEdicola" type="tiles">pneEditCategoriaEdicolaTiles
+			</result>
+			<result name="editSottoCategoriaEdicola" type="tiles">pneEditSottoCategoriaEdicolaTiles
+			</result>
+			<result name="editProdotto" type="tiles">pneEditProdottoTiles</result>
+			<result name="editProdottoContent" type="tiles">pneEditProdottoContentTiles
+			</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">pne_showProdottiTemplate.action</param>
+			</result>
+		</action>
+
+		<action name="pneFornitori_*" method="{1}"
+			class="prodottiNonEditorialiFornitoriAction">
+			<result name="input" type="tiles">pneFornitoriTiles</result>
+			<result name="success" type="tiles">pneFornitoriTiles</result>
+			<result name="editFornitore" type="tiles">pneEditFornitoreTiles
+			</result>
+		</action>
+
+		<action name="pneReportMagazzino_*" method="{1}"
+			class="prodottiNonEditorialiMagazzinoAction">
+			<result name="input" type="tiles">pneReportMagazzinoTiles</result>
+			<result name="success" type="tiles">pneReportMagazzinoTiles</result>
+		</action>
+
+		<action name="pneGiacenza_*" method="{1}"
+			class="prodottiNonEditorialiGiacenzaAction">
+			<result name="input" type="tiles">pneGiacenzaTiles</result>
+			<result name="success" type="tiles">pneGiacenzaTiles</result>
+		</action>
+
+		<action name="pneBollaCarico_*" method="{1}"
+			class="prodottiNonEditorialiCaricoBollaAction">
+			<result name="input" type="tiles">pneBollaCaricoTiles</result>
+			<result name="success" type="tiles">pneBollaCaricoTiles</result>
+			<result name="editBollaCarico" type="tiles">pneEditBollaCaricoTiles
+			</result>
+		</action>
+
+		<action name="pneResa_*" method="{1}"
+			class="prodottiNonEditorialiResaAction">
+			<result name="input" type="tiles">pneBollaResaTiles</result>
+			<result name="success" type="tiles">pneBollaResaTiles</result>
+			<result name="editBollaResa" type="tiles">pneEditBollaResaTiles
+			</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="richiesteProdotti_*" method="{1}" class="prodottiAction">
+			<param name="actionName">richiesteProdotti_showRichiesteProdotti.action</param>
+			<result name="input" type="tiles">richiesteProdottiTiles</result>
+			<result name="success" type="tiles">richiesteProdottiTiles</result>
+			<result name="richiesteRifornimentiProdotti" type="tiles">richiesteRifornimentiProdottiTiles
+			</result>
+		</action>
+
+		<action name="viewRichiesteProdotti_*" method="{1}" class="prodottiAction">
+			<param name="actionName">richiesteProdotti_showViewRichiesteProdotti.action</param>
+			<result name="input" type="tiles">viewRichiesteProdottiTiles</result>
+			<result name="success" type="tiles">viewRichiesteProdottiTiles
+			</result>
+		</action>
+
+		<action name="redirect_*" method="{1}" class="redirectAction">
+			<result name="redirectToRtaeResult" type="redirect">${url}</result>
+		</action>
+
+		<action name="msgDpe_*" method="{1}" class="messagesDpeAction">
+			<interceptor-ref name="noPrepareStack" />
+			<result name="viewActiveMessages" type="tiles">viewActiveMessagesTiles
+			</result>
+			<result name="viewActiveMessagesIFrame" type="tiles">viewActiveMessagesIFrameTiles
+			</result>
+		</action>
+
+		<action name="params_*" method="{1}" class="paramEdicolaAction">
+			<interceptor-ref name="uploadImagesStack" />
+			<result name="input" type="tiles">errorTiles</result>
+			<result name="error" type="tiles">errorTiles</result>
+			<result name="success" type="tiles">viewParamsEdicolaTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="fatture_*" method="{1}" class="reportFattureAction">
+			<result name="input" type="tiles">reportFattureTiles</result>
+			<result name="success" type="tiles">reportFattureTiles</result>
+		</action>
+
+		<action name="pagamenti_*" method="{1}" class="pagamentoClientiAction">
+			<param name="actionName">pagamenti_showClienti.action</param>
+			<result name="input" type="tiles">pagamentiClientiTiles</result>
+			<result name="success" type="tiles">pagamentiClientiTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="invenduti_*" method="{1}" class="pubblicazioniInveduteAction">
+			<param name="actionName">invenduti_show.action</param>
+			<result name="input" type="tiles">invendutiTiles</result>
+			<result name="success" type="tiles">invendutiTiles</result>
+		</action>
+
+		<action name="ritiri_*" method="{1}" class="ritiriAction">
+			<param name="actionName">ritiri_show.action</param>
+			<result name="input" type="tiles">ritiriTiles</result>
+			<result name="success" type="tiles">ritiriTiles</result>
+			<result name="ritiriCanc" type="tiles">ritiriCancTiles</result>
+		</action>
+
+		<action name="cic_*" method="{1}" class="invitaColleghiAction">
+			<result name="input" type="tiles">cicTiles</result>
+			<result name="success" type="tiles">cicTiles</result>
+		</action>
+
+		<action name="rilevamenti_*" method="{1}" class="rilevamentiAction">
+			<result name="input" type="tiles">rilevamentiTiles</result>
+			<result name="success" type="tiles">rilevamentiTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="arretrati_*" method="{1}" class="arretratiAction">
+			<result name="input" type="tiles">arretratiTiles</result>
+			<result name="success" type="tiles">arretratiTiles</result>
+			<result name="report" type="tiles">arretratiReportTiles</result>
+			<result name="input" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="campagna_*" method="{1}" class="campagnaAction">
+			<result name="input" type="tiles">campagnaFerieTiles</result>
+			<result name="success" type="tiles">campagnaFerieTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+		<action name="georef_*" method="{1}" class="georefedicolaAction">
+			<result name="input" type="tiles">georefEdicolaTiles</result>
+			<result name="success" type="tiles">georefEdicolaTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+			<result name="error" type="tiles">userAccessDeniedTiles</result>
+			<result name="showGruppoReteEdicole" type="tiles">georefReteEdicoleTiles
+			</result>
+		</action>
+
+
+		<action name="videotutorial_*" method="{1}" class="videoTutorialAction">
+			<result name="input" type="tiles">videoTutorialTiles</result>
+			<result name="success" type="tiles">videoTutorialTiles</result>
+			<result name="blank" type="tiles">blankTiles</result>
+		</action>
+
+
+	</package>
+
+	<package name="igeriv-json" extends="json-default">
+
+		<interceptors>
+			<interceptor name="edicolePromo"
+				class="it.dpe.igeriv.web.struts.interceptor.EdicolePromoInterceptor" />
+			<interceptor-stack name="jsonBasicStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*</param>
+					<param name="acceptParamNames">[A-Za-z0-9_'\[\]\|\.]*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="jsonBasicStack" />
+
+		<action name="test" class="pollingAction">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="automcomplete_*" method="{1}" class="automcompleteAction">
+			<result name="successLocalita" type="json">
+				<param name="root">localita</param>
+			</result>
+		</action>
+
+		<action name="pubblicazioniRpc_*" method="{1}" class="jsonAction">
+			<result name="successPubByCpu" type="json"><param name="root">mapPubblicazionePiuVenduta</param></result>
+			<result name="successResultList" type="json"><param name="root">resultList</param></result>
+			<result name="successResultMap" type="json"><param name="root">resultMap</param></result>
+			<result name="successSendEmail" type="json"></result>
+			<result name="successDateTipiBolla" type="json"><param name="root">dateTipiBollaJson</param></result>
+			<result name="successDateEdicoleVicine" type="json"><param name="root">dateEdicoleVicineJson</param></result>
+			<result name="successResultListInfoCopertina" type="json"><param name="root">resultListInfoCopertina</param></result>
+			<result name="successResultListModificaCopertina" type="json"><param name="root">resultListModificaCopertina</param></result>
+			<result name="successResultListInfoUltimaCopertina" type="json"><param name="root">resultListInfoUltimaCopertina</param></result>
+			<result name="successVerificaBollaResaQuotidianiMenta" type="json"><param name="root">resultVerificaBollaResaQuotidianiMenta</param></result>
+			<result name="success" type="json"><param name="root">mapResult</param></result>
+		</action>
+
+		<action name="paramsJ_*" method="{1}" class="paramEdicolaAction">
+			<result name="lastNumeroFatturazione" type="json">
+				<param name="root">mapLastNumeroFatturazione</param>
+			</result>
+		</action>
+
+		<action name="gestioneClientiJ_*" method="{1}"
+			class="gestioneClientiAction">
+			<result name="success" type="json">
+				<param name="root">evasioneJsonResult</param>
+			</result>
+		</action>
+
+		<action name="messagesClientiJ_*" method="{1}"
+			class="messagesClientiAction">
+			<result name="success" type="json">
+				<param name="root">mapTemplates</param>
+			</result>
+		</action>
+
+		<action name="pneResaJ_*" method="{1}"
+			class="prodottiNonEditorialiResaAction">
+			<result name="success" type="json">
+				<param name="root">mapResult</param>
+			</result>
+		</action>
+
+		<action name="sonoInoltreUsciteJ_*" method="{1}"
+			class="bollaRivenditaAction">
+			<result name="success" type="json">
+				<param name="root">mapResult</param>
+			</result>
+		</action>
+
+		<action name="venditeJ_*" method="{1}" class="venditeCardAction">
+			<result name="success" type="json">
+				<param name="root">mapResult</param>
+			</result>
+		</action>
+
+		<action name="GlobalRpc" method="execute" class="GeneralRpcAction">
+			<interceptor-ref name="json">
+				<param name="enableSMD">true</param>
+				<param name="enableGZIP">true</param>
+			</interceptor-ref>
+			<result type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+
+		<action name="VenditeCardRpc" method="execute" class="VenditeCardRpcAction">
+			<interceptor-ref name="servletConfig" />
+			<interceptor-ref name="edicolePromo"></interceptor-ref>
+			<interceptor-ref name="json">
+				<param name="enableSMD">true</param>
+				<param name="enableGZIP">true</param>
+			</interceptor-ref>
+			<result type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+
+		<action name="InventarioRpc" method="execute" class="InventarioRpcAction">
+			<interceptor-ref name="json">
+				<param name="enableSMD">true</param>
+				<param name="enableGZIP">true</param>
+			</interceptor-ref>
+			<result type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+
+		<action name="ScambioDatiDlRpc" method="execute" class="ScambioDatiDlRpcAction">
+			<interceptor-ref name="json">
+				<param name="enableSMD">true</param>
+				<param name="enableGZIP">true</param>
+			</interceptor-ref>
+			<result type="json">
+				<param name="enableSMD">true</param>
+			</result>
+		</action>
+		
+		
+
+	</package>
+
+	<package name="igeriv-report" extends="jasperreports-default">
+
+		<result-types>
+			<result-type name="jasper"
+				class="it.dpe.igeriv.web.struts.views.IGerivJasperReportsResult" />
+			<result-type name="stream"
+				class="org.apache.struts2.dispatcher.StreamResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor-stack name="basicStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*</param>
+					<param name="acceptParamNames">[A-Za-z0-9_'\[\]\|\.]*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="basicStack" />
+
+		<action name="report_*" method="{1}" class="reportAction">
+			<result name="venditeReportPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/vendite_report.jasper</param>
+				<param name="dataSource">vendite</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+			<result name="venditeLibriReportPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/VenditeLibri.jasper</param>
+				<param name="dataSource">ordiniClienti</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+			<result name="attivazioneProdottoDigitaliGiftCardEpipoli" type="jasper">
+				<param name="location">/WEB-INF/jasper/attivazioneGiftCard.jasper</param>
+				<param name="dataSource">prodottiDigitali</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+			<result name="venditeReportFatturaPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/fattura_report.jasper</param>
+				<param name="dataSource">vendite</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+			<result name="ordiniClientiReportPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/ordini_clienti_report.jasper</param>
+				<param name="dataSource">dataSourceList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="ordini_clienti.pdf"</param>
+			</result>
+			<result name="ordiniClientiDettaglioReportPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/ordini_clienti_dettaglio_report.jasper</param>
+				<param name="dataSource">dataSourceList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment;
+					filename="ordini_clienti_dettaglio.pdf"</param>
+			</result>
+			<result name="reportEstrattoContoClientiPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/estratto_conto_clienti_vendite.jasper</param>
+				<param name="dataSource">dataSourceList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="estratto_conto_clienti.pdf"</param>
+			</result>
+			<result name="reportEstrattoContoClientiEdicolaPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/estratto_conto_clienti.jasper</param>
+				<param name="dataSource">dataSourceList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+			<result name="reportInventarioPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/inventario_report.jasper</param>
+				<param name="dataSource">dataSourceList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+			<result name="bollaResaProdottiVariPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/bolla_resa_prodotti_vari.jasper</param>
+				<param name="dataSource">dataSourceList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+			<result name="reportInventarioXls" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">excelStream</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.xls"</param>
+				<param name="bufferSize">1024</param>
+				<param name="contentLength">${contentLength}</param>
+			</result>
+		</action>
+
+		<action name="reportPne_*" method="{1}" class="reportProdottiVariAction">
+			<result name="bollaResaProdottiVariPdf" type="jasper">
+				<param name="location">/WEB-INF/jasper/bolla_resa_prodotti_vari.jasper</param>
+				<param name="dataSource">dettagli</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				<param name="contentDisposition">attachment; filename="${fileName}.pdf"</param>
+			</result>
+		</action>
+
+	</package>
+
+	<package name="igeriv-charts" extends="jfreechart-default">
+
+		<action name="viewChart_*" method="{1}" class="viewChartAction">
+			<result name="success" type="chart">
+				<param name="width">500</param>
+				<param name="height">400</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>

@@ -1,0 +1,43 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:oxm="http://www.springframework.org/schema/oxm" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	default-autowire="no">
+
+	<oxm:jaxb2-marshaller id="marshaller">
+		<oxm:class-to-be-bound name="it.dpe.ws.client.dto.abbonati.AbbonatiRequest" />
+		<oxm:class-to-be-bound name="it.dpe.ws.client.dto.abbonati.Abbonati" />
+		<oxm:class-to-be-bound
+			name="it.dpe.ws.client.dto.ricaricabili.RicaricabiliRequest" />
+		<oxm:class-to-be-bound
+			name="it.dpe.ws.client.dto.ricaricabili.Ricaricabili" />
+	</oxm:jaxb2-marshaller>
+
+	<oxm:jaxb2-marshaller id="unmarshaller">
+		<oxm:class-to-be-bound
+			name="it.dpe.ws.client.dto.abbonati.AbbonatiResultDto" />
+		<oxm:class-to-be-bound
+			name="it.dpe.ws.client.dto.abbonati.AnagraficaTipologiaMinicardDto" />
+		<oxm:class-to-be-bound
+			name="it.dpe.ws.client.dto.abbonati.PubblicazioneDto" />
+	</oxm:jaxb2-marshaller>
+
+	<!-- <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory"> 
+		<description>A message factory to support SOAP 1.2</description> <property 
+		name="soapVersion"> <util:constant static-field="org.springframework.ws.soap.SoapVersion.SOAP_12"/> 
+		</property> </bean> -->
+
+	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
+
+	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<constructor-arg ref="messageFactory" />
+		<property name="defaultUri" value="http://localhost:8081/rtae/ws/" />
+		<!--<property name="defaultUri" value="http://217.141.185.35/rtae/ws/"/> -->
+		<property name="marshaller" ref="marshaller" />
+		<property name="unmarshaller" ref="unmarshaller" />
+	</bean>
+
+</beans>	

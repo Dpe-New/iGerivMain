@@ -1,0 +1,58 @@
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+	<field name="titolo">
+		<field-validator type="stringlength">
+			<param name="minLength">1</param>
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="dpe.validation.msg.valore.troppo.grande" />
+		</field-validator>
+	</field>
+	<field name="sottotitolo">
+		<field-validator type="stringlength">
+			<param name="minLength">1</param>
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="dpe.validation.msg.valore.troppo.grande" />
+		</field-validator>
+	</field>
+	<field name="prezzo">
+		<field-validator type="regex">
+			<param name="expression">^[0-9]+\.{0,1}[0-9]{0,}$|^[0-9]+,{0,1}[0-9]{0,}$</param>
+			<message key="xwork.default.invalid.fieldvalue" />
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">1</param>
+			<param name="maxLength">10</param>
+			<param name="trim">true</param>
+			<message key="dpe.validation.msg.valore.troppo.grande" />
+		</field-validator>
+	</field>
+	<field name="codPubblicazione">
+		<field-validator type="regex">
+			<param name="expression">^[0-9]{0,}$</param>
+			<message key="xwork.default.invalid.fieldvalue" />
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">1</param>
+			<param name="maxLength">10</param>
+			<param name="trim">true</param>
+			<message key="dpe.validation.msg.valore.troppo.grande" />
+		</field-validator>
+	</field>
+	<field name="codBarre">
+		<field-validator type="regex">
+			<param name="expression">^[0-9]{0,}$</param>
+			<message key="xwork.default.invalid.fieldvalue" />
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">1</param>
+			<param name="maxLength">14</param>
+			<param name="trim">true</param>
+			<message key="dpe.validation.msg.valore.troppo.grande" />
+		</field-validator>
+	</field>
+</validators>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFormula" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="7a29bfe3-2118-4916-9d39-698feee128e6">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="a2c2423d-f860-4f82-bb3f-7aa6619fbb79"/>
+	<parameter name="reportParams.ragSocEdicola" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.indirizzo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.dataBolla" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.tipo" class="java.lang.String" isForPrompting="false"/>
+	<field name="titolo" class="java.lang.String">
+		<fieldDescription><![CDATA[titolo]]></fieldDescription>
+	</field>
+	<field name="sottoTitolo" class="java.lang.String">
+		<fieldDescription><![CDATA[sottoTitolo]]></fieldDescription>
+	</field>
+	<field name="numeroCopertina" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroCopertina]]></fieldDescription>
+	</field>
+	<field name="quantitaRichiesta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[quantitaRichiesta]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="cognome" class="java.lang.String">
+		<fieldDescription><![CDATA[cognome]]></fieldDescription>
+	</field>
+	<field name="titolo1" class="java.lang.String">
+		<fieldDescription><![CDATA[titolo1]]></fieldDescription>
+	</field>
+	<field name="sottoTitolo1" class="java.lang.String">
+		<fieldDescription><![CDATA[sottoTitolo1]]></fieldDescription>
+	</field>
+	<field name="numeroCopertina1" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroCopertina1]]></fieldDescription>
+	</field>
+	<field name="quantitaRichiesta1" class="java.lang.Integer">
+		<fieldDescription><![CDATA[quantitaRichiesta1]]></fieldDescription>
+	</field>
+	<field name="nome1" class="java.lang.String">
+		<fieldDescription><![CDATA[nome1]]></fieldDescription>
+	</field>
+	<field name="cognome1" class="java.lang.String">
+		<fieldDescription><![CDATA[cognome1]]></fieldDescription>
+	</field>
+	<field name="titolo2" class="java.lang.String">
+		<fieldDescription><![CDATA[titolo2]]></fieldDescription>
+	</field>
+	<field name="sottoTitolo2" class="java.lang.String">
+		<fieldDescription><![CDATA[sottoTitolo2]]></fieldDescription>
+	</field>
+	<field name="numeroCopertina2" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroCopertina2]]></fieldDescription>
+	</field>
+	<field name="quantitaRichiesta2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[quantitaRichiesta2]]></fieldDescription>
+	</field>
+	<field name="nome2" class="java.lang.String">
+		<fieldDescription><![CDATA[nome2]]></fieldDescription>
+	</field>
+	<field name="cognome2" class="java.lang.String">
+		<fieldDescription><![CDATA[cognome2]]></fieldDescription>
+	</field>
+	<field name="titolo3" class="java.lang.String">
+		<fieldDescription><![CDATA[titolo3]]></fieldDescription>
+	</field>
+	<field name="sottoTitolo3" class="java.lang.String">
+		<fieldDescription><![CDATA[sottoTitolo3]]></fieldDescription>
+	</field>
+	<field name="numeroCopertina3" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroCopertina3]]></fieldDescription>
+	</field>
+	<field name="quantitaRichiesta3" class="java.lang.Integer">
+		<fieldDescription><![CDATA[quantitaRichiesta3]]></fieldDescription>
+	</field>
+	<field name="nome3" class="java.lang.String">
+		<fieldDescription><![CDATA[nome3]]></fieldDescription>
+	</field>
+	<field name="cognome3" class="java.lang.String">
+		<fieldDescription><![CDATA[cognome3]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono]]></fieldDescription>
+	</field>
+	<field name="telefono1" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono1]]></fieldDescription>
+	</field>
+	<field name="telefono2" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono2]]></fieldDescription>
+	</field>
+	<field name="telefono3" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono3]]></fieldDescription>
+	</field>
+	<group name="clienti">
+		<groupExpression><![CDATA[$F{titolo}]]></groupExpression>
+	</group>
+	<group name="test">
+		<groupExpression><![CDATA[$F{titolo}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="190">
+			<rectangle radius="0">
+				<reportElement key="rectangle-1" stretchType="RelativeToBandHeight" mode="Opaque" x="3" y="5" width="120" height="178" forecolor="#000000" backcolor="#FFFFFF" uuid="3111930b-0daf-4638-a8e8-e8cf29b88066"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="6" y="134" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="e063a151-a32d-4fa4-ba71-b8a2e4143964"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCopertina} != null ? "Num.: " + $F{numeroCopertina} : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="4" y="78" width="118" height="54" forecolor="#000000" backcolor="#FFFFFF" uuid="8f52efbf-0490-4a3e-89ac-b5310dc40910"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titolo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="4" y="6" width="118" height="45" forecolor="#000000" backcolor="#FFFFFF" uuid="3bb92952-0956-4a88-8113-34cdd58d5987"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{nome} == null ? "" : $F{nome})  + "  " + ($F{cognome} == null ? "" : $F{cognome})]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="6" y="159" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="0f13312b-58ca-4df0-96bb-ba7be21a602b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantitaRichiesta} != null ? "Copie: " + $F{quantitaRichiesta} : ""]]></textFieldExpression>
+			</textField>
+			<rectangle radius="0">
+				<reportElement key="rectangle-1" stretchType="RelativeToBandHeight" mode="Opaque" x="138" y="5" width="120" height="178" forecolor="#000000" backcolor="#FFFFFF" uuid="2ada0d70-d6c6-4426-b65e-3ff0f6223d98">
+					<printWhenExpression><![CDATA[$F{nome1} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement fill="Solid">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement key="rectangle-1" stretchType="RelativeToBandHeight" mode="Opaque" x="274" y="5" width="120" height="178" forecolor="#000000" backcolor="#FFFFFF" uuid="60624778-68c2-4c07-a09e-db70e222a555">
+					<printWhenExpression><![CDATA[$F{nome2} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement fill="Solid">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement key="rectangle-1" stretchType="RelativeToBandHeight" mode="Opaque" x="410" y="5" width="121" height="178" forecolor="#000000" backcolor="#FFFFFF" uuid="74b8f155-ef0a-46d9-82dc-0166e590083d">
+					<printWhenExpression><![CDATA[$F{nome3} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement fill="Solid">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="3" y="76" width="120" height="1" uuid="ada50c7d-343c-4093-aefb-24812b0f2443"/>
+			</line>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="139" y="8" width="118" height="45" forecolor="#000000" backcolor="#FFFFFF" uuid="0dca7d98-67dc-403e-a3cc-ec0bdab4b213"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{nome1} == null ? "" : $F{nome1})  + "  " + ($F{cognome1} == null ? "" : $F{cognome1})]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="141" y="159" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="63635ca7-e239-4daf-a77c-70602f175026"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantitaRichiesta1} != null ? "Copie: " + $F{quantitaRichiesta1} : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="139" y="80" width="118" height="54" forecolor="#000000" backcolor="#FFFFFF" uuid="5926a5d2-7e55-423a-896f-038cd83fa9ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titolo1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="141" y="134" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="e5b5493c-8b00-4766-b50d-b6a8ca3d8d56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCopertina1} != null ? "Num.: " + $F{numeroCopertina1} : ""]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="138" y="77" width="120" height="1" uuid="c8d8de8b-a91c-400f-9628-d6972cd31c03">
+					<printWhenExpression><![CDATA[$F{nome1} != null]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="275" y="8" width="118" height="45" forecolor="#000000" backcolor="#FFFFFF" uuid="723cef50-b072-45c7-ad00-c683c83f7bcf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{nome2} == null ? "" : $F{nome2})  + "  " + ($F{cognome2} == null ? "" : $F{cognome2})]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="277" y="159" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="d388cf5d-85d0-4930-9a12-8ab77cf0efdf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantitaRichiesta2} != null ? "Copie: " + $F{quantitaRichiesta2} : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="275" y="80" width="118" height="54" forecolor="#000000" backcolor="#FFFFFF" uuid="2a7819e1-fd59-4b45-b496-257a9fdd0c1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titolo2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="277" y="134" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="bce2517e-1d03-4906-964e-9904fe94392f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCopertina2} != null ? "Num.: " + $F{numeroCopertina2} : ""]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="274" y="77" width="120" height="1" uuid="8ea40176-ff32-4b64-a8fd-2a623e02227d">
+					<printWhenExpression><![CDATA[$F{nome2} != null]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="412" y="8" width="118" height="45" forecolor="#000000" backcolor="#FFFFFF" uuid="8ff37263-97aa-4a55-b709-3b1655502bfa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{nome3} == null ? "" : $F{nome3})  + "  " + ($F{cognome3} == null ? "" : $F{cognome3})]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="414" y="159" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="4d23f5b8-2736-4624-97c9-f67c1069b201"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantitaRichiesta3} != null ? "Copie: " + $F{quantitaRichiesta3} : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="412" y="80" width="118" height="54" forecolor="#000000" backcolor="#FFFFFF" uuid="19cf76f3-c0a8-4b16-8fdb-0ee867480db2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titolo3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="414" y="134" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="5c493f8d-9293-4556-a4bf-7750387b50a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCopertina3} != null ? "Num.: " + $F{numeroCopertina3} : ""]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="411" y="77" width="120" height="1" uuid="ac21dd1c-c405-4d25-9409-8c986f83327e">
+					<printWhenExpression><![CDATA[$F{nome3} != null]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="4" y="53" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="cde31e94-325b-4d37-82b1-e5d56f1a2d0f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{telefono} != null ? "Tel.: " + $F{telefono} : "")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="139" y="53" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="f53f673a-9539-48b7-96ac-476aa1fd5f17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{telefono1} != null ? "Tel.: " + $F{telefono1} : "")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="275" y="53" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="40b064fa-359b-4124-b2cf-879ed412dc5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{telefono2} != null ? "Tel.: " + $F{telefono2} : "")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="412" y="53" width="116" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="7f67bbf2-d714-4909-8843-3b03c9335128"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Verdana" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{telefono3} != null ? "Tel.: " + $F{telefono3} : "")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Opaque" x="206" y="3" width="211" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="3be0ede3-9329-4327-95d5-477fdef3d669"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pag.:" + $V{PAGE_NUMBER} + "/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Opaque" x="417" y="3" width="115" height="13" forecolor="#000000" backcolor="#FFFFFF" uuid="bc81caf3-dbc7-4e56-9bcc-5675b387db35"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/jasper/VenditeLibri.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/VenditeLibri_att.jasper=UTF-8
+encoding//WebContent/WEB-INF/jasper/VenditeLibri_att.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/attivazioneGiftCard.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/estratto_conto_clienti.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/inventario_report.jasper=UTF-8
+encoding//WebContent/WEB-INF/jasper/ordini_clienti_dettaglio_report.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/source/VenditeLibri.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/source/attivazioneGiftCard.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/source/inventario_report.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/source/ordini_clienti_dettaglio_report.jrxml=UTF-8
+encoding//WebContent/WEB-INF/jasper/source/ordini_clienti_report.jrxml=UTF-8
+encoding//src/main/resources=Windows-1252
+encoding/<project>=Windows-1252

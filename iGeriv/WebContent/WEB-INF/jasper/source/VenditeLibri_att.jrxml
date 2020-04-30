@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-08-13T17:32:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VenditeLibri" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4164b97e-90d3-4685-88a5-5f19f0efa5d6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<subDataset name="Table Dataset 1" uuid="172feb51-b82a-4323-9331-96b11f3e4fb0"/>
+	<parameter name="TitoloDocumento" class="java.lang.String"/>
+	<parameter name="Cliente" class="java.lang.String"/>
+	<parameter name="Totale" class="java.lang.String"/>
+	<parameter name="edicola_codice" class="java.lang.String"/>
+	<parameter name="edicola_ragione_sociale" class="java.lang.String"/>
+	<parameter name="edicola_indirizzo" class="java.lang.String"/>
+	<parameter name="edicola_contatti" class="java.lang.String"/>
+	<parameter name="cliete_codice" class="java.lang.String"/>
+	<parameter name="cliete_nome" class="java.lang.String"/>
+	<parameter name="cliete_cognome" class="java.lang.String"/>
+	<field name="titolo" class="java.lang.String"/>
+	<field name="autore" class="java.lang.String"/>
+	<field name="editore" class="java.lang.String"/>
+	<field name="prezzoCopertina" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="15" width="100" height="20" backcolor="#D4D2D2" uuid="7d6fc5a1-5a2a-422b-a9d2-b2329f597caf">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box padding="1" topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Codice Edicola: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="55" width="100" height="20" backcolor="#D4D2D2" uuid="1f55b47e-359a-4f47-ac8c-ad740716f8ec">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box padding="1" topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Indirizzo :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="35" width="100" height="20" backcolor="#D4D2D2" uuid="02d4a50b-e2dc-4224-9b48-f83103429b9f">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box padding="1" topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ragione Sociale:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="55" width="172" height="20" uuid="21458cc7-2cb8-486d-bba8-dba214c3c02e"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Ricevuta non fiscale]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="15" width="172" height="40" uuid="7cbece96-9e39-446f-9fdc-11d0e45e0cf1"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSEGNA LIBRI 
+SCOLASTICI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="80" width="100" height="20" backcolor="#D4D2D2" uuid="e0ee8ca3-b3e2-4e22-9b05-5131125400bb">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Codice Cliente: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="100" width="70" height="20" backcolor="#D4D2D2" uuid="c2232d6b-7756-438a-aaca-a2ccc2d3ddfd">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nome :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="100" width="70" height="20" backcolor="#D4D2D2" uuid="6ffa4b1f-da5b-4a02-864b-3e0b05b67751">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cognome : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="15" width="271" height="20" uuid="1eb4cf57-9708-4fef-b9d0-5a0c285865b7"/>
+				<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edicola_codice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="35" width="271" height="20" uuid="ce7b422e-3f7e-4f70-ba33-3893344739bd"/>
+				<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edicola_ragione_sociale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="55" width="271" height="20" uuid="eefe3099-37d2-441b-999b-1fef999881c8"/>
+				<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edicola_indirizzo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="80" width="443" height="20" uuid="d6f601f8-4dfb-4814-93b1-046ce56756f4"/>
+				<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cliete_codice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="100" width="200" height="20" uuid="3fccde57-c399-4f35-9b2f-81d288dff844"/>
+				<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cliete_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="100" width="203" height="20" uuid="8ca9663d-c4b0-4ac1-89fa-f51efb39e246"/>
+				<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cliete_cognome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="270" height="20" uuid="36bbe807-7acd-4493-9aed-4131d530dc1e"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Titolo ed Autore"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="10" width="170" height="20" uuid="4668e92f-1560-47fa-a3a9-6b9c14dabb1a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Editore"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="10" width="103" height="20" uuid="0dd4dc88-00ce-4e8b-8120-755369dc721a"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Importo in Euro"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="33" width="553" height="1" uuid="0ca4b8e3-b1e1-46c7-bd20-cec95d998f06"/>
+				<graphicElement>
+					<pen lineWidth="0.4"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="0" width="440" height="30" forecolor="#000064" uuid="8b8ff4e8-834b-4e21-9283-609a1b8562c9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} + ") " + $F{titolo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="450" y="0" width="103" height="47" uuid="db065b98-35cd-4ad7-9ff0-191c32d838e4"/>
+				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prezzoCopertina}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="32" width="170" height="15" isRemoveLineWhenBlank="true" forecolor="#0000FF" uuid="86725ff6-7ca4-4de1-9521-77d349544939">
+					<printWhenExpression><![CDATA[$F{editore}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{editore}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="52" width="553" height="1" forecolor="#000000" uuid="3d27437a-0635-4ac6-81eb-1597aaa9f05e"/>
+				<graphicElement>
+					<pen lineWidth="0.4"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="32" width="270" height="15" isRemoveLineWhenBlank="true" forecolor="#0000FF" uuid="22c646f1-175c-4b43-87e0-c776b175f289">
+					<printWhenExpression><![CDATA[$F{editore}!=null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{autore}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="359" y="0" width="193" height="30" uuid="a8b6f6bd-44d6-4c4f-8322-300dcfe30540"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Totale Euro: " + $P{Totale}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="47" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

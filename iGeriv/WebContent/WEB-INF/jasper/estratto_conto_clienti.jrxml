@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFormula" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c97ce0f2-d93e-4287-9112-c022380cb362">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="172feb51-b82a-4323-9331-96b11f3e4fb0"/>
+	<parameter name="reportParams.title" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.edicola" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.intestazioneCliente" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.ragSocCliente" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.title1" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.titoloLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.prezzoLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.copieLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.importoLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.totaleLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.logoFileName" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.pieDiPagina" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.controllareDatiLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.pagamentoLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.pagamento" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.ggDataDocLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.dataScadenzaPagamentoLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.scontoLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.importoScontatoLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.marcaBolloLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.datiEdicolaInt" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.numeroEstrattoContoLabel" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="reportParams.dicituraEsenteArt74" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[numero]]></fieldDescription>
+	</field>
+	<field name="quantita" class="java.lang.Integer">
+		<fieldDescription><![CDATA[quantita]]></fieldDescription>
+	</field>
+	<field name="importo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[importo]]></fieldDescription>
+	</field>
+	<field name="codCliente" class="java.lang.Long">
+		<fieldDescription><![CDATA[codCliente]]></fieldDescription>
+	</field>
+	<field name="titolo" class="java.lang.String">
+		<fieldDescription><![CDATA[titolo]]></fieldDescription>
+	</field>
+	<field name="datiCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[datiCliente]]></fieldDescription>
+	</field>
+	<field name="copie" class="java.lang.Long">
+		<fieldDescription><![CDATA[copie]]></fieldDescription>
+	</field>
+	<field name="prezzo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[prezzo]]></fieldDescription>
+	</field>
+	<field name="datiBancari" class="java.lang.String">
+		<fieldDescription><![CDATA[datiBancari]]></fieldDescription>
+	</field>
+	<field name="tipoPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[tipoPagamento]]></fieldDescription>
+	</field>
+	<field name="dataScadenzaPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[dataScadenzaPagamento]]></fieldDescription>
+	</field>
+	<field name="giorniScadenzaPagamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[giorniScadenzaPagamento]]></fieldDescription>
+	</field>
+	<field name="sconto" class="java.lang.Integer"/>
+	<field name="marcaBollo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[marcaBollo]]></fieldDescription>
+	</field>
+	<field name="tipoProdotto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[tipoProdotto]]></fieldDescription>
+	</field>
+	<field name="numeroEstrattoConto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroEstrattoConto]]></fieldDescription>
+	</field>
+	<variable name="sumImporto" class="java.math.BigDecimal" resetType="Group" resetGroup="Movimenti" calculation="Sum">
+		<variableExpression><![CDATA[$F{importo}]]></variableExpression>
+	</variable>
+	<variable name="sumImportoScontato" class="java.math.BigDecimal" resetType="Group" resetGroup="Movimenti">
+		<variableExpression><![CDATA[($F{sconto} != null && $F{sconto} > 0) ? $V{sumImporto}.subtract($V{sumImporto}.divide(new BigDecimal(100)).multiply(new BigDecimal($F{sconto}))) : $V{sumImporto}]]></variableExpression>
+	</variable>
+	<group name="Movimenti" footerPosition="ForceAtBottom">
+		<groupExpression><![CDATA[$F{codCliente}]]></groupExpression>
+		<groupHeader>
+			<band height="173">
+				<rectangle radius="0">
+					<reportElement key="rectangle-1" stretchType="RelativeToBandHeight" mode="Opaque" x="10" y="72" width="250" height="75" forecolor="#000000" backcolor="#FFFFFF" uuid="ee71e777-fa57-437e-a6f2-e07443a94737">
+						<printWhenExpression><![CDATA[$P{reportParams.logoFileName} == null || $P{reportParams.logoFileName}.equals("")]]></printWhenExpression>
+					</reportElement>
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.75" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement key="rectangle-1" stretchType="RelativeToBandHeight" mode="Opaque" x="277" y="72" width="250" height="75" forecolor="#000000" backcolor="#FFFFFF" uuid="6b6966d4-b3e5-4162-9621-8abd978cad17"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.75" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="284" y="53" width="72" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="74594371-9b1f-4bdd-9900-3af80c4297af"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.intestazioneCliente}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="282" y="76" width="243" height="70" forecolor="#000000" backcolor="#FFFFFF" uuid="1dbdc9d4-001c-49aa-9652-8e3d8bf15294"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{datiCliente}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="385" y="26" width="143" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="99e36e69-ffad-4940-a90a-7e6beb536959"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.numeroEstrattoContoLabel} + ": " + $F{numeroEstrattoConto}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="170" width="534" height="1" backcolor="#FFFFFF" uuid="3a5af2f1-4548-4966-a9c1-0171bb47d807"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="191" y="6" width="334" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8fb60e8a-6195-4a14-a501-ad2b2c67cc4e"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.title}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="5" y="153" width="235" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5ae7c047-f974-4338-9194-ce24ac777b3f"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.titoloLabel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="354" y="153" width="72" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="08164fbc-887f-4d44-9ef5-6f236e91efbe"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.copieLabel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="€ ###0.00" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="252" y="153" width="86" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="eb9255bf-0548-4a65-8b38-73fe8d66dad9"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.prezzoLabel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="€ ###0.00" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="441" y="153" width="92" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="2df81820-97ce-46dc-9243-b2ae86374cbc"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.importoLabel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="13" y="76" width="243" height="70" forecolor="#000000" backcolor="#FFFFFF" uuid="2b7345e6-9865-4e48-bfa4-a9ea5ca42cf4">
+						<printWhenExpression><![CDATA[$P{reportParams.logoFileName} == null || $P{reportParams.logoFileName}.equals("")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.datiEdicolaInt}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="2" y="3" width="127" height="127" isRemoveLineWhenBlank="true" uuid="e4ea7b42-e512-476f-9d05-174f7b42bfe6">
+						<printWhenExpression><![CDATA[$P{reportParams.logoFileName} != null && !$P{reportParams.logoFileName}.equals("")]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[($P{reportParams.logoFileName} != null && !$P{reportParams.logoFileName}.equals("")) ? new File($P{reportParams.logoFileName}) : null]]></imageExpression>
+				</image>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="191" y="26" width="180" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="fe23381b-4118-4d4f-b2f5-15a875ccf094"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.title1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="307">
+				<textField isStretchWithOverflow="true" pattern="€ ###0.00" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="461" y="258" width="69" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="50bf3c5c-1052-4019-96cd-5a640c338cfc"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{marcaBollo} != null && $F{marcaBollo}.compareTo(new BigDecimal(0)) == 1) ? $V{sumImportoScontato}.add($F{marcaBollo}) : $V{sumImportoScontato}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="268" y="258" width="193" height="19" forecolor="#333333" backcolor="#FFFFFF" uuid="2e7d5b4c-3261-4f76-ac2e-89da6cb9d76c"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{sconto} != null && $F{sconto} > 0) ? $P{reportParams.importoScontatoLabel} : $P{reportParams.totaleLabel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="1" y="0" width="533" height="90" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="dd1a76f6-5206-4442-ac11-ae5603775aa9"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.pieDiPagina}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="42" y="120" width="490" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="510406dc-8e15-4d2e-a553-4f189f7c9566"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{datiBancari}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="2" y="288" width="528" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="8d8ff23f-c373-4f9d-976c-7d5d48ab0931"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.edicola}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="41" y="151" width="490" height="1" backcolor="#FFFFFF" uuid="2d5e442f-4238-4906-9b4c-84b4798aa169"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="2" y="153" width="528" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="10359ba3-49f3-40f9-800a-8abeab94bbd2"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Verdana" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.controllareDatiLabel}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="263" y="250" width="268" height="1" backcolor="#FFFFFF" uuid="1e739e62-b8b7-497f-b027-887694d401c0"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement x="262" y="284" width="268" height="1" backcolor="#FFFFFF" uuid="32a1274b-33a8-4dbc-9ab7-eb5de102c1b3"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="11" y="178" width="66" height="15" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="5606c09e-f0e3-48d4-8eff-735c3f89efdf">
+						<printWhenExpression><![CDATA[$F{tipoPagamento} != null && !$F{tipoPagamento}.equals("")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.pagamentoLabel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="77" y="178" width="185" height="40" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="04b78741-4ce2-4532-aa37-b2f8237e6940">
+						<printWhenExpression><![CDATA[$F{tipoPagamento} != null && !$F{tipoPagamento}.equals("")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipoPagamento} + " " + (($F{giorniScadenzaPagamento} != null && $F{giorniScadenzaPagamento} > 0) ? $F{giorniScadenzaPagamento} + " " + $P{reportParams.ggDataDocLabel} : "") + "    " + (($F{dataScadenzaPagamento} != null && !$F{dataScadenzaPagamento}.equals("")) ? $P{reportParams.dataScadenzaPagamentoLabel} + " " + $F{dataScadenzaPagamento} : "")]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="283" y="175" width="114" height="17" isRemoveLineWhenBlank="true" forecolor="#333333" backcolor="#FFFFFF" uuid="fb74af6a-3af9-4c3c-83f6-9ca558fe14d4">
+						<printWhenExpression><![CDATA[$F{sconto} != null && $F{sconto} > 0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.totaleLabel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="€ ###0.00" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="424" y="175" width="106" height="17" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="8bcffee2-92e7-4adc-a274-d09c4ce025aa">
+						<printWhenExpression><![CDATA[$F{sconto} != null && $F{sconto} > 0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sumImporto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="424" y="199" width="106" height="17" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="1a9b65b5-e999-45fc-bca4-132fe33323c0">
+						<printWhenExpression><![CDATA[$F{sconto} != null && $F{sconto} > 0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sconto} + "%"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="283" y="199" width="114" height="17" isRemoveLineWhenBlank="true" forecolor="#333333" backcolor="#FFFFFF" uuid="1331beaa-39d2-4795-9bcc-878f8e956dd6">
+						<printWhenExpression><![CDATA[$F{sconto} != null && $F{sconto} > 0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.scontoLabel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="283" y="224" width="114" height="17" isRemoveLineWhenBlank="true" forecolor="#333333" backcolor="#FFFFFF" uuid="ebee0b64-d512-49f7-b56a-988aafde3fff">
+						<printWhenExpression><![CDATA[$F{marcaBollo} != null]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.marcaBolloLabel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="€ ###0.00" isBlankWhenNull="true">
+					<reportElement key="textField" mode="Opaque" x="424" y="224" width="106" height="17" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="0ae3c03d-47ef-4019-8f91-7933cee4c5c8">
+						<printWhenExpression><![CDATA[$F{marcaBollo} != null]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+						<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{marcaBollo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement key="textField" stretchType="RelativeToBandHeight" mode="Opaque" x="1" y="94" width="533" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="cb1714d7-51dc-415d-8b76-0a04690c30ef">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+						<font fontName="Verdana" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{reportParams.dicituraEsenteArt74}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="15">
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="5" y="0" width="235" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="02ae69b8-e84d-4c4d-bb0b-3522bf0ef608"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titolo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="€ ###0.00" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="252" y="0" width="86" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="4e408c0d-79e5-481a-9616-4004fdae5c4e"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prezzo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="354" y="0" width="72" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="17933b6f-c5f1-4a32-810c-f8675da4d231"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{copie}]]></textFieldExpression>
+			</textField>
+			<textField pattern="€ ###0.00" isBlankWhenNull="true">
+				<reportElement key="textField" mode="Opaque" x="441" y="0" width="92" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="bfbc9654-b282-4886-a6bf-d7045aa81d75"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

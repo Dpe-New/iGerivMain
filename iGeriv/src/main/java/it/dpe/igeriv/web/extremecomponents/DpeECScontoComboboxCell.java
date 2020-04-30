@@ -1,0 +1,56 @@
+package it.dpe.igeriv.web.extremecomponents;
+
+import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.extremecomponents.table.bean.Column;
+import org.extremecomponents.table.cell.Cell;
+import org.extremecomponents.table.core.TableModel;
+import org.extremecomponents.table.view.html.ColumnBuilder;
+import org.extremecomponents.util.HtmlBuilder;
+
+import it.dpe.igeriv.dto.KeyValueDto;
+import it.dpe.igeriv.resources.IGerivMessageBundle;
+import it.dpe.igeriv.util.DPEWebContants;
+
+public class DpeECScontoComboboxCell implements Cell {
+
+	public String getExportDisplay(TableModel model, Column column) {
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String getHtmlDisplay(TableModel model, Column column) {
+		ColumnBuilder columnBuilder = new ColumnBuilder(column);
+		columnBuilder.tdStart();
+		try {
+			Object bean = model.getCurrentRowBean();
+			String styleClass = (column.getAttribute("styleClass") != null) ? (String)column.getAttribute("styleClass") : DPEWebContants.BLANK;
+			String style = (column.getAttribute("style") != null) ? (String)column.getAttribute("style") : DPEWebContants.BLANK;
+			Long codCliente = Long.valueOf(BeanUtils.getProperty(bean, "codCliente"));
+			HtmlBuilder obj = columnBuilder.getHtmlBuilder().select()
+					.name("sconto[" + codCliente + "]")
+					.id("sconto_" + codCliente)
+					.styleClass(styleClass)
+					.style(style)
+					.close();
+			obj.option().value("-1");
+			obj.close();
+			obj.append(IGerivMessageBundle.get("igeriv.default"));
+			obj.optionEnd();
+			List<KeyValueDto> list = (List<KeyValueDto>) model.getContext().getApplicationAttribute("listNumberVo0to100");
+			for (KeyValueDto dto : list) {
+				obj.option().value(dto.getValue());
+				obj.close();
+				obj.append(dto.getKeyInt().toString());
+				obj.optionEnd();
+			}
+			obj.selectEnd();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		columnBuilder.tdEnd();
+		return columnBuilder.toString();
+	}
+
+}

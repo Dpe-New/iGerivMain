@@ -1,0 +1,1267 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<definition name="loginTiles" template="/WEB-INF/jsp/layouts/loginTemplate.jsp">
+		<put-attribute name="title"				value="/WEB-INF/jsp/igeriv/common/title.jsp" />
+		<put-attribute name="header"			value="/WEB-INF/jsp/igeriv/common/commonHeader.jsp" />
+		<put-attribute name="loginStyle"		value="/WEB-INF/jsp/igeriv/common/loginStyle.jsp" />
+		<put-attribute name="logoContent"		value="/WEB-INF/jsp/igeriv/common/logoContent.jsp" />
+		<put-attribute name="content"			value="/WEB-INF/jsp/igeriv/login/loginForm.jsp" />
+		<put-attribute name="script"			value="/WEB-INF/jsp/igeriv/script/loginScript.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/script/loginFormScript.jsp" />
+	</definition>
+
+	<definition name="inputSendPasswordTiles" extends="loginTiles">
+		<put-attribute name="content"			value="/WEB-INF/jsp/igeriv/login/resetPassword.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/script/resetPasswordScript.jsp" />
+	</definition>
+
+	<definition name="inputChangePasswordTiles" extends="loginTiles">
+		<put-attribute name="content"			value="/WEB-INF/jsp/igeriv/login/changePassword.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+	</definition>
+
+	<definition name="blankTiles" template="/WEB-INF/jsp/layouts/blankTemplate.jsp">
+		<put-attribute name="content"			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+	</definition>
+
+	<definition name="errorTiles" template="/WEB-INF/jsp/layouts/blankTemplate.jsp">
+		<put-attribute name="content"			value="/WEB-INF/jsp/igeriv/common/error.jsp" />
+	</definition>
+
+	<definition name="stringTiles" template="/WEB-INF/jsp/layouts/blankTemplate.jsp">
+		<put-attribute name="content"			value="/WEB-INF/jsp/igeriv/common/returnString.jsp" />
+	</definition>
+
+	<definition name="homeTiles" template="/WEB-INF/jsp/layouts/pageTemplate.jsp">
+		<put-attribute name="title"				value="/WEB-INF/jsp/igeriv/common/title.jsp" />
+		<put-attribute name="header"			value="/WEB-INF/jsp/igeriv/common/commonHeader.jsp" />
+		<put-attribute name="style"				value="/WEB-INF/jsp/igeriv/common/style.jsp" />
+		<put-attribute name="logo"				value="/WEB-INF/jsp/igeriv/common/logo.jsp" />
+		<put-attribute name="menu"				value="/WEB-INF/jsp/igeriv/common/menu.jsp" />
+		<put-attribute name="breadCrumb"		value="/WEB-INF/jsp/igeriv/common/breadCrumb.jsp" />
+		<put-attribute name="dl" 				value="/WEB-INF/jsp/igeriv/common/dl.jsp" />
+		<put-attribute name="icons"				value="/WEB-INF/jsp/igeriv/common/icons.jsp" />
+		<put-attribute name="user"				value="/WEB-INF/jsp/igeriv/common/user.jsp" />
+		<put-attribute name="rtae"				value="/WEB-INF/jsp/igeriv/common/rtae.jsp" />
+		<put-attribute name="logout"			value="/WEB-INF/jsp/igeriv/common/logout.jsp" />
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/common/home.jsp" />
+		<put-attribute name="content2"			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="footer"			value="/WEB-INF/jsp/igeriv/common/footer.jsp" />
+		<put-attribute name="pre-script"		value="/WEB-INF/jsp/igeriv/common/dojo_parse_on_load_false.jsp" />
+		<put-attribute name="script"			value="/WEB-INF/jsp/igeriv/script/script.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/script/homeScript.jsp" />
+		<put-attribute name="unblockUserScript"	value="/WEB-INF/jsp/igeriv/common/unblockUIScript.jsp" />
+		<put-attribute name="printMenu"			value="/WEB-INF/jsp/igeriv/common/printMenu.jsp" />
+		<put-attribute name="sounds"			value="/WEB-INF/jsp/igeriv/common/sounds.jsp" />
+	</definition>
+
+	<definition name="cicTiles" extends="homeTiles">
+		<put-attribute name="content1" 			value="/WEB-INF/jsp/igeriv/cic.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/script/cicScript.jsp" />
+	</definition>
+
+	<definition name="pagamentiClientiTiles" extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/pagamentoClientiFilter.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/pagamentoClienti.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/script/pagamentoClientiScript.jsp" />
+	</definition>
+
+	<definition name="invendutiTiles" extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/invendutiFilter.jsp" />
+		<put-attribute name="content1" 			value="/WEB-INF/jsp/igeriv/invenduti.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/script/invendutiScript.jsp" />
+	</definition>
+
+	<definition name="inventarioTiles" extends="homeTiles">
+		<put-attribute name="pre-script" 		value="/WEB-INF/jsp/igeriv/common/dojo_parse_on_load_true.jsp" />
+		<put-attribute name="filter" 			value="/WEB-INF/jsp/igeriv/inventarioFilter.jsp" />
+		<put-attribute name="content1" 			value="/WEB-INF/jsp/igeriv/inventario.jsp" />
+		<put-attribute name="customScript" 		value="/WEB-INF/jsp/igeriv/script/inventarioScript.jsp" />
+	</definition>
+
+	<definition name="inventariopTiles" extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/inventarioPresuntoFilter.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/inventarioPresunto.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/script/inventarioPresuntoScript.jsp" />
+	</definition>
+
+	<definition name="ritiriTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/ritiriFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/ritiri.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/ritiriScript.jsp" />
+	</definition>
+
+	<definition name="ritiriCancTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/ritiriCancellati.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/ritiriCancellatiScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaViewTiles" extends="homeTiles">
+		<put-attribute name="pre-script"
+			value="/WEB-INF/jsp/igeriv/common/dojo_parse_on_load_true.jsp" />
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/bollaRivenditaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/bollaRivendita.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/bollaRivenditaScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaSpuntaViewTiles" extends="bollaRivenditaViewTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/bollaSpuntaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/bollaSpunta.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/bollaSpuntaScript.jsp" />
+	</definition>
+
+	<definition name="reportFattureTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/reportFattureEmesseFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/reportFattureEmesse.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/reportFattureEmesseScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaViewSonoInoltreUsciteTiles"
+		extends="bollaRivenditaViewTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/sonoInoltreUscite.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/sonoInoltreUsciteScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaViewOrdiniTiles" template="/WEB-INF/jsp/layouts/contentTemplate.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/jsp/igeriv/common/commonHeaderContent.jsp" />
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/bollaOrdini.jsp" />
+		<put-attribute name="content2"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="script"
+			value="/WEB-INF/jsp/igeriv/script/contentScript.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/bollaOrdiniScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaViewRichiesteNonEvaseTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/richiesteNonEvase.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/richiesteNonEvaseScript.jsp" />
+	</definition>
+
+	<definition name="messagesShowMessaggioIdtnTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/messaggioIdtn.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/messaggioIdtnScript.jsp" />
+	</definition>
+
+	<definition name="inventarioPopupTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/inventarioPopup.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/inventarioPopupScript.jsp" />
+	</definition>
+
+	<definition name="subContentTiles"
+		template="/WEB-INF/jsp/layouts/subContentTemplate.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/jsp/igeriv/common/commonHeaderContent.jsp" />
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content2"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="script"
+			value="/WEB-INF/jsp/igeriv/script/subContentScript.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+	</definition>
+
+	<definition name="helpVideoTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/helpVideo.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/helpVideoScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaViewRichiesteRifornimentiTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1" 		value="/WEB-INF/jsp/igeriv/richiestaRifornimento.jsp" />
+		<put-attribute name="customScript" 	value="/WEB-INF/jsp/igeriv/script/richiestaRifornimentoScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaViewRichiesteVariazioniTiles"
+		extends="bollaRivenditaViewRichiesteRifornimentiTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/richiestaVariazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/richiestaVariazioniScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaViewRichiesteVariazioniSettimanaTiles"
+		extends="bollaRivenditaViewRichiesteRifornimentiTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/richiestaVariazioniSettimana.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/richiestaVariazioniSettimanaScript.jsp" />
+	</definition>
+
+	<definition name="bollaRivenditaEditRichiesteRifornimentiTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/richiestaRifornimentoEdit.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/richiestaRifornimentoEditScript.jsp" />
+	</definition>
+
+	<definition name="bollaResaViewTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/bollaRivenditaFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/bollaResa.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/bollaResaScript.jsp" />
+	</definition>
+
+	<definition name="viewBollaResaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/bollaRivenditaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/viewBollaResa.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/viewBollaResaScript.jsp" />
+	</definition>
+
+	<definition name="bollaResaShowReportQuadraturaResaTiles"
+		extends="bollaResaViewTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/reportQuadratura.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/reportQuadraturaScript.jsp" />
+	</definition>
+
+	<definition name="bollaLavorazioneResaTiles" extends="bollaResaViewTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/bollaLavorazioneResa.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/bollaLavorazioneResaScript.jsp" />
+	</definition>
+
+	<definition name="bollaResaShowFuoriVoceTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/bollaResaFuoriVoce.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/bollaResaFuoriVoceScript.jsp" />
+	</definition>
+
+	<definition name="gestioneClientiViewTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/gestioneClientiFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/gestioneClienti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/gestioneClientiScript.jsp" />
+	</definition>
+
+	<definition name="gestioneClientiViewPrenotazioniTiles"
+		extends="gestioneClientiViewTiles">
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/gestioneClientiViewPrenotazioniScript.jsp" />
+	</definition>
+
+	<definition name="gestioneClientiEvasionePrenotazioniTiles"
+		extends="gestioneClientiViewTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/gestioneClientiEvasione.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/gestioneClientiEvasionePrenotazioniScript.jsp" />
+	</definition>
+
+	<definition name="gestioneClientiEstrattoContoClientiTiles"
+		extends="gestioneClientiViewTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/clientiEdicolaPerEstrattoConto.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/clientiEdicolaPerEstrattoContoScript.jsp" />
+	</definition>
+
+	<definition name="gestioneClientiViewNuovoClienteTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/clienteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/clienteEdicolaScript.jsp" />
+	</definition>
+
+
+	<!-- SCOLASTICA : GESTIONE CLIENTI E PRENOTAZIONE LIBRI -->
+	<definition name="libriScolasticiClientiViewTiles" extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiClientiFilter.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiClienti.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/libriScolasticiClientiScript.jsp" />
+	</definition>
+
+	<definition name="libriScolasticiOrdineViewTiles" extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiClientiFilter.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiOrdineClienti.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/libriScolasticiOrdineClientiScript.jsp" />
+	</definition>
+
+	<definition name="libriScolasticiGestioneOrdineViewTiles"	extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiGestioneClientiFilter.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiGestioneOrdineClienti.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/libriScolasticiGestioneOrdineClientiScript.jsp" />
+	</definition>
+
+	<definition name="libriScolasticiViewPopupDettaglioTiles"					extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"		value="/WEB-INF/jsp/igeriv/scolastica/popupDettaglioLibro.jsp" />
+		<put-attribute name="customScript"	value="/WEB-INF/jsp/igeriv/scolastica/script/popupDettaglioLibroScript.jsp" />
+	</definition>
+
+	<definition name="libriScolasticiViewPopupDettaglioOrdineTiles"				extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/popupDettaglioOrdine.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/popupDettaglioOrdineScript.jsp" />
+	</definition>
+
+	<definition name="libriScolasticiViewPopupDettaglioOrdineRiepilogoTiles"	extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/popupDettaglioOrdineRiepilogo.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/popupDettaglioOrdineRiepilogoScript.jsp" />
+	</definition>
+
+	<definition name="libriScolasticiClientiViewNuovoClienteTiles"	extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"	value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiClienteEdicola.jsp" />
+		<put-attribute name="customScript"	value="/WEB-INF/jsp/igeriv/scolastica/script/libriScolasticiClienteEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="libriScolasticiViewPopupDettaglioGestioneClienteTiles"	extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"	value="/WEB-INF/jsp/igeriv/scolastica/popupDettaglioCliente.jsp" />
+		<put-attribute name="customScript"	value="/WEB-INF/jsp/igeriv/scolastica/script/popupDettaglioClienteScript.jsp" />
+	</definition>
+	
+	<definition name="libriScolasticiViewPopupDettaglioOrdiniClienteTiles"	extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/popupDettaglioOrdiniCliente.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/popupDettaglioOrdiniClienteScript.jsp" />
+	</definition>
+	
+	<definition name="libriScolasticiViewPopupDettaglioClienteOrdineTiles"	extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"	value="/WEB-INF/jsp/igeriv/scolastica/popupDettaglioClienteOrdine.jsp" />
+		<put-attribute name="customScript" value="/WEB-INF/jsp/igeriv/scolastica/script/popupDettaglioClienteOrdineScript.jsp" />
+	</definition>
+
+	<!-- TRACKING -->
+	<definition name="libriScolasticiViewTrackingOrdiniClienteTiles"	extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiTrackingFilter.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiTracking.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/libriScolasticiTrackingScript.jsp" />
+	</definition>
+	
+	<!-- CONSEGNA EDICOLE ORDINE -->
+	<definition name="libriScolasticiViewConsegnaEdicolaTiles"	extends="homeTiles">
+		<put-attribute name="filter"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiConsegnaEdicolaFilter.jsp" />
+		<put-attribute name="content1"			value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiConsegnaEdicola.jsp" />
+		<put-attribute name="customScript"		value="/WEB-INF/jsp/igeriv/scolastica/script/libriScolasticiConsegnaEdicolaScript.jsp" />
+	</definition>
+	
+
+
+
+
+	<!-- FINE - SCOLASTICA : GESTIONE CLIENTI E PRENOTAZIONE LIBRI -->
+
+
+	<definition name="pubblicazioniViewTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pubblicazioniFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pubblicazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/pubblicazioniResaScript.jsp" />
+	</definition>
+
+	<definition name="rifornimentiViewTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pubblicazioniFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pubblicazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/pubblicazioniScript.jsp" />
+	</definition>
+
+
+	<definition name="variazioniViewTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pubblicazioniFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pubblicazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/variazioniScript.jsp" />
+	</definition>
+
+	<definition name="prenotazioneClientiViewTiles" extends="rifornimentiViewTiles">
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/pubblicazioniPrenotazioneClientiScript.jsp" />
+	</definition>
+
+	<definition name="prenotazioneClientiEdicolaViewTiles"
+		extends="rifornimentiViewTiles">
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/pubblicazioniPrenotazioneClientiEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="prenotazioneClientiEditTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/prenotazioneCliente.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/prenotazioneClienteScript.jsp" />
+	</definition>
+
+	<definition name="prenotazioneClientiEdicolaEditTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/prenotazioneClienteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/prenotazioneClienteEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="richiesteRifornimentoViewRichieste" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/viewRichiestaRifornimentoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/viewRichiestaRifornimento.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/viewRichiestaRifornimentoScript.jsp" />
+	</definition>
+
+	<definition name="visualizzaVariazioniTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/viewVariazioniFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/viewVariazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/viewVariazioniScript.jsp" />
+	</definition>
+
+	<definition name="anagraficaRivenditaViewTiles" extends="homeTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/anagraficaRivendita.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/anagraficaRivenditaScript.jsp" />
+	</definition>
+
+	<definition name="viewPrenotazioniInseriteClientiEdicolaTiles"
+		extends="richiesteRifornimentoViewRichieste">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/viewRichiestaRifornimentoClienteEdicola.jsp" />
+	</definition>
+
+	<definition name="viewEvasionePrenotazioniClienteEdicolaTiles"
+		extends="richiesteRifornimentoViewRichieste">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/evasioneRichiestaRifornimentoClienteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/evasioneRichiestaRifornimentoClienteEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="viewResultEvasionePrenotazioniClienteEdicolaTiles"
+		extends="richiesteRifornimentoViewRichieste">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/resultEvasioneRichiestaRifornimentoClienteEdicola.jsp" />
+	</definition>
+
+	<definition name="estrattoContoTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/estrattoContoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/estrattoConto.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/estrattoContoScript.jsp" />
+	</definition>
+	
+	<definition name="fattureDLTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/fattureDLFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/fattureDL.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/fattureDLScript.jsp" />
+	</definition>
+
+	<definition name="estrattoContoClientiEdicolaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/estrattoContoClientiEdicolaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/estrattoContoClientiEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/estrattoContoClientiEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="estrattoContoDinamicoTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/estrattoContoDinamicoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/estrattoContoDinamico.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/estrattoContoDinamicoScript.jsp" />
+	</definition>
+
+	<definition name="reportEstrattiContoClientiEdicolaTiles"
+		extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/gestioneClientiFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/reportEstrattiContoClientiEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/reportEstrattiContoClientiEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="reportEstrattiContoClientiEdicolaPopupTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/reportEstrattiContoClientiEdicolaPopup.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/reportEstrattiContoClientiEdicolaPopupScript.jsp" />
+	</definition>
+
+	<definition name="vendutoEstrattoContoTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/vendutoEstrattoContoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/vendutoEstrattoConto.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/vendutoEstrattoContoScript.jsp" />
+	</definition>
+
+	<definition name="vendutoChartTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/vendutoEstrattoContoChart.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/vendutoEstrattoContoChartScript.jsp" />
+	</definition>
+
+	<definition name="vendutoProdottiVariChartTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/vendutoProdottiVariChart.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/vendutoProdottiVariChartScript.jsp" />
+	</definition>
+
+	<definition name="infoPubblicazioniTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pubblicazioniFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pubblicazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/infoPubblicazioniScript.jsp" />
+	</definition>
+
+	<definition name="reportContoDepositoTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/reportContoDepositoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/reportContoDeposito.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/reportContoDepositoScript.jsp" />
+	</definition>
+
+	<definition name="gestioneUtentiTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/gestioneUtentiFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/gestioneUtenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/gestioneUtentiScript.jsp" />
+	</definition>
+
+	<definition name="gestioneClientiNuovoUtenteEdicolaTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/utenteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/utenteEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="gestioneProfiliTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/gestioneProfiliFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/gestioneProfili.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/gestioneProfiliScript.jsp" />
+	</definition>
+
+	<definition name="infoPubblicazioniStatisticaTiles" extends="infoPubblicazioniTiles">
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/infoPubblicazioniStatisticaScript.jsp" />
+	</definition>
+
+	<definition name="infoPubblicazioniNumeriPrecedentiTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"				value="/WEB-INF/jsp/igeriv/infoPubblicazioni.jsp" />
+		<put-attribute name="customScript"			value="/WEB-INF/jsp/igeriv/script/infoPubblicazioniCustomScript.jsp" />
+	</definition>
+
+	<definition name="infoPubblicazioniStatisticaNumeriPrecedentiTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/infoPubblicazioniStatistica.jsp" />
+		<put-attribute name="script"
+			value="/WEB-INF/jsp/igeriv/script/contentScriptDet.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/infoPubblicazioniStatisticaCustomScript.jsp" />
+	</definition>
+
+	<definition name="infoStatisticaDettaglioFornitoTiles"
+		extends="infoPubblicazioniStatisticaNumeriPrecedentiTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/infoStatisticaDettaglioFornito.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/infoStatisticaDettaglioScript.jsp" />
+	</definition>
+
+	<definition name="infoStatisticaDettaglioResoTiles" extends="infoStatisticaDettaglioFornitoTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/infoStatisticaDettaglioReso.jsp" />
+	</definition>
+
+	<definition name="infoStatisticaDettaglioVendutoTiles"
+		extends="infoStatisticaDettaglioFornitoTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/infoStatisticaDettaglioVenduto.jsp" />
+	</definition>
+
+	<definition name="edicoleViewTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/edicoleFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/edicole.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/edicoleScript.jsp" />
+	</definition>
+
+	<definition name="pwdEdicolaViewTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/editPwdEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/editPwdEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="messagesTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/messagesFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/messages.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/messagesScript.jsp" />
+	</definition>
+
+	<definition name="messagesEdicoleTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/messagesEdicoleFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/messagesEdicole.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/messagesEdicoleScript.jsp" />
+	</definition>
+
+	<definition name="promemoriaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/promemoriaFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/promemoria.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/promemoriaScript.jsp" />
+	</definition>
+
+	<definition name="newPromemoriaTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/editPromemoria.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/editPromemoriaScript.jsp" />
+	</definition>
+
+	<definition name="showPromemoriaTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/showPromemoria.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/showPromemoriaScript.jsp" />
+	</definition>
+
+	<definition name="viewActiveMessagesTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/viewActiveMessages.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/viewActiveMessagesScript.jsp" />
+	</definition>
+
+	<definition name="viewActiveMessagesIFrameTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/viewActiveMessages.jsp" />
+		<put-attribute name="script"
+			value="/WEB-INF/jsp/igeriv/script/scriptIFrame.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/viewActiveMessagesScript.jsp" />
+	</definition>
+
+	<definition name="newMessageTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/newMessage.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/newMessageScript.jsp" />
+	</definition>
+
+	<definition name="messagesClientiTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/newMessageCliente.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/newMessageClienteScript.jsp" />
+	</definition>
+
+	<definition name="messagesClientiUploadTiles" template="/WEB-INF/jsp/layouts/blankTemplate.jsp">
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/igeriv/common/upload.jsp" />
+	</definition>
+
+	<definition name="sentMessagesClientiTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/sentMessagesClientiFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/sentMessagesClienti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/sentMessagesClientiScript.jsp" />
+	</definition>
+
+	<definition name="newMessageRivenditeAdmTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/newMessageAdmRivendite.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/newMessageAdmRivenditeScript.jsp" />
+	</definition>
+
+	<definition name="emailRivenditaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/emailRivendita.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/emailRivenditaScript.jsp" />
+	</definition>
+
+	<definition name="emailInviatiTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/emailInviatiFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/emailInviati.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/emailInviatiScript.jsp" />
+	</definition>
+
+	<definition name="emailInviatiShowMessageTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/showMessageDaRivendita.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/showMessageDaRivenditaScript.jsp" />
+	</definition>
+
+	<definition name="sentMessagesClientiShowMessageTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/showMessageCliente.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+	</definition>
+
+	<definition name="messagesShowAvvisoNuovoMessaggioTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/avvisoNuovoMessaggio.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/avvisoNuovoMessaggioScript.jsp" />
+	</definition>
+
+	<definition name="messagesEdicoleShowMessageTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/showMessage.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/showMessageScript.jsp" />
+	</definition>
+
+	<definition name="livellamentiEdicoleShowAvvisoTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/avvisoNuovoMessaggioLivellamenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/avvisoNuovoMessaggioLivellamentiScript.jsp" />
+	</definition>
+
+	<!-- E' arrivata la risposta alla tua richiesta di rifornimenti in Rete 
+		Edicola -->
+	<definition name="accettazioneLivellamentiEdicoleShowAvvisoTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/avvisoAccettazioneLivellamenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/avvisoAccettazioneLivellamentiScript.jsp" />
+	</definition>
+
+	<!-- Elenco delle richieste di rifornimenti. Form per accettazione e memorizzazione 
+		Edicola venditrice -->
+	<definition name="livellamentiEdicoleShowTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showAccettazioneLivellamenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showAccettazioneLivellamentiScript.jsp" />
+	</definition>
+
+	<!-- VECCHIA PAGINA - Elenco delle richieste di rifornimenti con relativo 
+		stato. Form per accettazione e memorizzazione Edicola richiedente -->
+	<definition name="livellamentiConfermaAccettazioneShowTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showConfermaAccettazioneLivellamenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showAccettazioneLivellamentiScript.jsp" />
+	</definition>
+
+	<!-- WORKFLOW INSERITO - Elenco delle richieste effettuate solo in visualizzazione -->
+	<definition name="livellamentiRichiesteEffettuateInReteEdicolaShowTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showRichiesteEffettuateInReteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showRichiesteEffettuateInReteEdicolaScript.jsp" />
+	</definition>
+
+	<!-- WORKFLOW DA ACCETTARE - Elenco delle richieste di rifornimenti accettate. 
+		Form per accettazione e memorizzazione Edicola richiedente -->
+	<definition name="livellamentiRichiesteDaAccettareInReteEdicolaShowTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showRichiesteDaAccettareInReteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showAccettazioneLivellamentiScript.jsp" />
+	</definition>
+
+	<!-- WORKFLOW DA RITIRARE -->
+	<definition name="livellamentiRichiesteDaRitirareInReteEdicolaShowTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showRichiesteDaRitirareInReteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showRichiesteEffettuateInReteEdicolaScript.jsp" />
+	</definition>
+
+	<!-- WORKFLOW RITIRATE -->
+	<definition name="livellamentiRichiesteRitirateInReteEdicolaShowTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showRichiesteRitirateInReteEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showRichiesteEffettuateInReteEdicolaScript.jsp" />
+	</definition>
+
+
+	<!-- Messaggio di notifica aggiornamento richieste rifornimento rete edicola -->
+	<definition name="livellamentiAggiornamentoRichiestaRifornimentiShowTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showLivellamenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showLivellamentiScript.jsp" />
+	</definition>
+
+	<!-- Pagina di ricerca richieste rifornimenti rete edicola -->
+	<definition name="livellamentiRichiesteTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/livellamenti/livellamentiRichiesteFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/livellamentiRichieste.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/livellamentiRichiesteScript.jsp" />
+	</definition>
+
+	<definition name="livellamentiProposteTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/livellamenti/livellamentiProposteFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/livellamentiProposte.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/livellamentiProposteScript.jsp" />
+	</definition>
+
+	<definition name="accettazioneLivellamentiEdicoleShowTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showAccettazioneLivellamenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/livellamenti/showAccettazioneLivellamentiScript.jsp" />
+	</definition>
+
+	<definition name="messagesShowConfermeLetturaTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/showConfermeLettura.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/showConfermeLetturaScript.jsp" />
+	</definition>
+
+	<definition name="venditeTiles" extends="homeTiles">
+		<put-attribute name="pre-script" 	value="/WEB-INF/jsp/igeriv/common/dojo_parse_on_load_true.jsp" />
+		<put-attribute name="filter" 		value="/WEB-INF/jsp/igeriv/venditeFilter.jsp" />
+		<put-attribute name="content1" 		value="/WEB-INF/jsp/igeriv/vendite.jsp" />
+		<put-attribute name="customScript" 	value="/WEB-INF/jsp/igeriv/script/venditeScript.jsp" />
+	</definition>
+
+	<definition name="reportsVenditeTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/venditeReportsFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/venditeReports.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/venditeReportsScript.jsp" />
+	</definition>
+
+	<definition name="configTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/configurazioniFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/configurazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/configurazioniScript.jsp" />
+	</definition>
+
+	<definition name="configEditImgSxTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/editImgMiniaturaEdicolaSx.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/editImgMiniaturaEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="configEditImgDxTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/editImgMiniaturaEdicolaDx.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/editImgMiniaturaEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="mancanzeTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/mancanzeFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/mancanze.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/mancanzeScript.jsp" />
+	</definition>
+
+	<definition name="mancanzeBollaTiles" extends="mancanzeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/mancanzeBollaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/mancanzeBolla.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/mancanzeBollaScript.jsp" />
+	</definition>
+
+	<definition name="mancanzeBollaDetailTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/mancanzeBollaDetail.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/mancanzeBollaDetailScript.jsp" />
+	</definition>
+
+	<definition name="contestazioniResaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/contestazioniResaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/contestazioniResa.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/contestazioniResaScript.jsp" />
+	</definition>
+
+	<definition name="prodottiTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/prodottiFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/prodotti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/prodottiScript.jsp" />
+	</definition>
+
+	<definition name="pneProdottiTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/prodottiFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneProdotto.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneProdottoScript.jsp" />
+	</definition>
+
+	<definition name="pneBollaCaricoTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pne/pneBollaCaricoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneBollaCarico.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneBollaCaricoScript.jsp" />
+	</definition>
+
+	<definition name="pneEditBollaCaricoTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneBollaCaricoEdit.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneBollaCaricoEditScript.jsp" />
+	</definition>
+
+	<definition name="pneBollaResaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pne/pneBollaResaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneBollaResa.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneBollaResaScript.jsp" />
+	</definition>
+
+	<definition name="pneEditBollaResaTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneBollaResaEdit.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneBollaResaEditScript.jsp" />
+	</definition>
+
+	<definition name="pneTemplateTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pne/pneProdottoTemplateFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneProdottoTemplate.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneProdottoTemplateScript.jsp" />
+	</definition>
+
+	<definition name="pneTemplateEdicolaTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneProdottoTemplateIFrame.jsp" />
+		<put-attribute name="script"
+			value="/WEB-INF/jsp/igeriv/script/scriptIFrame.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneProdottoEdicolaTemplateScript.jsp" />
+	</definition>
+
+	<definition name="pneEditProdottoTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1" 		value="/WEB-INF/jsp/igeriv/pne/pneEditProdotto.jsp" />
+		<put-attribute name="customScript"	value="/WEB-INF/jsp/igeriv/pne/script/pneEditProdottoScript.jsp" />
+	</definition>
+
+	<definition name="pneEditCategoriaEdicolaTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1" 		value="/WEB-INF/jsp/igeriv/pne/pneEditCategoriaEdicola.jsp" />
+		<put-attribute name="customScript"	value="/WEB-INF/jsp/igeriv/pne/script/pneEditCategoriaEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="pneEditSottoCategoriaEdicolaTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"		value="/WEB-INF/jsp/igeriv/pne/pneEditSottoCategoriaEdicola.jsp" />
+		<put-attribute name="customScript"	value="/WEB-INF/jsp/igeriv/pne/script/pneEditSottoCategoriaEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="pneEditProdottoContentTiles" extends="subContentTiles">
+		<put-attribute name="content1" 		value="/WEB-INF/jsp/igeriv/pne/pneEditProdotto.jsp" />
+		<put-attribute name="customScript"	value="/WEB-INF/jsp/igeriv/pne/script/pneEditProdottoScript.jsp" />
+	</definition>
+
+	<definition name="pneFornitoriTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pne/pneFornitoriFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneFornitori.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneFornitoriScript.jsp" />
+	</definition>
+
+	<definition name="pneEditFornitoreTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneEditFornitore.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneEditFornitoreScript.jsp" />
+	</definition>
+
+	<definition name="richiesteProdottiTiles" extends="prodottiTiles">
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/richiesteProdottiScript.jsp" />
+	</definition>
+
+	<definition name="richiesteRifornimentiProdottiTiles"
+		extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/richiestaRifornimentoProdotto.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/richiestaRifornimentoProdottoScript.jsp" />
+	</definition>
+
+	<definition name="viewRichiesteProdottiTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/viewRichiesteProdottiFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/viewRichiesteProdotti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/viewRichiesteProdottiScript.jsp" />
+	</definition>
+
+	<definition name="configPubblicazioniTiles" extends="bollaRivenditaViewOrdiniTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pubblicazioniFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pubblicazioni.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/configurazioniPubblicazioniScript.jsp" />
+	</definition>
+
+	<!--<definition name="cardTiles" extends="homeTiles"> <put-attribute name="filter" 
+		value="/WEB-INF/jsp/igeriv/cardFilter.jsp" /> <put-attribute name="content1" 
+		value="/WEB-INF/jsp/igeriv/card.jsp" /> <put-attribute name="customScript" 
+		value="/WEB-INF/jsp/igeriv/script/cardScript.jsp" /> </definition> -->
+
+	<definition name="accessDeniedTiles" extends="loginTiles">
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/igeriv/common/accessDenied.jsp" />
+	</definition>
+
+	<definition name="staleDataTiles" extends="loginTiles">
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/igeriv/common/staleData.jsp" />
+	</definition>
+
+	<definition name="iGerivExceptionTiles" template="/WEB-INF/jsp/layouts/contentTemplate.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/common/iGerivException.jsp" />
+		<put-attribute name="content2"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="script"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/common/blank.jsp" />
+	</definition>
+
+	<definition name="statisticaUtilizzoTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/statisticaUtilizzoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/statisticaUtilizzo.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/statisticaUtilizzoScript.jsp" />
+	</definition>
+
+	<definition name="pneReportMagazzinoTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pne/pneReportMagazzinoFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneReportMagazzino.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneReportMagazzinoScript.jsp" />
+	</definition>
+
+	<definition name="pneGiacenzaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/pne/pneReportGiacenzaFilter.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/pne/pneReportGiacenza.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/pne/script/pneReportGiacenzaScript.jsp" />
+	</definition>
+
+	<definition name="viewParamsEdicolaTiles" extends="homeTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/parametriEdicola.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/parametriEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="rilevamentiTiles" extends="homeTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/rilevamenti.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/rilevamentiScript.jsp" />
+	</definition>
+
+	<definition name="arretratiTiles" extends="homeTiles">
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/arretrati.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/arretratiScript.jsp" />
+	</definition>
+
+	<definition name="arretratiReportTiles" extends="homeTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/arretratiReport.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/arretratiReportScript.jsp" />
+	</definition>
+
+	<definition name="campagnaFerieTiles" extends="homeTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/campagnaFerie.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/campagnaFerieScript.jsp" />
+	</definition>
+
+	<definition name="georefEdicolaTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/georefIndirizzoEdicola.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/georefViewMaps.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/georefIndirizzoEdicolaScript.jsp" />
+	</definition>
+
+	<definition name="georefReteEdicoleTiles" extends="homeTiles">
+		<put-attribute name="filter"
+			value="/WEB-INF/jsp/igeriv/georefReteEdicole.jsp" />
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/georefViewMapsReteEdicole.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/georefReteEdicoleScript.jsp" />
+	</definition>
+
+	<definition name="userAccessDeniedTiles" extends="homeTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/common/userAccessDenied.jsp" />
+	</definition>
+
+
+	<definition name="videoTutorialTiles" extends="homeTiles">
+		<put-attribute name="content1"
+			value="/WEB-INF/jsp/igeriv/videoTutorial.jsp" />
+		<put-attribute name="customScript"
+			value="/WEB-INF/jsp/igeriv/script/videoTutorialScript.jsp" />
+	</definition>
+	
+	<definition name="viewLibriScolasticiVenditaTiles" extends="homeTiles">
+		<put-attribute name="filter" value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiVenditaFilter.jsp" />
+		<put-attribute name="content1" value="/WEB-INF/jsp/igeriv/scolastica/libriScolasticiVendita.jsp" />
+		<put-attribute name="customScript" value="/WEB-INF/jsp/igeriv/scolastica/script/libriScolasticiVenditaScript.jsp" />
+	</definition>
+
+
+	<definition name="loginExtSystemTiles" template="/WEB-INF/jsp/igeriv/ext_system/loginExtSystem.jsp">
+	</definition>
+
+
+
+</tiles-definitions>		

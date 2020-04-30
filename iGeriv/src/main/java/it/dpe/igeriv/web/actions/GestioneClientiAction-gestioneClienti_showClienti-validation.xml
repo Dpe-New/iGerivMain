@@ -1,0 +1,12 @@
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+	<field name="piva">
+		<field-validator type="regex">
+			<param name="expression">^[0-9]{0,}$</param>
+			<message key="xwork.default.invalid.fieldvalue" />
+		</field-validator>
+	</field>
+</validators>
