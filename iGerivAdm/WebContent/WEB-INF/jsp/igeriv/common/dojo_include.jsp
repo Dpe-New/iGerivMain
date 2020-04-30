@@ -1,0 +1,1 @@
+<script src="/app_js/dojo-release-1.7.2/dojo/dojo.js" type="text/javascript"></script>
