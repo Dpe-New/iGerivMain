@@ -1,0 +1,168 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	   http://www.springframework.org/schema/jee
+	   http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+	default-autowire="no">
+	
+	<context:annotation-config />
+  	<context:component-scan base-package="it.dpe.igeriv.dao.impl,
+  										  it.dpe.igeriv.calc.impl,
+  										  it.dpe.igeriv.comparator,
+  										  it.dpe.igeriv.util,
+  										  it.dpe.igeriv.bo,
+  										  it.dpe.igeriv.dao.*"/>
+  										  
+	<tx:annotation-driven/> 
+	
+	<!-- Datasource Connection -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass">
+			<value>${plg.db.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${plg.db.url}</value>
+		</property>
+		<property name="user">
+			<value>${plg.db.user}</value>
+		</property>
+		<property name="password">
+			<value>${plg.db.password}</value>
+		</property>
+		<property name="autoCommitOnClose">
+			<value>true</value>
+		</property>
+		<property name="checkoutTimeout">
+			<value>5000</value>
+		</property>
+		<!--  
+		<property name="debugUnreturnedConnectionStackTraces">
+			<value>${plg.db.debug.unreturned.connection.stack.traces}</value>
+		</property>
+		<property name="unreturnedConnectionTimeout">
+			<value>${plg.db.unreturned.connection.timeout.seconds}</value>
+		</property>
+		-->
+	</bean>
+	
+	<!-- Hibernate Configuration -->
+	<bean id="sessionFactory"	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="packagesToScan">
+			<list>
+				<value>it.dpe.igeriv.vo</value>
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${plg.db.hibernate.dialect}</prop>
+				<prop key="hibernate.connection.autocommit">${plg.db.hibernate.autocommit}</prop>
+				<prop key="hibernate.show_sql">${plg.db.hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${plg.db.hibernate.format_sql}</prop>
+				<prop key="hibernate.use_sql_comments">${plg.db.hibernate.use_sql_comments}</prop>
+				<!-- 
+				<prop key="hibernate.cache.use_second_level_cache">${plg.db.hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${plg.db.hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${plg.db.hibernate.cache.region.factory_class}</prop>
+				 -->
+				<prop key="hibernate.default_entity_mode">pojo</prop>
+				<!--  Attenzione: Con hibernate4 la prop sotto causa: "java.sql.SQLException: You can't operate on a closed Connection!!!" -->
+				<!-- <prop key="hibernate.connection.release_mode">after_statement</prop>  -->
+				<prop key="hibernate.c3p0.acquire_increment">1</prop>
+				<prop key="hibernate.c3p0.min_size">10</prop>
+		        <prop key="hibernate.c3p0.max_size">250</prop>
+		        <prop key="hibernate.c3p0.timeout">200</prop>
+		        <prop key="hibernate.c3p0.max_statements">0</prop>
+		        <prop key="hibernate.c3p0.idle_test_period">100</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- Spring/Hibernate Configuration -->
+	<!-- 
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 	-->
+ 	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- Spring AOP Transactions -->
+	
+	<tx:advice id="importTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="import*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<tx:advice id="importTxAdviceInforiv" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="import*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<tx:advice id="exportTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="export*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="read*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="execute*" propagation="REQUIRED" />
+			<tx:method name="import*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="importOperation" expression="execution(* it.dpe..*Import.*(..))" />
+		<aop:pointcut id="importInforivOperation" expression="execution(* it.dpe..*InforivImportBo.*(..))" />
+		<aop:pointcut id="exportOperation" expression="execution(* it.dpe..*Export*Bo.*(..))" />
+		<aop:pointcut id="serviceOperation" expression="execution(* it.dpe.igeriv.bo..*Service.*(..))" />
+		<aop:advisor pointcut-ref="importOperation" advice-ref="importTxAdvice" order="1"/>
+		<aop:advisor pointcut-ref="importInforivOperation" advice-ref="importTxAdviceInforiv" order="2"/>
+		<aop:advisor pointcut-ref="exportOperation" advice-ref="exportTxAdvice" order="3"/>
+		<aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice" order="4"/>
+	</aop:config>
+	
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<constructor-arg value="1" />
+	</bean>
+	
+	<bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+        <property name="userPropertyToUse" value="userSalt" />
+    </bean>
+	
+</beans>
