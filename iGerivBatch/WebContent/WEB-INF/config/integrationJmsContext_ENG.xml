@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:si-security="http://www.springframework.org/schema/integration/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:http="http://www.springframework.org/schema/integration/http"
+	xmlns:mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/jee 
+			http://www.springframework.org/schema/jee/spring-jee.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+			http://www.springframework.org/schema/integration/security
+      		http://www.springframework.org/schema/integration/security/spring-integration-security-3.0.xsd
+      		http://www.springframework.org/schema/integration/file
+            http://www.springframework.org/schema/integration/file/spring-integration-file-3.0.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-3.0.xsd
+			http://www.springframework.org/schema/integration/mail
+            http://www.springframework.org/schema/integration/mail/spring-integration-mail-3.0.xsd
+            http://www.springframework.org/schema/util 
+            http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <!-- La dichiarazione dei componenti JMS per Tomcat (ConnectionFactory e Queues) e' in server.xml e context.xml -->
+    
+   	<!-- Definizioni JNDI dei componenti JMS -->
+   	<jee:jndi-lookup id="jmsFactory" 
+    	jndi-name="java:comp/env/jms/ConnectionFactory" 
+    	resource-ref="true" 
+    	lookup-on-startup="true"
+    	expected-type="org.apache.activemq.ActiveMQConnectionFactory"
+    	proxy-interface="javax.jms.ConnectionFactory" />	
+    
+    <!-- Queues Generiche (per tutti i DL) -->
+	<!-- Queue per la ricezione dei messaggi in timeout da tutti i DL a iGeriv -->
+	<jee:jndi-lookup id="iGerivDlReplyTimeoutQueue" 
+		jndi-name="java:comp/env/jms/igeriv/dl/reply/timeout/queue" 
+    	resource-ref="true" 
+    	lookup-on-startup="true" 
+    	expected-type="org.apache.activemq.command.ActiveMQQueue"
+    	proxy-interface="javax.jms.Queue" />
+	
+	<!-- Queue per la ricezione dei messaggi da tutti i DL a iGeriv -->
+	<jee:jndi-lookup id="dlIGerivQueue" 
+		jndi-name="java:comp/env/jms/dl/igeriv/queue" 
+    	resource-ref="true" 
+    	lookup-on-startup="true" 
+    	expected-type="org.apache.activemq.command.ActiveMQQueue"
+    	proxy-interface="javax.jms.Queue" />
+	
+	<!-- DL 74 -->
+	<jee:jndi-lookup id="iGerivDl74Queue"
+		jndi-name="java:comp/env/jms/igeriv/dl/74/queue" 
+    	resource-ref="true" 
+    	lookup-on-startup="true" 
+    	expected-type="org.apache.activemq.command.ActiveMQQueue"
+    	proxy-interface="javax.jms.Queue" />
+	
+	<jee:jndi-lookup id="iGerivDl74ReplyQueue"
+		jndi-name="java:comp/env/jms/igeriv/dl/74/reply/queue" 
+    	resource-ref="true" 
+    	lookup-on-startup="true" 
+    	expected-type="org.apache.activemq.command.ActiveMQQueue"
+    	proxy-interface="javax.jms.Queue" />
+	
+	<jee:jndi-lookup id="dlIGeriv74ReplyQueue"
+		jndi-name="java:comp/env/jms/dl/igeriv/74/reply/queue" 
+    	resource-ref="true" 
+    	lookup-on-startup="true" 
+    	expected-type="org.apache.activemq.command.ActiveMQQueue"
+    	proxy-interface="javax.jms.Queue" />
+	
+	<jee:jndi-lookup id="dlIGeriv74ReplyTimeoutQueue"
+		jndi-name="java:comp/env/jms/dl/igeriv/74/reply/timeout/queue" 
+    	resource-ref="true" 
+    	lookup-on-startup="true" 
+    	expected-type="org.apache.activemq.command.ActiveMQQueue"
+    	proxy-interface="javax.jms.Queue" />
+    
+    <jee:jndi-lookup id="iGerivVenditeClientQueue"
+		jndi-name="java:comp/env/jms/igeriv/vendite/client/queue" 
+    	resource-ref="true" 
+    	lookup-on-startup="true" 
+    	expected-type="org.apache.activemq.command.ActiveMQQueue"
+    	proxy-interface="javax.jms.Queue" />
+    		
+	<!-- Connection Pool Configuration -->
+    <beans:bean id="connectionFactory" 
+	   class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+	   <beans:property name="maxConnections" value="8" />
+	   <beans:property name="maximumActive" value="500" />
+	   <beans:property name="connectionFactory" ref="jmsFactory" />
+	</beans:bean>
+    
+    <!-- COMUNICAZIONE JMS TRA I DL E IGERIV DI TIPO SINCRONO, CON TIMEOUT E QUEUES AUSILIARI PER LA RICEZIONE DEI MESSAGGI IN TIMEOUT -->
+    
+    <!-- INVIO RICHIESTE DI RIFORNIMENTO PRODOTTI VARI DA IGERIV AI DL --> 
+    
+	<!-- Canali default -->
+    <channel id="jmsSendChannel" />
+    <channel id="jmsReplyChannel" />
+	<channel id="jmsErrorChannel" />
+	<channel id="jmsReplyTimeoutChannel" />
+	
+	<!-- Interfaccia di uscita -->
+	<gateway id="sendGateway" 
+		error-channel="jmsErrorChannel"
+		default-request-channel="jmsSendChannel"
+		default-reply-channel="jmsReplyChannel"
+		service-interface="it.dpe.igeriv.jms.out.SendGateway" />	
+	
+	<!-- 
+		header-value-router : esegue il routing al canale di uscita corretto basadosi sul header del messaggio "header-name", 
+		il cui valore corrisponde al nome del canale 
+	-->
+	<header-value-router input-channel="jmsSendChannel" header-name="channelName" resolution-required="true" />
+	 
+	<!-- Creo tanti outbound-gateway e relativi channels quanti i DL collegati -->
+	
+	<!-- DL 74 -->
+	<channel id="jms74SendChannel" />
+	<jms:outbound-gateway 
+		request-destination="iGerivDl74Queue" 
+		request-channel="jms74SendChannel" 
+		reply-destination="iGerivDl74ReplyQueue"
+		reply-channel="jmsReplyChannel"
+		connection-factory="connectionFactory"
+		receive-timeout="200000" />
+	
+	<!-- Ricezione dei messaggi di conferma dai DL che sono andati in timeout -->
+    <jms:message-driven-channel-adapter channel="jmsReplyTimeoutChannel" destination="iGerivDlReplyTimeoutQueue" connection-factory="connectionFactory"/>
+    <service-activator input-channel="jmsReplyTimeoutChannel" ref="IGerivJmsReplyFromDlTimeoutReceiver" method="receive"/>
+	 
+	<!-- 
+		Canale di errore: viene attivato quando si verifica un errore di connessione, 
+		invece il timeout dei messaggi viene gestito dalla classe IGerivErrorMessageHandler 
+	-->
+    <chain input-channel="jmsErrorChannel">
+    	<transformer ref="errorUnwrapper" method="transform"/>
+        <service-activator ref="IGerivErrorMessageHandler" method="onMessageFailed" />
+    </chain>
+	
+	
+    <!-- RICEZIONE EVASIONE RICHIESTE DI RIFORNIMENTO E ANAGRAFICHE PRODOTTI VARI (FORNITORI, PRODOTTI, LISTINI, GIACENZE, BOLLE) DAI DL A IGERIV --> 
+    
+	<channel id="jmsReceiveChannel"/>
+	<channel id="jmsDefaultReplyChannel" />
+	
+	<service-activator input-channel="jmsReceiveChannel" ref="IGerivJmsDlReceiver" method="receive" output-channel="jmsDefaultReplyChannel"/>
+
+    <!-- La ricezione dei messaggi dai DL avviene su un'unica queue per tutti i DL e tutti i tipi di messaggio -->
+    <jms:message-driven-channel-adapter channel="jmsReceiveChannel" destination="dlIGerivQueue" connection-factory="connectionFactory"/>
+    
+    <!-- Esegue il routing al canale di uscita corretto basadosi sul header del messaggio "header-name", il cui valore corrisponde al nome del canale -->
+	<header-value-router input-channel="jmsDefaultReplyChannel" header-name="channelName" resolution-required="true" />
+	
+	<!-- 
+		outbound-channel-adapter : adattatore verso il canale di risposta che e' mappato a una queue specifica 
+		per ciascun DL (queue normale di risposta oppure queue di messaggi in timeout)
+		Creo tanti outbound-channel-adapter con relativi "channel" e "destination" quanti i DL collegati  
+	-->
+	<channel id="jmsReceive74ReplyChannel" />
+	<channel id="jmsReceive74ReplyTimeoutChannel" />
+    <jms:outbound-channel-adapter channel="jmsReceive74ReplyChannel" destination="dlIGeriv74ReplyQueue" connection-factory="connectionFactory"/>
+    <jms:outbound-channel-adapter channel="jmsReceive74ReplyTimeoutChannel" destination="dlIGeriv74ReplyTimeoutQueue" connection-factory="connectionFactory"/>
+	
+	
+	<!-- Ricezione messaggi delle vendite dai client iGeriv vendite -->
+	<channel id="jmsVenditeClientChannel"/>
+	<service-activator input-channel="jmsVenditeClientChannel" ref="IGerivJmsVenditeClientReceiver" method="receive"/>
+    <jms:message-driven-channel-adapter channel="jmsVenditeClientChannel" destination="iGerivVenditeClientQueue" connection-factory="connectionFactory"/>
+    
+</beans:beans>

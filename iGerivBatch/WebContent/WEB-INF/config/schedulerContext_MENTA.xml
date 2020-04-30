@@ -1,0 +1,251 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/jee
+	   http://www.springframework.org/schema/jee/spring-jee.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx.xsd
+	   http://www.springframework.org/schema/integration/jmx
+	   http://www.springframework.org/schema/integration/jmx/spring-integration-jmx.xsd"
+	 
+	default-autowire="no">
+	
+	<context:mbean-server id="mbeanServer" />
+	<int-jmx:mbean-export id="mBeanExport" default-domain="igeriv.batch" />
+	
+	<!-- 
+		Scheduler che:
+		1. Cancella dal file system le immagini i cui nomi non sono presenti nelle tabelle dei prodotti vari (categorie/sottocategorie/prodotti).  
+		2. Cancella le bolle di carico dei prodotti vari delle edicola precedenti a x giorni leggendo il parametro per ogni edicola.  
+	 --> 
+	<bean id="manutenzioneTabelleProdottiVariScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="manutenzioneTabelleProdottiVariCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	<bean id="manutenzioneTabelleProdottiVariCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="manutenzioneTabelleProdottiVariJobDetail" />
+		<property name="cronExpression" value="${igeriv.manutenzione.tabelle.prodotti.vari.cron.expr}" />
+	</bean>
+
+	<bean name="manutenzioneTabelleProdottiVariJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.igeriv.job.IGerivManutenzioneTabelleProdottiVariJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="iGerivBatchBo" value-ref="IGerivBatchService" />
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Esportazione richieste rifornimento prodotti vari dei DL via JMS -->
+	<bean id="prodottiExportCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="prodottiExportCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="prodottiExportCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="prodottiExportJobDetail" />		
+		<property name="cronExpression" value="${igeriv.esportazione.richieste.rifornimento.cron.expr}" />
+	</bean>
+
+	<bean name="prodottiExportJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.igeriv.job.IGerivJmsRichiesteRifornimentoExportJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="sendGateway" value-ref="sendGateway" />
+				<entry key="jmsService" value-ref="JmsService" />
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Esportazione bolle di resa prodotti vari dei DL via JMS -->
+	<!--
+	<bean id="bolleResaProdottiVariExportCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="resaExportCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="resaExportCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="resaExportJobDetail" />		
+		<property name="cronExpression" value="${igeriv.esportazione.bolle.resa.prodotti.vari.dl.cron.expr}" />
+	</bean>
+
+	<bean name="resaExportJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.igeriv.job.IGerivJmsBolleResaProdottiVariExportJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="sendGateway" value-ref="sendGateway" />
+				<entry key="jmsService" value-ref="JmsService" />
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	-->
+	
+	<!-- Estrae le edicola create oggi e invia un messaggio JMS al gestionale per inviare le anagrafiche dei prodotti vari -->
+	<!--
+	<bean id="nuoveEdicoleProdottiVariExportCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="nuoveEdicoleProdottiVariExportCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="nuoveEdicoleProdottiVariExportCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="nuoveEdicoleProdottiVariExportJobDetail" />		
+		<property name="cronExpression" value="${igeriv.nuove.edicole.prodotti.vari.dl.cron.expr}" />
+	</bean>
+
+	<bean name="nuoveEdicoleProdottiVariExportJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.igeriv.job.IGerivJmsNuoveEdicoleProdottiVariExportJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="agenzieService" value-ref="AgenzieService" />
+				<entry key="edicoleService" value-ref="EdicoleService" />
+				<entry key="sendGateway" value-ref="sendGateway" />
+				<entry key="jmsService" value-ref="JmsService" />
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	-->
+	
+	<!-- Rinomina i file delle bolle che sono andate in errore (toglie il suffisso ._ERR) per al massimo 3 volte -->
+	<bean id="renameBolleInErroreCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="renameBolleInErroreCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="renameBolleInErroreCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="renameBolleInErroreJobDetail" />		
+		<property name="cronExpression" value="${igeriv.rename.bolle.in.errore.cron.expr}" />
+	</bean>
+
+	<bean name="renameBolleInErroreJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.igeriv.job.IGerivRenameBolleInErroreJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="agenzieService" value-ref="AgenzieService" />
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="datiPathDir" value="${dl.path.dir.dati.in}" />
+				<entry key="logPathDir" value="${igeriv.log.path}" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Estrae le bolle memorizzate ma non inviate del giorno prima e invia un messaggio immediato a ciscuna edicola -->
+	<bean id="controlloBolleInviateCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="controlloBolleInviateCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="controlloBolleInviateCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="controlloBolleInviateJobDetail" />		
+		<property name="cronExpression" value="${igeriv.controllo.invio.bolle.cron.expr}" />
+	</bean>
+
+	<bean name="controlloBolleInviateJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.igeriv.job.IGerivControlloBolleInviateJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="bolleService" value-ref="BolleService" />
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- CAMPAGNA RACCOLTA FERIE 18/07/2014 -->
+	<bean id="controlloCampagnaFerieCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="controlloCampagnaFerieCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="controlloCampagnaFerieCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="controlloCampagnaFerieJobDetail" />		
+		<property name="cronExpression" value="${igeriv.controllo.campagna.ferie}" /> 
+	</bean>
+
+	<bean name="controlloCampagnaFerieJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.igeriv.job.IGerivControlloCampagnaFerieJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="campagnaService" value-ref="CampagnaService" />
+				<entry key="edicoleService" value-ref="EdicoleService" />
+				<entry key="messaggiService" value-ref="MessaggiService" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Importazione file inforiv .zip da FTP -->
+	<bean id="fileInforivImportCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="fileInforivImportCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="fileInforivImportCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="fileInforivImportJobDetail" />		
+		<property name="cronExpression" value="${igeriv.inforiv.scheduler.cron.expr}" />
+	</bean>
+
+	<bean name="fileInforivImportJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="it.dpe.inforiv.job.ImportInforivFtpJob" />
+      	<property name="jobDataAsMap">
+			<map>
+				<entry key="sendGateway" value-ref="sendGateway" />
+				<entry key="inforivImportBo" value-ref="InforivImportBo" />
+				<entry key="fileInforivFtpImporter" value-ref="FileInforivFtpImporter" />
+				<entry key="pathZipFiles" value="${inforiv.zip.file.import.path.dir}" />
+				<entry key="remoteDir" value="${igeriv.inforiv.remote.working.dir}" />
+				<entry key="mailingListService" value-ref="MailingListService" />
+				<entry key="inforivFTPFileFilter" value-ref="InforivFTPFileFilter" />
+				<entry key="localFileBuilder" value-ref="InforivFtpLocalFilesBuilder" />
+				<entry key="timeout" value="5000" />
+			</map>
+		</property>
+	</bean>
+	
+	
+	
+	
+</beans>

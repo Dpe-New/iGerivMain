@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:si-security="http://www.springframework.org/schema/integration/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:http="http://www.springframework.org/schema/integration/http"
+	xmlns:mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+			http://www.springframework.org/schema/integration/security
+      		http://www.springframework.org/schema/integration/security/spring-integration-security-2.0.xsd
+      		http://www.springframework.org/schema/integration/file
+            http://www.springframework.org/schema/integration/file/spring-integration-file-2.0.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.0.xsd
+			http://www.springframework.org/schema/integration/mail
+            http://www.springframework.org/schema/integration/mail/spring-integration-mail-2.0.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+    
+    <context:annotation-config />
+  	<context:component-scan base-package="it.dpe.mail.impl"/>
+  	
+  	<!-- External properties file configuration -->  
+	<beans:bean id="igerivProperties"
+		class="it.dpe.igeriv.resources.ExposablePropertyPaceholderConfigurer">
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>file:/C:/igeriv/iGeriv.properties</beans:value>
+				<beans:value>file:C:/apache-activemq-5.6.0/conf/credentials-enc.properties</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- 
+	<beans:bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<beans:property name="algorithm" value="PBEWithMD5AndDES" />
+		<beans:property name="passwordEnvName" value="ACTIVEMQ_ENCRYPTION_PASSWORD" />
+	</beans:bean>
+
+	<beans:bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<beans:property name="config" ref="environmentVariablesConfiguration" />
+	</beans:bean>
+  
+	<beans:bean id="propertyConfigurer" class="it.dpe.igeriv.util.ExposableEncryptablePropertyPlaceholderConfigurer">
+		<beans:constructor-arg ref="configurationEncryptor" />
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>file:/C:/igeriv/iGeriv.properties</beans:value>
+				<beans:value>file:C:/apache-activemq-5.6.0/conf/credentials-enc.properties</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	-->
+	
+  	<!-- JNDI Mail Service -->
+	<beans:bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">
+	    <beans:constructor-arg>
+	        <beans:props>
+	            <beans:prop key="mail.smtp.host">${smtpHost}</beans:prop>
+	            <beans:prop key="mail.user">${userName}</beans:prop>
+	            <beans:prop key="mail.password">${password}</beans:prop>
+	            <beans:prop key="mail.smtp.port">${smtpPort}</beans:prop>
+	            <beans:prop key="mail.smtp.auth">true</beans:prop>
+	            <beans:prop key="mail.transport.protocol">smtp</beans:prop>
+	            <beans:prop key="mail.smtp.starttls.enable">false</beans:prop>
+	        </beans:props>
+	    </beans:constructor-arg>
+	</beans:bean>
+		
+	<beans:bean id="JavaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="${smtpHost}" />
+		<beans:property name="port" value="${smtpPort}" />
+		<beans:property name="username" value="${userName}" />
+		<beans:property name="password" value="${password}" />
+		<beans:property name="session" ref="mailSession" />
+	</beans:bean>
+	
+	<!-- Mail message templates -->
+	<beans:bean id="IGerivMessage" class="org.springframework.mail.SimpleMailMessage">
+		<beans:property name="from">
+			<beans:value><![CDATA[iGeriv - Monitor <noreply@geriv.it>]]></beans:value>
+		</beans:property>
+		<beans:property name="to">
+			<beans:list>
+				<!-- Cancellare per deploy in produzione -->
+				<beans:value><![CDATA[Marcello Romano <marcello.romano@dpe.it>]]></beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="subject" value="iGeriv" />
+	</beans:bean>
+										
+    <!-- Configurazione JMS Test -->
+	<beans:bean id="jmsFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<beans:property name="brokerURL">
+			<beans:value>tcp://0.0.0.0:61618</beans:value>
+		</beans:property>
+		<beans:property name="userName" value="${activemq.username}" />
+		<beans:property name="password" value="${activemq.password}" />
+	</beans:bean> 
+	
+	<beans:bean id="connectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+	   <beans:property name="maxConnections" value="8" />
+	   <beans:property name="maximumActive" value="500" />
+	   <beans:property name="connectionFactory" ref="jmsFactory" />
+	</beans:bean>
+	
+	<!-- Queues Generiche -->
+	<!-- Queue per la ricezione dei messaggi in timeout da iGeriv ai DL -->
+	<beans:bean id="iGerivDlReplyTimeoutQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="igeriv.dl.reply.timeout.queue"/>
+	</beans:bean>
+	
+	<!-- Queue per la ricezione dei messaggi da tutti i DL a iGeriv -->
+	<beans:bean id="dlIGerivQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="dl.igeriv.queue"/>
+	</beans:bean>
+	
+	
+	<!-- DL 74 -->
+	<beans:bean id="iGerivDl74Queue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="igeriv.dl.74.queue"/>
+	</beans:bean>
+	
+	<beans:bean id="iGerivDl74ReplyQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="igeriv.dl.74.reply.queue"/>
+	</beans:bean>
+	
+	<beans:bean id="dlIGeriv74ReplyQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="dl.igeriv.74.reply.queue"/>
+	</beans:bean>
+	
+	<beans:bean id="dlIGeriv74ReplyTimeoutQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="dl.igeriv.74.reply.timeout.queue"/>
+	</beans:bean>
+	
+	<!-- DL 45 -->
+	<beans:bean id="iGerivDl45Queue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="igeriv.dl.45.queue"/>
+	</beans:bean>
+	
+	<beans:bean id="iGerivDl45ReplyQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="igeriv.dl.45.reply.queue"/>
+	</beans:bean>
+	
+	<beans:bean id="dlIGeriv45ReplyQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="dl.igeriv.45.reply.queue"/>
+	</beans:bean>
+	
+	<beans:bean id="dlIGeriv45ReplyTimeoutQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <beans:constructor-arg value="dl.igeriv.45.reply.timeout.queue"/>
+	</beans:bean>
+	
+	
+	
+	<!-- INVIO RICHIESTE DI RIFORNIMENTO DA IGERIV AI DL --> 
+	<!-- Canali default -->
+    <channel id="jmsSendChannel" />
+    <channel id="jmsReplyChannel" />
+	<channel id="jmsErrorChannel" />
+	<channel id="jmsReplyTimeoutChannel" />
+	
+	<!-- Interfaccia di uscita -->
+	<gateway id="sendGateway" 
+		error-channel="jmsErrorChannel"
+		default-request-channel="jmsSendChannel"
+		default-reply-channel="jmsReplyChannel"
+		service-interface="it.dpe.igeriv.jms.out.SendGateway" />	
+	
+	<!-- Esegue il routing al canale di uscita corretto basadosi sul header del messaggio "header-name", il cui valore corrisponde al nome del canale -->
+	<header-value-router input-channel="jmsSendChannel" output-channel="jmsReplyChannel" header-name="channelName" resolution-required="true" />
+	 
+	<!-- Creare tanti outbound-gateway e relativi channels quanti i DL collegati -->
+	<!-- DL 74 -->
+	<channel id="jms74SendChannel" />
+	<channel id="jms74ReplyChannel" />
+	<jms:outbound-gateway 
+		request-destination="iGerivDl74Queue" 
+		request-channel="jms74SendChannel" 
+		reply-destination="iGerivDl74ReplyQueue"
+		reply-channel="jmsReplyChannel"
+		connection-factory="jmsFactory"
+		receive-timeout="20000" />
+	
+    <!-- DL 45 -->
+	<channel id="jms45SendChannel" /> 
+	<channel id="jms45ReplyChannel" />
+	<jms:outbound-gateway 
+		request-destination="iGerivDl45Queue" 
+		request-channel="jms45SendChannel"
+		reply-destination="iGerivDl45ReplyQueue" 
+		reply-channel="jmsReplyChannel"
+		connection-factory="jmsFactory"
+		receive-timeout="20000" />
+		
+	<!-- Ricezione dei messaggi di conferma dai DL che sono andati in timeout -->
+    <jms:message-driven-channel-adapter channel="jmsReplyTimeoutChannel" destination="iGerivDlReplyTimeoutQueue" connection-factory="jmsFactory"/>
+    <service-activator input-channel="jmsReplyTimeoutChannel" ref="eventProcessorReplyService" method="receive"/>
+    <beans:bean id="eventProcessorReplyService" class="it.dpe.igeriv.jms.in.IGerivJmsReplyFromDlTimeoutReceiver" />
+	 
+	<!-- Canale di errore: viene attivato quando si verifica un errore di connessione, invece il timeout dei messaggi viene gestito nella classe IGerivJmsDataExportJob -->
+    <beans:bean id="errorUnwrapper" class="it.dpe.igeriv.jms.error.IGerivErrorUnwrapper" />
+    <beans:bean id="IGerivErrorMessageHandler" class="it.dpe.igeriv.jms.error.IGerivJmsErrorMessageHandler">
+    	<beans:property name="mailingListService" ref="MailingListService"/>
+    </beans:bean>
+    <chain input-channel="jmsErrorChannel">
+    	<transformer ref="errorUnwrapper" method="transform"/>
+        <service-activator ref="IGerivErrorMessageHandler" method="onMessageFailed" />
+    </chain>
+	
+	
+	
+    <!-- RICEZIONE EVASIONE RICHIESTE DI RIFORNIMENTO DAI DL A IGERIV--> 
+	<channel id="jmsReceiveChannel" />
+	<channel id="jmsDefaultReplyChannel" />
+	<channel id="jmsReceive74ReplyChannel" />
+	<channel id="jmsReceive74ReplyTimeoutChannel" />
+	<channel id="jmsReceive45ReplyChannel" />
+	<channel id="jmsReceive45ReplyTimeoutChannel" />
+	
+	<service-activator input-channel="jmsReceiveChannel" ref="eventProcessorService" method="receive" output-channel="jmsDefaultReplyChannel"/>
+
+	<beans:bean id="IGerivImportBo" class="it.dpe.igeriv.bo.impl.IGerivImportBoImpl"/>
+    <beans:bean id="eventProcessorService" class="it.dpe.igeriv.jms.in.IGerivJmsDlReceiver">
+    	<beans:property name="iGerivImportBo" ref="IGerivImportBo"/>
+    </beans:bean>
+    
+    <!-- La ricezione dei messaggi dai DL avviene su un'unica queue per tutti i DL e tutti i tipi di messaggio -->
+    <jms:message-driven-channel-adapter channel="jmsReceiveChannel" destination="dlIGerivQueue" connection-factory="jmsFactory"/>
+    
+    <!-- Esegue il routing al canale di uscita corretto basadosi sul header del messaggio "header-name", il cui valore corrisponde al nome del canale -->
+	<header-value-router input-channel="jmsDefaultReplyChannel" header-name="channelName" resolution-required="true" />
+	
+    <jms:outbound-channel-adapter channel="jmsReceive74ReplyChannel" destination="dlIGeriv74ReplyQueue" connection-factory="jmsFactory"/>
+    <jms:outbound-channel-adapter channel="jmsReceive74ReplyTimeoutChannel" destination="dlIGeriv74ReplyTimeoutQueue" connection-factory="jmsFactory"/>
+	
+	<!-- Creare tanti outbound-channel-adapter con relativi "channel" e "destination" quanti i DL collegati  -->
+	<jms:outbound-channel-adapter channel="jmsReceive45ReplyChannel" destination="dlIGeriv45ReplyQueue" connection-factory="jmsFactory"/>
+	<jms:outbound-channel-adapter channel="jmsReceive45ReplyTimeoutChannel" destination="dlIGeriv45ReplyTimeoutQueue" connection-factory="jmsFactory"/>
+	
+	<beans:bean id="RRCImporter" class="it.dpe.igeriv.jms.importer.impl.RichiesteRifornimentoImporter">
+		<beans:property name="jmsService" ref="JmsService"/>
+	</beans:bean>
+	
+	<beans:bean id="ERRCReplyProcessor" class="it.dpe.igeriv.jms.importer.impl.RichiesteRifornimentoReplyProcessor">
+		<beans:property name="jmsService" ref="JmsService"/>
+	</beans:bean>
+	
+	<!-- Scheduler per invio -->
+	<beans:bean id="MockIGerivBatchBo" class="it.dpe.igeriv.bo.MockIgerivBatchBoImpl"/>
+	<beans:bean id="MockIGerivBo" class="it.dpe.igeriv.bo.MockIgerivBoImpl"/>
+	
+	<beans:bean id="JmsService" class="it.dpe.igeriv.jms.service.impl.JmsServiceImpl">
+		<beans:property name="bo" ref="MockIGerivBatchBo" />
+		<beans:property name="iGerivBo" ref="MockIGerivBo" />		
+	</beans:bean>
+	
+	<beans:bean id="prodottiExportCronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<beans:property name="triggers">
+			<beans:list>
+				<beans:ref bean="prodottiExportCronTrigger" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="prodottiExportCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<beans:property name="jobDetail" ref="prodottiExportJobDetail" />		
+		<beans:property name="cronExpression" value="0 0/1 * * * ?" />
+	</beans:bean>
+
+	<beans:bean name="prodottiExportJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<beans:property name="jobClass" value="it.dpe.igeriv.job.IGerivJmsRichiesteRifornimentoExportJob" />
+      	<beans:property name="jobDataAsMap">
+			<beans:map>
+				<beans:entry key="sendGateway" value-ref="sendGateway" />
+				<beans:entry key="jmsService" value-ref="JmsService" />
+				<beans:entry key="mailingListService" value-ref="MailingListService" />
+				<beans:entry key="timeout" value="50" />
+			</beans:map>
+		</beans:property>
+	</beans:bean>
+	
+</beans:beans>

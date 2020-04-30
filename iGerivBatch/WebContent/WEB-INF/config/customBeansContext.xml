@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans 
+    xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util 
+						http://www.springframework.org/schema/util/spring-util.xsd
+					    http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+					    http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd"
+>
+
+	<!-- Questa mappa contiene i tipi record con il rispettivo dto nell'ordine correto di importazione -->
+	<util:map id="mapTipoRecord" map-class="java.util.LinkedHashMap">
+        <entry key="AP" value-ref="InforivAnagraficaProdottiDto"/>
+        <entry key="BC" value-ref="InforivTotaleBollaConsegnaDto"/>
+        <entry key="FO" value-ref="InforivFornitureDto"/>
+        <entry key="FB" value-ref="InforivFondoBollaDto"/>
+        <entry key="FS" value-ref="InforivStatisticaStoricoDto"/>
+        <entry key="FU" value-ref="InforivFornitureSonoInoltreUsciteDto"/>
+        <entry key="RR" value-ref="InforivResaDto"/>
+        <entry key="RD" value-ref="InforivResaDto"/>
+        <entry key="RI" value-ref="InforivResaDto"/>
+        <entry key="TD" value-ref="InforivTotaleBollaResaDto"/>
+        <entry key="RL" value-ref="InforivNullDto"/>
+        <entry key="RC" value-ref="InforivNullDto"/>
+        <entry key="RA" value-ref="InforivNullDto"/>
+        <entry key="FR" value-ref="InforivNullDto"/>
+        <entry key="FC" value-ref="InforivEstrattoContoDto"/>
+        <entry key="TE" value-ref="InforivEstrattoContoDto"/>
+        <entry key="XD" value-ref="InforivEstrattoContoDto"/>
+        <entry key="XC" value-ref="InforivEstrattoContoDto"/>
+        <entry key="SA" value-ref="InforivEstrattoContoDto"/>
+        <entry key="SP" value-ref="InforivEstrattoContoDto"/>
+        <entry key="VE" value-ref="InforivEstrattoContoDto"/>
+        <entry key="VP" value-ref="InforivEstrattoContoDto"/>
+        <entry key="PA" value-ref="InforivNullDto"/>
+        <entry key="MB" value-ref="InforivMessaggiDto"/>
+        <entry key="MR" value-ref="InforivNullDto"/>
+        <entry key="ER" value-ref="InforivNullDto"/>
+        <entry key="ED" value-ref="InforivNullDto"/>
+        <entry key="TR" value-ref="InforivNullDto"/>
+        <entry key="ME" value-ref="InforivNullDto"/>
+        <entry key="RF" value-ref="InforivNullDto"/>
+        <entry key="VA" value-ref="InforivNullDto"/>
+        <entry key="VN" value-ref="InforivVenditeDto"/>
+    </util:map>
+    
+    <!-- Questa mappa contiene gli oggetti BO di tipo Importer che eseguono l'importazione per ogni tipo record specifico -->
+    <util:map id="mapImporters" map-class="java.util.HashMap">
+        <entry key="AP" value-ref="InforivAnagraficaProdottiImporter"/>
+        <entry key="FS" value-ref="InforivStatisticaStoricoImporter"/>
+        <entry key="FO" value-ref="InforivFornitureImporter"/>
+        <entry key="FB" value-ref="InforivFondoBollaImporter"/>
+        <entry key="BC" value-ref="InforivTotaleBollaConsegnaImporter"/>
+        <entry key="FU" value-ref="InforivSonoInoltreUsciteImporter"/>
+        <entry key="RR" value-ref="InforivResaImporter"/>
+        <entry key="TD" value-ref="InforivTotaleBollaResaImporter"/>
+        <entry key="RD" value-ref="InforivResaAccertataImporter"/>
+        <entry key="RI" value-ref="InforivResaDichiarataImporter"/>
+        <entry key="RL" value-ref="InforivNullImporter"/>
+        <entry key="RC" value-ref="InforivNullImporter"/>
+        <entry key="RA" value-ref="InforivNullImporter"/>
+        <entry key="FR" value-ref="InforivRispostaRichiestaRifornimentoImporter"/>
+        <entry key="SP" value-ref="InforivEstrattoContoTotalePrecedenteImporter"/>
+        <entry key="VE" value-ref="InforivEstrattoContoVersamentiRicevutiImporter"/>
+        <entry key="VP" value-ref="InforivEstrattoContoVersamentiRicevutiPrecedentementeImporter"/>
+        <entry key="FC" value-ref="InforivEstrattoContoFornitureImporter"/>
+        <entry key="TE" value-ref="InforivEstrattoContoReseImporter"/>
+        <entry key="XD" value-ref="InforivEstrattoContoAddebitiNonEditorialiImporter"/>
+        <entry key="XC" value-ref="InforivEstrattoContoAccreditiNonEditorialiImporter"/>
+        <entry key="SA" value-ref="InforivEstrattoContoTotaleImporter"/>
+        <entry key="PA" value-ref="InforivNullImporter"/>
+        <entry key="MB" value-ref="InforivMessaggiImporter"/>
+        <entry key="MR" value-ref="InforivNullImporter"/>
+        <entry key="ER" value-ref="InforivNullImporter"/>
+        <entry key="TR" value-ref="InforivNullImporter"/>
+        <entry key="ME" value-ref="InforivNullImporter"/>
+        <entry key="RF" value-ref="InforivNullImporter"/>
+        <entry key="VA" value-ref="InforivNullImporter"/>
+        <entry key="ED" value-ref="InforivAnagraficaEditoreImporter"/>
+        <entry key="VN" value-ref="InforivVenditeImporter"/>
+    </util:map>
+    
+    <!-- Questa mappa contiene gli oggetti BO di tipo Exporter che eseguono l'esportazione per ogni tipo record specifico -->
+    <util:map id="mapExporters" map-class="java.util.LinkedHashMap">
+        <entry key="ME" value-ref="InforivMancanzeEccedenzeExporter"/>
+        <entry key="RI" value-ref="InforivResaDichiarataExporter"/>
+        <entry key="BC" value-ref="InforivTotaleBollaConsegnaAccertataExporter"/>
+        <entry key="TR" value-ref="InforivTotaleBollaResaEdicolaExporter"/>
+        <entry key="RF" value-ref="InforivRichiestaRifornimentoExporter"/>
+        <entry key="VA" value-ref="InforivVariazioniServizioExporter"/>
+        <entry key="VE" value-ref="InforivVenditeExporter"/>
+    </util:map>
+
+</beans>

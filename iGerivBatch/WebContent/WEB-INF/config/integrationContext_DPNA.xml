@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:si-security="http://www.springframework.org/schema/integration/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:http="http://www.springframework.org/schema/integration/http"
+	xmlns:mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+			http://www.springframework.org/schema/integration/security
+      		http://www.springframework.org/schema/integration/security/spring-integration-security-3.0.xsd
+      		http://www.springframework.org/schema/integration/file
+            http://www.springframework.org/schema/integration/file/spring-integration-file-3.0.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-3.0.xsd
+			http://www.springframework.org/schema/integration/mail
+            http://www.springframework.org/schema/integration/mail/spring-integration-mail-3.0.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	<!--
+		N.B.
+		Non e' possibile implemnetare un poller (che prende i file dal file system) in un modo cluster-aware,
+		perche' spring non lo supporta. 
+		Scatteranno tanti poller quante sono le istanze dell'applicazione deployate sui tomcat.  
+	 -->
+	 
+	<!-- Email listener per la conversione di messaggi email del dl verso le edicole in messaggi istantanei iGeriv -->
+	<util:properties id="javaMailProperties">
+		<beans:prop key="mail.imaps.socketFactory.class">${mail.imap.socketFactory.class}</beans:prop>
+		<beans:prop key="mail.imaps.socketFactory.fallback">${mail.imap.socketFactory.fallback}</beans:prop>
+		<beans:prop key="mail.store.protocol">${mail.store.protocol}</beans:prop>
+		<beans:prop key="mail.debug">${mail.debug}</beans:prop>
+	</util:properties>
+	
+	<channel id="receiveChannel" />	
+	<mail:inbound-channel-adapter id="imapAdapter"
+	      store-uri="${config.store.uri}"
+	      channel="receiveChannel"
+	      should-delete-messages="true"
+	      auto-startup="true"
+	      java-mail-properties="javaMailProperties">
+	      <poller max-messages-per-poll="3" cron="*/5 * * * * ?"/>
+	</mail:inbound-channel-adapter>
+	<service-activator input-channel="receiveChannel" ref="emailDlReceiver" method="receive"/>
+
+	<channel id="recieveChannelEmailReceipt" />	
+	<mail:inbound-channel-adapter id="imapAdapterReceipt"
+	      store-uri="${config.store.uri.conferme.lettura}"
+	      channel="recieveChannelEmailReceipt"
+	      should-delete-messages="true"
+	      auto-startup="true"
+	      java-mail-properties="javaMailProperties">
+		<poller max-messages-per-poll="3" cron="*/7 * * * * ?"/>
+	</mail:inbound-channel-adapter>
+	<service-activator input-channel="recieveChannelEmailReceipt" ref="emailReturnReceiptReceiver" method="receive"/>
+	
+ 	<!-- File listener per l'importazione dei file dei DL (bolle) -->
+    <channel id="fileDlChannel" />
+	<file:inbound-channel-adapter id="fileDlChannel" filename-regex=".+(\.bat|\.BAT|\.dat|\.DAT)$" directory="${dl.path.dir.dati.in}" prevent-duplicates="false" auto-startup="true">
+		<poller max-messages-per-poll="1" cron="* * * * * ?" />	
+	</file:inbound-channel-adapter>
+	<service-activator input-channel="fileDlChannel" ref="fileBolleImporter" method="importaFile"/>
+	
+	<!-- File listener per l'importazione delle immagini -->
+    <channel id="fileImgIn" />
+	<file:inbound-channel-adapter id="fileImgIn" filename-regex=".+(\.jpg|\.JPG|\.gif|\.GIF)$" directory="${img.tmp.path.dir}" prevent-duplicates="false" auto-startup="true">
+		<poller max-messages-per-poll="100" cron="* * * * * ?" />
+	</file:inbound-channel-adapter>
+	<service-activator input-channel="fileImgIn" ref="immaginiEdicolaImporter" method="importaImmaginiEdicole"/>
+
+	<!-- File listener per l'importazione delle immagini prodotti vari del DL (crea solo le miniature delle immagini) -->
+    <channel id="fileImgProdottiVariDlIn" />
+	<file:inbound-channel-adapter id="fileImgProdottiVariDlIn" filename-regex=".+(\.jpg|\.JPG|\.gif|\.GIF)$" directory="${img.tmp.prodotti.vari.dl.path.dir}" prevent-duplicates="false" auto-startup="true">
+		<poller max-messages-per-poll="100" cron="* * * * * ?" />
+	</file:inbound-channel-adapter>
+	<service-activator input-channel="fileImgProdottiVariDlIn" ref="immaginiProdottiVariDlImporter" method="importaImmaginiProdottiVariDl"/>
+
+	<!-- File listener per l'importazione delle immagini quotidiani miniature .jpg e .gif-->
+	<channel id="fileMiniatureQuotidianiImgIn" />
+	<file:inbound-channel-adapter id="fileMiniatureQuotidianiImgIn" filename-regex=".+(\.jpg|\.JPG|\.gif|\.GIF)$" directory="${img.tmp.miniature.quotidiani.path.dir}" prevent-duplicates="false" auto-startup="true">
+		<poller max-messages-per-poll="100" cron="* * * * * ?" />
+	</file:inbound-channel-adapter>
+	<service-activator input-channel="fileMiniatureQuotidianiImgIn" ref="immaginiMiniatureQuotidianiImporter" method="importaImmagini"/>
+	
+	<!-- File listener per l'importazione delle immagini periodici miniature .jpg e .gif-->
+	<channel id="fileMiniaturePeriodiciImgIn" />
+	<file:inbound-channel-adapter id="fileMiniaturePeriodiciImgIn" filename-regex=".+(\.jpg|\.JPG|\.gif|\.GIF)$" directory="${img.tmp.miniature.periodici.path.dir}" prevent-duplicates="false" auto-startup="true">
+		<poller max-messages-per-poll="100" cron="* * * * * ?" />
+	</file:inbound-channel-adapter>
+	<service-activator input-channel="fileMiniaturePeriodiciImgIn" ref="immaginiMiniaturePeriodiciImporter" method="importaImmagini"/>
+	
+	<!-- File listener per l'importazione dei file xml con i dati della resa lavorata -->
+    <channel id="fileResaIn" />
+	<file:inbound-channel-adapter id="fileResaIn" filename-pattern="*.xml" directory="${edicole.resa.img.dir}" prevent-duplicates="false" auto-startup="true">
+		<poller max-messages-per-poll="1" cron="* * * * * ?" />
+	</file:inbound-channel-adapter> 
+	<service-activator input-channel="fileResaIn" ref="resaEdicolaXmlFileImporter" method="importaResaEdicole"/>
+    
+    <!-- File listener per l'importazione dei file zip con gli estratti conto delle edicole -->
+    <channel id="filePdfEcIn" />
+	<file:inbound-channel-adapter id="filePdfEcIn" filename-regex=".+(\.zip|\.ZIP)$" directory="${path.estratto.conto.pdf.zip.tmp}" prevent-duplicates="false" auto-startup="true">
+		<poller max-messages-per-poll="1" cron="* * * * * ?" />
+	</file:inbound-channel-adapter> 
+	<service-activator input-channel="filePdfEcIn" ref="estrattoContoPdfFileImporter" method="importaFile"/>
+	
+</beans:beans>
