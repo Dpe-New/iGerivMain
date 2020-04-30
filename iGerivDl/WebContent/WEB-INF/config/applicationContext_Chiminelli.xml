@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/jee
+	   http://www.springframework.org/schema/jee/spring-jee.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="no">
+	
+	<import resource="applicationContextBase.xml" />
+	
+	<!-- External properties file configuration -->
+	<bean id="igerivProperties"
+		class="it.dpe.igeriv.resources.ExposablePropertyPaceholderConfigurer">
+		<property name="location">
+			<value>file:/C:/igeriv/iGeriv.properties</value>
+		</property>
+	</bean>
+		
+	<bean id="JavaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${smtpHost}" />
+		<property name="port" value="${smtpPort}" />
+		<property name="username" value="${userName}" />
+		<property name="password" value="${password}" />
+		<property name="session" ref="mailSession" />
+	</bean>
+	
+	<!-- Mail message templates -->
+	<bean id="IGerivMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from">
+			<value><![CDATA[iGeriv - Monitor <noreply@geriv.it>]]></value>
+		</property>
+		<property name="to">
+			<list>
+				<value><![CDATA[DpeTecnico <dpe.tecnico@dpe.it>]]></value>
+			</list>
+		</property>
+		<property name="subject" value="iGeriv Dl" />
+	</bean>
+	
+</beans>

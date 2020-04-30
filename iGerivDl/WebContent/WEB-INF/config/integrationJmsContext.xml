@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:si-security="http://www.springframework.org/schema/integration/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:http="http://www.springframework.org/schema/integration/http"
+	xmlns:mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/jee 
+			http://www.springframework.org/schema/jee/spring-jee.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
+			http://www.springframework.org/schema/integration/security
+      		http://www.springframework.org/schema/integration/security/spring-integration-security-3.0.xsd
+      		http://www.springframework.org/schema/integration/file
+            http://www.springframework.org/schema/integration/file/spring-integration-file-3.0.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-3.0.xsd
+			http://www.springframework.org/schema/integration/mail
+            http://www.springframework.org/schema/integration/mail/spring-integration-mail-3.0.xsd
+            http://www.springframework.org/schema/util 
+            http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <!-- La dichiarazione dei componenti JMS per Tomcat (ConnectionFactory e Queues) e' in server.xml e context.xml -->
+    
+    <!-- COMMENTO PER LOCALHOST -->
+   	<!-- Definizioni JNDI dei componenti JMS -->
+<!--    	<jee:jndi-lookup id="jmsFactory"  -->
+<!--     	jndi-name="java:comp/env/jms/ConnectionFactory"  -->
+<!--     	resource-ref="true"  -->
+<!--     	lookup-on-startup="true" -->
+<!--     	expected-type="org.apache.activemq.ActiveMQConnectionFactory" -->
+<!--     	proxy-interface="javax.jms.ConnectionFactory"/> -->
+    
+    <!-- COMMENTO PER LOCALHOST -->
+	<!-- Queue per l'invio di messaggi a DL 74 (condivisa con iGerivBatch) -->
+<!-- 	<jee:jndi-lookup id="iGerivDl74CmdQueue"  -->
+<!-- 		jndi-name="java:comp/env/jms/igeriv/dl/74/cmd/queue"  -->
+<!--     	resource-ref="true"  -->
+<!--     	lookup-on-startup="true"  -->
+<!--     	expected-type="org.apache.activemq.command.ActiveMQQueue" -->
+<!--     	proxy-interface="javax.jms.Queue" /> -->
+	
+	<!-- COMMENTO PER LOCALHOST -->
+	<!-- Queue per la ricezione dei delle risposte ai messaggi di tipo "comando" da tutti i DL verso iGeriv (condivisa con iGerivAdm) -->
+	<!-- Per es. comando "esegui esportazione anagrafiche prodotti vari" -->
+<!-- 	<jee:jndi-lookup id="dlIGerivCmdQueue"  -->
+<!-- 		jndi-name="java:comp/env/jms/dl/igeriv/cmd/queue"  -->
+<!--     	resource-ref="true"  -->
+<!--     	lookup-on-startup="true"  -->
+<!--     	expected-type="org.apache.activemq.command.ActiveMQQueue" -->
+<!--     	proxy-interface="javax.jms.Queue" /> -->
+	
+	<!-- COMMENTO PER LOCALHOST -->
+	<!-- Connection Pool Configuration -->
+<!--     <beans:bean id="connectionFactory"  -->
+<!-- 	   class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop"> -->
+<!-- 	   <beans:property name="maxConnections" value="20" /> -->
+<!-- 	   <beans:property name="maximumActive" value="500" /> -->
+<!-- 	   <beans:property name="connectionFactory" ref="jmsFactory" /> -->
+<!-- 	</beans:bean> -->
+    
+    <!-- INVIO COMANDI DA IGERIV AI DL --> 
+	<!-- Canali default -->
+    <channel id="jmsSendChannel" />
+    <channel id="jms74SendChannel" />
+    <channel id="jmsReplyChannel" />
+    <channel id="jmsErrorChannel" />
+	
+	<!-- Interfaccia di uscita -->
+	<gateway id="sendGateway" 
+		error-channel="jmsErrorChannel"
+		default-request-channel="jmsSendChannel"
+		default-reply-channel="jmsReplyChannel"
+		service-interface="it.dpe.igeriv.jms.out.SendGateway" />	
+	
+	<!-- Esegue il routing al canale di uscita corretto basadosi sul header del messaggio "header-name", il cui valore corrisponde al nome del canale -->
+	<header-value-router input-channel="jmsSendChannel" header-name="channelName" resolution-required="true" />
+	
+	<!-- COMMENTO PER LOCALHOST -->
+<!-- 	<jms:outbound-gateway  -->
+<!-- 		request-destination="iGerivDl74CmdQueue"  -->
+<!-- 		request-channel="jms74SendChannel"  -->
+<!-- 		reply-destination="dlIGerivCmdQueue" -->
+<!-- 		reply-channel="jmsReplyChannel" -->
+<!-- 		connection-factory="connectionFactory" -->
+<!-- 		receive-timeout="2000000" /> -->
+    
+    <!-- Canale di errore: viene attivato quando si verifica un errore di connessione, invece il timeout dei messaggi viene gestito nella classe IGerivJmsDataExportJob -->
+    <chain input-channel="jmsErrorChannel">
+    	<transformer ref="errorUnwrapper" method="transform"/>
+        <service-activator ref="IGerivErrorMessageHandler" method="onMessageFailed" />
+    </chain>
+    
+</beans:beans>

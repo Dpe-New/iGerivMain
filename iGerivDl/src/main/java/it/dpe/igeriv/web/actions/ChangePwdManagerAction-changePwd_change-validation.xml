@@ -1,0 +1,43 @@
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+	<field name="oldPassword">
+        <field-validator type="requiredstring">
+            <message key="dpe.validation.msg.required.field"/>
+        </field-validator>
+    	<field-validator type="stringlength">
+	       <param name="minLength">5</param>
+           <param name="maxLength">14</param>
+           <param name="trim">true</param>
+	       <message key="dpe.validation.msg.pwd.tra.5.14"/>
+	   </field-validator>       
+    </field>
+    <field name="password">
+        <field-validator type="requiredstring">
+            <message key="dpe.validation.msg.required.field"/>
+        </field-validator>
+        <field-validator type="stringlength">
+	       <param name="minLength">5</param>
+           <param name="maxLength">14</param>
+           <param name="trim">true</param>
+	       <message key="dpe.validation.msg.pwd.tra.5.14"/>
+	   </field-validator>
+    </field>
+    <field name="confermaPassword">
+        <field-validator type="requiredstring">
+            <message key="dpe.validation.msg.required.field"/>
+        </field-validator>
+        <field-validator type="stringlength">
+	       <param name="minLength">5</param>
+           <param name="maxLength">14</param>
+           <param name="trim">true</param>
+	       <message key="dpe.validation.msg.pwd.tra.5.14"/>
+	   </field-validator>
+	   <field-validator type="fieldexpression">
+			<param name="expression">password == confermaPassword</param>
+			<message key="dpe.validation.msg.password.non.coincide" />
+		</field-validator>
+    </field>
+</validators>
