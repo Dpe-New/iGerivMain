@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://it.dpe.igeriv/gdo/bol/schemas"
+	xmlns:bol="http://it.dpe.igeriv/gdo/bol/schemas">
+	
+	<xs:element name="GdoBollaRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="dataBolla" type="xs:date" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="GdoBollaResponse">
+		<xs:complexType>
+         <xs:sequence>
+         	<xs:element name="dataOra" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="listProdottiBolla" type="bol:ProdottoBolla" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="state" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         </xs:sequence>
+      </xs:complexType>
+	</xs:element>
+    
+	<xs:complexType name="ProdottoBolla">
+		<xs:sequence>
+				<xs:element name="barcode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="idtn" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="codicePubblicazione" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="codiceInizio" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="tipoPubblicazione" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="titolo" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="sottotitolo" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="descrizione" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="dataUscita" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="numeroCopertina" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="prezzoAcquisto" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="prezzoLordo" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="quantitaConsegnata" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>		
+</xs:schema>

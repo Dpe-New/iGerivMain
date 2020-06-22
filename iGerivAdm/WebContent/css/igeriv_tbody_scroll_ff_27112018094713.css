@@ -1,0 +1,128 @@
+.contiScrollDiv {
+	z-index:999999;
+	height:100%;
+	width:100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.configBarraVenditeScrollDiv {
+	margin: 0;
+	padding: 0;
+	height:250px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDiv {
+	margin: 0;
+	padding: 0;
+	height:400px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivTall {
+	margin: 0;
+	padding: 0;
+	height:450px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivLarge {
+	margin: 0;
+	padding: 0;
+	height:350px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivContent {
+	margin: 0;
+	padding: 0;
+	height: 200px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivContentMediumTall {
+	margin: 0;
+	padding: 0;
+	height: 280px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivContentTall {
+	margin: 0;
+	padding: 0;
+	height: 350px; 
+	width: 610px;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivSmall {
+	margin: 0;
+	padding: 0;
+	height:200px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivSmallH {
+	margin: 0;
+	padding: 0;
+	height:200px; 
+	width: 100%;
+	overflow-x:scroll;
+	overflow-y:scroll; 
+}
+
+.bollaScrollDivVerySmall {
+	margin: 0;
+	padding: 0;
+	height:100px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollSmallerDiv {
+	margin: 0;
+	padding: 0;
+	height:300px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.bollaScrollMiniDiv {
+	margin: 0;
+	padding: 0;
+	height:150px; 
+	width: 100%;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.messaggioDiv {
+	margin: 0;
+	padding: 10;
+	height:400px; 
+	width: 620px;
+	overflow-x:hidden;
+	overflow-y:scroll; 
+}
+
+.ellipsis {
+    
+}

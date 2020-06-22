@@ -1,0 +1,11 @@
+*.class
+*.jar
+/iGeriv/target
+/iGerivAdm/target
+/iGerivBatch/target
+/iGerivCleaner/target
+/iGerivCliente/target
+/iGerivDl/target
+/iGerivService/target
+/iGerivWebService/target
+

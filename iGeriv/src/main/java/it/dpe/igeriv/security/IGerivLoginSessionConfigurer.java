@@ -83,7 +83,7 @@ public class IGerivLoginSessionConfigurer {
 	public void configureSessionEdicola(HttpServletRequest request, UserAbbonato user) {
 		HttpSession session = request.getSession();
 		session.setAttribute(IGerivConstants.USER_ID, user.getCodUtente());
-		session.setAttribute(IGerivConstants.SESSION_VAR_APP_NAME, user.getCodFiegDl().equals(IGerivConstants.CDL_CODE) ? IGerivMessageBundle.get("igeriv.cdl") : IGerivMessageBundle.get("gp.titolo"));
+		session.setAttribute(IGerivConstants.SESSION_VAR_APP_NAME,  user.getCodFiegDl().equals(IGerivConstants.CDL_CODE) ? IGerivMessageBundle.get("igeriv.cdl") : IGerivMessageBundle.get("gp.titolo"));
 		session.setAttribute(IGerivConstants.SESSION_VAR_COD_FIEG_DL, user.getCodFiegDl());
 		session.setAttribute(IGerivConstants.SESSION_VAR_TIPO_CONTROLLO_PUBBLICAZIONI_RESPINTE, user.getTipoControlloPubblicazioniRespinte());
 		session.setAttribute(IGerivConstants.SESSION_VAR_EDICOLA_IN_GRUPPO_SCONTO_BASE, user.isEdicolaInGruppoScontoBase());
