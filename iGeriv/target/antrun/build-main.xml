@@ -2,7 +2,7 @@
 <project name="maven-antrun-" default="main"  >
 <target name="main">
   <pathconvert pathsep=" " property="runtimelibs.path">
-    <fileset dir="${project_loc}/target/igeriv/WEB-INF/lib">
+    <fileset dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/target/igeriv/WEB-INF/lib">
       <include name="*.jar"/>
     </fileset>
     <mapper>
@@ -12,8 +12,8 @@
       </chainedmapper>
     </mapper>
   </pathconvert>
-  <jar destfile="${project_loc}/target/igeriv/WEB-INF/lib/classes.jar">
-    <fileset dir="${project_loc}\target\classes">
+  <jar destfile="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/target/igeriv/WEB-INF/lib/classes.jar">
+    <fileset dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target\classes">
       <include name="**/*"/>
     </fileset>
     <manifest>
@@ -21,18 +21,18 @@
       <attribute name="Class-Path" value="${runtimelibs.path}"/>
     </manifest>
   </jar>
-  <copy file="${project_loc}/WebContent/favicon_iGeriv.ico" tofile="${project_loc}\target/igeriv/favicon.ico" overwrite="true"/>
-  <copy file="${project_loc}/WebContent/META-INF/context_iGeriv.xml" tofile="${project_loc}\target/igeriv/META-INF/context.xml" overwrite="true"/>
-  <copy file="${project_loc}/WebContent/META-INF/context_iGeriv.xml" tofile="${project_loc}/WebContent/META-INF/context.xml" overwrite="true"/>
-  <delete dir="${project_loc}/WebContent/applet" excludes=".svn">
+  <copy file="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/WebContent/favicon_iGeriv.ico" tofile="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/favicon.ico" overwrite="true"/>
+  <copy file="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/WebContent/META-INF/context_iGeriv.xml" tofile="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/META-INF/context.xml" overwrite="true"/>
+  <copy file="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/WebContent/META-INF/context_iGeriv.xml" tofile="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/WebContent/META-INF/context.xml" overwrite="true"/>
+  <delete dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/WebContent/applet" excludes=".svn">
     <include name="*.jar"/>
   </delete>
-  <delete dir="${project_loc}\target/igeriv/applet" excludes=".svn">
+  <delete dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet" excludes=".svn">
     <include name="*.jar"/>
   </delete>
-  <delete dir="${project_loc}\target/igeriv/applet/signed"/>
-  <copy todir="${project_loc}\target/igeriv/applet" overwrite="true">
-    <fileset dir="${project_loc}/target/igeriv/WEB-INF/lib">
+  <delete dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet/signed"/>
+  <copy todir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet" overwrite="true">
+    <fileset dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/target/igeriv/WEB-INF/lib">
       <include name="json-lib-2.3.jar"/>
       <include name="ezmorph-1.0.3.jar"/>
       <include name="commons-collections-3.1.jar"/>
@@ -49,12 +49,12 @@
       <include name="guava-10.0.1.jar"/>
     </fileset>
   </copy>
-  <move file="${project_loc}\target/igeriv/applet/activation-1.1.1.jar" tofile="${project_loc}\target/igeriv/applet/activation.jar" overwrite="true"/>
-  <property file="${project_loc}/src/main/resources/package_it.properties"/>
+  <move file="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet/activation-1.1.1.jar" tofile="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet/activation.jar" overwrite="true"/>
+  <property file="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv/src/main/resources/package_it.properties"/>
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
   <for param="jarFile">
     <path>
-      <fileset dir="${project_loc}\target/igeriv/applet" includes="**/*.jar"/>
+      <fileset dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet" includes="**/*.jar"/>
     </path>
     <sequential>
       <jar update="true" file="@{jarFile}">
@@ -66,8 +66,8 @@
       </jar>
     </sequential>
   </for>
-  <jar index="true" destfile="${project_loc}\target/igeriv/applet/regCassaApplet${igeriv.version.timestamp}.jar">
-    <fileset dir="${project_loc}\target\classes">
+  <jar index="true" destfile="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet/regCassaApplet${igeriv.version.timestamp}.jar">
+    <fileset dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target\classes">
       <include name="it/dpe/igeriv/web/applet/regcassa/**/*.*"/>
       <include name="**/WindowsRegistry*.class"/>
       <include name="**/ClientMessageBundle.class"/>
@@ -83,7 +83,7 @@
       <attribute name="Caller-Allowable-Codebase" value="*"/>
     </manifest>
     <indexjars>
-      <fileset dir="${project_loc}\target/igeriv/applet">
+      <fileset dir="C:\Progetti\Java\Web\EclipseWs\iGerivMain\iGeriv\target/igeriv/applet">
         <include name="json-lib-2.3.jar"/>
         <include name="ezmorph-1.0.3.jar"/>
         <include name="commons-collections-3.1.jar"/>
