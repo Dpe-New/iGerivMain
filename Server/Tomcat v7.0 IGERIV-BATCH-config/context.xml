@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--><!-- The contents of this file will be loaded for each web application --><Context>
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+
+    <!-- Uncomment this to enable Comet connection tacking (provides events
+         on session expiration as well as webapp lifecycle) -->
+    <!--
+    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
+    -->
+    
+    <ResourceLink global="jms/ConnectionFactory" name="jms/ConnectionFactory" type="javax.jms.ConnectionFactory"/>
+    <ResourceLink global="jms/igeriv/vendite/177/queue" name="jms/igeriv/vendite/177/queue" type="javax.jms.Queue"/>
+    <ResourceLink global="jms/igeriv/vendite/reply/queue" name="jms/igeriv/vendite/reply/queue" type="javax.jms.Queue"/>
+    
+    <!-- Queues Generiche -->
+	<ResourceLink global="jms/dl/igeriv/queue" name="jms/dl/igeriv/queue" type="javax.jms.Queue"/>
+	<ResourceLink global="jms/igeriv/dl/reply/timeout/queue" name="jms/igeriv/dl/reply/timeout/queue" type="javax.jms.Queue"/>	
+	<ResourceLink global="jms/igeriv/dl/177/cmd/queue" name="jms/igeriv/dl/177/cmd/queue" type="javax.jms.Queue"/>
+    <ResourceLink global="jms/dl/igeriv/cmd/queue" name="jms/dl/igeriv/cmd/queue" type="javax.jms.Queue"/>
+    
+    
+
+	<!-- DL 177 -->
+	<ResourceLink global="jms/igeriv/dl/177/queue" name="jms/igeriv/dl/177/queue" type="javax.jms.Queue"/>
+	<ResourceLink global="jms/igeriv/dl/177/reply/queue" name="jms/igeriv/dl/177/reply/queue" type="javax.jms.Queue"/>  
+	<ResourceLink global="jms/dl/igeriv/177/reply/queue" name="jms/dl/igeriv/177/reply/queue" type="javax.jms.Queue"/>
+    <ResourceLink global="jms/dl/igeriv/177/reply/timeout/queue" name="jms/dl/igeriv/177/reply/timeout/queue" type="javax.jms.Queue"/>
+    
+    
+	<!-- DL 74 -->
+	<ResourceLink global="jms/igeriv/dl/74/queue" name="jms/igeriv/dl/74/queue" type="javax.jms.Queue"/>
+	<ResourceLink global="jms/igeriv/dl/74/reply/queue" name="jms/igeriv/dl/74/reply/queue" type="javax.jms.Queue"/>  
+	<ResourceLink global="jms/dl/igeriv/74/reply/queue" name="jms/dl/igeriv/74/reply/queue" type="javax.jms.Queue"/>
+	<ResourceLink global="jms/dl/igeriv/74/reply/timeout/queue" name="jms/dl/igeriv/74/reply/timeout/queue" type="javax.jms.Queue"/>
+	<ResourceLink global="jms/igeriv/dl/74/cmd/queue" name="jms/igeriv/dl/74/cmd/queue" type="javax.jms.Queue"/>
+	<ResourceLink global="jms/dl/igeriv/cmd/queue" name="jms/dl/igeriv/cmd/queue" type="javax.jms.Queue"/> 
+	<ResourceLink global="jms/igeriv/vendite/client/queue" name="jms/igeriv/vendite/client/queue" type="javax.jms.Queue"/> 
+
+</Context>

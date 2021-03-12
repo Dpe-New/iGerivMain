@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Tomcat v7.0 IGERIV-WS-config" deployDir="wtpwebapps" hostname="localhost" id="Tomcat v7.0 IGERIV-WS" name="Tomcat v7.0 IGERIV-WS" runtime-id="Apache Tomcat v7.0 (WS)" server-type="org.eclipse.jst.server.tomcat.70" server-type-id="org.eclipse.jst.server.tomcat.70" start-timeout="150" stop-timeout="150" testEnvironment="true" timestamp="32">
+  <list key="modules" value0="igeriv-ws::org.eclipse.jst.jee.server:igeriv-ws::jst.web::2.5"/>
+</server>
