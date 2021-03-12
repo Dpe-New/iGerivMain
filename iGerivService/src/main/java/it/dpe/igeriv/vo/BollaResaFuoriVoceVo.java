@@ -112,6 +112,8 @@ public class BollaResaFuoriVoceVo extends BaseVo implements BollaResa {
 	@Transient
 	@Getter(AccessLevel.NONE)
 	private Boolean richiamoPersonalizzato;
+	@Transient
+	private Integer editore;
 	
 	public String getNumeroPubblicazione() {
 		return numeroPubblicazione != null ? numeroPubblicazione.trim() : numeroPubblicazione;

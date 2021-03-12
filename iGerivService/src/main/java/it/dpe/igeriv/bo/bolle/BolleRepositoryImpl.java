@@ -637,6 +637,7 @@ class BolleRepositoryImpl extends BaseRepositoryImpl implements BolleRepository 
 		properties.add(Projections.property("per.descrizione"), "periodicita");
 		properties.add(Projections.property("per.pk"), "periodicitaPk");
 		properties.add(Projections.property("im.nome"), "immagine");
+		properties.add(Projections.property("ap.codFornitore"), "codFornitore");
 		criteria.setProjection(properties); 
 		criteria.setResultTransformer(Transformers.aliasToBean(BollaVoDto.class));
 		
@@ -1007,6 +1008,7 @@ class BolleRepositoryImpl extends BaseRepositoryImpl implements BolleRepository 
 			brfv.setIdtn(idtn);
 			brfv.setNumeroPubblicazione(vo.getNumeroCopertina());
 			brfv.setTitolo(isQuotidiano ? vo.getTitolo() : (pubblicazione != null ? pubblicazione.getTitolo() : ""));
+			brfv.setEditore(pubblicazione!=null ? pubblicazione.getCodFornitore() : null);
 			brfv.setSottoTitolo(vo.getSottoTitolo());
 			brfv.setDataUscita(vo.getDataUscita());
 			brfv.setNomeImmagine(vo.getNomeImmagine());
@@ -1283,6 +1285,7 @@ class BolleRepositoryImpl extends BaseRepositoryImpl implements BolleRepository 
 			    }
 				criteria.add(Restrictions.in("sc.dataUscita", inRestrictions));
 				// FINE SUBQUERY PER GESTIRE LE DATE
+				
 				criteria.addOrder(Order.desc("sc.dataUscita")).addOrder(Order.desc("sc.numeroCopertina"));
 				
 				list = criteria.list();

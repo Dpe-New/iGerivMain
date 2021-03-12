@@ -22,6 +22,7 @@ public class RichiestaRifornimentoDto extends BaseDto implements PubblicazioneFo
 	private BasePk pk;
 	private Integer coddl;
 	private String titolo;
+	private Integer editore;
 	private String sottoTitolo;
 	private Integer idtn;
 	private Integer codicePubblicazione;
@@ -133,7 +134,8 @@ public class RichiestaRifornimentoDto extends BaseDto implements PubblicazioneFo
 	
 	@Override
 	public String getCodiceInforeteNumeroCopertinaInforete() {
-		return getCodiceInforete().toString() + getNumeroCopertinaInforete();
+		//return getCodiceInforete().toString() + getNumeroCopertinaInforete();
+		return "0";
 	}
 	
 	@Override
@@ -141,6 +143,19 @@ public class RichiestaRifornimentoDto extends BaseDto implements PubblicazioneFo
 		return getCodicePubblicazione().toString() + getNumeroCopertina();
 	}
 	
+	@Override
+	public Boolean isEditoreComune() {
+		return getEditore() != null && (
+				getEditore().equals(16) 			// M-Dis
+				|| getEditore().equals(246) 		// To-Dis
+				/*|| getEditore().equals(287) 		// NUOVA MERATE PRESS
+				|| getEditore().equals(360) 		// SOCIETA' PRELUM
+				|| getEditore().equals(403) 		// PUBLICHIERI
+				|| getEditore().equals(998) 		// PUBLICHIERI
+				|| getEditore().equals(999)			// To-Dis*/ 
+				);
+	}
+
 	public Boolean getLivellamentoEditable() {
 		return livellamentoEditable == null ? true : livellamentoEditable;
 	}

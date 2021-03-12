@@ -9,7 +9,7 @@
   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
   	
   	<context:component-scan base-package="it.dpe.igeriv.rest" />
-  	<context:property-placeholder location="file:/E:/igeriv/iGeriv.properties" />
+  	<context:property-placeholder location="file:/${IGERIV_PATH}/iGeriv.properties" />
   	
   	<mvc:annotation-driven/>
   	

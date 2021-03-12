@@ -183,9 +183,9 @@ class RifornimentiRepositoryImpl extends BaseRepositoryImpl implements Rifornime
 		PubblicazioneDto copertina = pubblicazioniService.getCopertinaByIdtn(coddl, idtn);
 		List<RichiestaRifornimentoDto> listNumeriPrecedentiPossibili = null;
 		if (copertina.getCodInizioQuotidiano() == null || copertina.getCodFineQuotidiano() == null || (copertina.getCodInizioQuotidiano().equals(0) && copertina.getCodFineQuotidiano().equals(0))) {
-			listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(new Integer[]{coddl}, new Integer[]{codEdicola}, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), null, null, false, null);
+			listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(new Integer[]{coddl}, new Integer[]{codEdicola}, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), null, null, false, null, null, null);
 		} else {
-			listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(new Integer[]{coddl}, new Integer[]{codEdicola}, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), null, copertina.getDataUscita(), false, null);
+			listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(new Integer[]{coddl}, new Integer[]{codEdicola}, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), null, copertina.getDataUscita(), false, null, null, null);
 		}
 		DetachedCriteria criteria = DetachedCriteria.forClass(RichiestaClienteVo.class, "rc");
 		criteria.createCriteria("rc.storicoCopertineVo", "sc", JoinType.LEFT_OUTER_JOIN);
@@ -301,15 +301,23 @@ class RifornimentiRepositoryImpl extends BaseRepositoryImpl implements Rifornime
 
 	@Override
 	public List<RichiestaRifornimentoDto> getRichiesteRifornimenti(Integer codDlPubb, 
-			Integer[] arrCodFiegDl, Integer[] arrCodWebEdicola, Integer idtn, boolean isMultiDl, Timestamp dataStorico, Integer currCodDl) {
+			Integer[] arrCodFiegDl, Integer[] arrCodWebEdicola, Integer idtn, boolean isMultiDl, Timestamp dataStorico, Integer currCodDl, Map<String,Object> params) {
 		List<RichiestaRifornimentoDto> list = new ArrayList<RichiestaRifornimentoDto>();
 		PubblicazioneDto copertina = pubblicazioniService.getCopertinaByIdtn(codDlPubb, idtn);
+		//Vittorio 26/08/2020
+		//Integer crivw = iGerivUtils.getCorrispondenzaCodEdicolaMultiDl(codDlPubb, arrCodFiegDl, arrCodWebEdicola);
+		//Integer[] arrCodDl = new Integer[]{codDlPubb};
+		//Integer[] arrCrivw = new Integer[]{crivw};
+		//Vittorio 15/02/2021
+
 		if (copertina != null) {
 			List<RichiestaRifornimentoDto> listNumeriPrecedentiPossibili = null;
 			if (copertina.getCodInizioQuotidiano() == null || copertina.getCodFineQuotidiano() == null  || copertina.getCodInizioQuotidiano().equals(0) && copertina.getCodFineQuotidiano().equals(0)) {
-				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, null, isMultiDl, currCodDl);
+				//listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, null, isMultiDl, currCodDl, null, params);
+				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, null, isMultiDl, currCodDl, null, new HashMap<String,Object>());
 			} else {
-				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, copertina.getDataUscita(), isMultiDl, currCodDl);
+				//listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, copertina.getDataUscita(), isMultiDl, currCodDl, null, params);
+				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, copertina.getDataUscita(), isMultiDl, currCodDl, null, new HashMap<String,Object>());
 			}
 			Timestamp sysdate = getDao().getSysdate();
 			DetachedCriteria criteria = DetachedCriteria.forClass(RichiestaRifornimentoVo.class);
@@ -389,9 +397,9 @@ class RifornimentiRepositoryImpl extends BaseRepositoryImpl implements Rifornime
 		if (copertina != null) {
 			List<RichiestaRifornimentoDto> listNumeriPrecedentiPossibili = null;
 			if (copertina.getCodInizioQuotidiano() == null || copertina.getCodFineQuotidiano() == null  || copertina.getCodInizioQuotidiano().equals(0) && copertina.getCodFineQuotidiano().equals(0)) {
-				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, null, isMultiDl, currCodDl);
+				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, null, isMultiDl, currCodDl, null, null);
 			} else {
-				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, copertina.getDataUscita(), isMultiDl, currCodDl);
+				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, copertina.getDataUscita(), isMultiDl, currCodDl, null, null);
 			}
 			Timestamp sysdate = getDao().getSysdate();
 			Timestamp dataOrdine = DateUtilities.floorDay(sysdate);
@@ -429,9 +437,9 @@ class RifornimentiRepositoryImpl extends BaseRepositoryImpl implements Rifornime
 		if (copertina != null) {
 			List<RichiestaRifornimentoDto> listNumeriPrecedentiPossibili = null;
 			if (copertina.getCodInizioQuotidiano() == null || copertina.getCodFineQuotidiano() == null  || copertina.getCodInizioQuotidiano().equals(0) && copertina.getCodFineQuotidiano().equals(0)) {
-				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, null, isMultiDl, currCodDl);
+				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, copertina.getCodicePubblicazione(), null, null, copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, null, isMultiDl, currCodDl, null, null);
 			} else {
-				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, copertina.getDataUscita(), isMultiDl, currCodDl);
+				listNumeriPrecedentiPossibili = pubblicazioniService.getCopertineByCodPubblicazione(arrCodFiegDl, arrCodWebEdicola, null, copertina.getCodInizioQuotidiano(), copertina.getCodFineQuotidiano(), copertina.getNumCopertinePrecedentiPerRifornimenti(), dataStorico, copertina.getDataUscita(), isMultiDl, currCodDl, null, null);
 			}
 			Timestamp sysdate = getDao().getSysdate();
 			DetachedCriteria criteria = DetachedCriteria.forClass(RichiestaRifornimentoVo.class);

@@ -75,8 +75,8 @@ class RifornimentiServiceImpl extends BaseServiceImpl implements RifornimentiSer
 	}
 
 	@Override
-	public List<RichiestaRifornimentoDto> getRichiesteRifornimenti(Integer coddl, Integer[] codFiegDl, Integer[] codEdicolaDl, Integer idtn, boolean isMultiDl, Timestamp dataStorico, Integer currCodDl) {
-		return repository.getRichiesteRifornimenti(coddl, codFiegDl, codEdicolaDl, idtn, isMultiDl, dataStorico, currCodDl);
+	public List<RichiestaRifornimentoDto> getRichiesteRifornimenti(Integer coddl, Integer[] codFiegDl, Integer[] codEdicolaDl, Integer idtn, boolean isMultiDl, Timestamp dataStorico, Integer currCodDl, Map<String,Object> params) {
+		return repository.getRichiesteRifornimenti(coddl, codFiegDl, codEdicolaDl, idtn, isMultiDl, dataStorico, currCodDl, params);
 	}
 
 	@Override

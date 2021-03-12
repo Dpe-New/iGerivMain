@@ -478,6 +478,7 @@ public class IGerivConstants {
 	public static final String SESSION_VAR_HAS_PROFILO_EDICOLA_BASE_NOT_TEST = "hasProfiloEdicolaBaseNotTest";
 	public static final String SESSION_VAR_TOKEN = "token";
 	public static final String APPLICATION_VAR_CDL_CODE = "CDL_CODE";
+	public static final String APPLICATION_VAR_COMUZZI_CODE = "COMUZZI_CODE";
 	public static final String CHECKBOX_NAME = "dpeChkbx_";
 	public static final String INPUT_TEXT_NAME_DIFFERENZE = "differenze";
 	public static final String INPUT_TEXT_NAME_RESA = "reso";

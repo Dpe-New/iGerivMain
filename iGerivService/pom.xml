@@ -868,32 +868,6 @@
 			</plugin>
 
 			<!-- Copy plugin -->
-			<!-- 
-			<plugin>
-				<groupId>com.github.goldin</groupId>
-				<artifactId>copy-maven-plugin</artifactId>
-				<version>0.2.5</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<resources>
-								<resource>
-									<targetPath>C:/MAVEN_REPO/it/dpe/igeriv-service/1.0.0/</targetPath>
-									<directory>${project.build.directory}</directory>
-									<includes>
-										<include>igeriv-service-${version}.jar</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
- 			-->
  			
 			<!-- Jar plugin -->
 			<plugin>

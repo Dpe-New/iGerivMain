@@ -359,6 +359,13 @@ class AccountRepositoryImpl extends BaseRepositoryImpl implements AccountReposit
 			
 			user.setCheckConsegneGazzetta(abbinamentoEdicolaDlVo.getCheckConsegneGazzetta());
 			user.setAccettoResaCD(abbinamentoEdicolaDlVo.getAccettoResaCD());
+			// Vittorio 26/08/2020
+			user.setGesSepDevTod(abbinamentoEdicolaDlVo.getGesSepDevTod());
+			user.setAgenziaFatturazione(abbinamentoEdicolaDlVo.getAgenziaFatturazione());
+			user.setEdSecCintura(abbinamentoEdicolaDlVo.getEdSecCintura());
+			
+			// Vittorio 11/01/2021
+			user.setDtPartSecondaCintura(anagraficaAgenziaVo.getDtPartSecondaCintura());
 			
 			List<AbbinamentoEdicolaDlVo> edicoleAutorizzateAggiornaBarcode = edicoleService.getEdicoleAutorizzateAggiornamentoBarcode(codFiegDl);
 			user.setHasEdicoleAutorizzateAggiornaBarcode(edicoleAutorizzateAggiornaBarcode != null && !edicoleAutorizzateAggiornaBarcode.isEmpty());

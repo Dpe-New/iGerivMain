@@ -95,7 +95,7 @@ public interface RifornimentiService extends BaseService {
 	 * @param isDlInforiv 
 	 * @return
 	 */
-	public List<RichiestaRifornimentoDto> getRichiesteRifornimenti(Integer coddl, Integer[] codFiegDl, Integer[] codEdicolaDl, Integer idtn, boolean isMultiDl, Timestamp dataStorico, Integer currCodDl);
+	public List<RichiestaRifornimentoDto> getRichiesteRifornimenti(Integer coddl, Integer[] codFiegDl, Integer[] codEdicolaDl, Integer idtn, boolean isMultiDl, Timestamp dataStorico, Integer currCodDl, Map<String,Object> params);
 	
 	/**
 	 * @param <T>

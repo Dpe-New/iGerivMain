@@ -33,6 +33,7 @@ public class PubblicazioneDto extends BaseDto implements PubblicazioneFornito {
 	private Integer coddl;
 	private Integer crivw;
 	private String titolo;
+	private Integer editore;
 	@Getter(AccessLevel.NONE)
 	private String sottoTitolo;
 	private String barcode;
@@ -315,6 +316,19 @@ public class PubblicazioneDto extends BaseDto implements PubblicazioneFornito {
 		return getCodicePubblicazione().toString() + getNumeroCopertina();
 	}
 	
+	@Override
+	public Boolean isEditoreComune() {
+		return getEditore() != null && (
+				getEditore().equals(16) 			// M-Dis
+				|| getEditore().equals(246) 		// To-Dis
+				/*|| getEditore().equals(287) 		// NUOVA MERATE PRESS
+				|| getEditore().equals(360) 		// SOCIETA' PRELUM
+				|| getEditore().equals(403) 		// PUBLICHIERI
+				|| getEditore().equals(998) 		// PUBLICHIERI
+				|| getEditore().equals(999)			// To-Dis*/ 
+				);
+	}
+
 	public Map<Integer, Integer> getMapCiqCfq() {
 		if (((getPeriodicitaInt() != null && getPeriodicitaInt().equals(IGerivConstants.COD_PERIODICITA_QUOTIDIANO))
 				|| (getPeriodicitaPk() != null && getPeriodicitaPk().split("\\|")[1].equals("" + IGerivConstants.COD_PERIODICITA_QUOTIDIANO))

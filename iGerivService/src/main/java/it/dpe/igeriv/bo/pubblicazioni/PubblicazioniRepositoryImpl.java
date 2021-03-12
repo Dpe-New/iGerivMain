@@ -55,6 +55,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -205,7 +206,7 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 	public List<RichiestaRifornimentoDto> getCopertineByCodPubblicazione(final Integer[] codDl, final Integer[] codEdicola, 
 			final  Integer codicePubblicazione, final Integer codiceInizioQuotidiano, final Integer codiceFineQuotidiano, 
 			final Integer numCopertinePrecedentiPerRifornimenti, final Timestamp dataStorico, final Timestamp dataUscitaLimite, 
-			final boolean isMultiDl, final Integer currCodDl) {
+			final boolean isMultiDl, final Integer currCodDl, final Integer agenziaFatturazione, Map<String,Object> params) {
 		HibernateCallback<List<RichiestaRifornimentoDto>> action = new HibernateCallback<List<RichiestaRifornimentoDto>>() {
 			@Override
 			public List<RichiestaRifornimentoDto> doInHibernate(Session session)
@@ -258,6 +259,7 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 				criteria.addOrder(Order.desc("sc.dataUscita"));
 				ProjectionList properties = Projections.projectionList(); 
 				properties.add(Projections.property("ap.titolo"), "titolo");
+				properties.add(Projections.property("ap.codFornitore"), "editore");
 				properties.add(Projections.property("ap.codInizioQuotidiano"), "codInizioQuotidiano");
 				properties.add(Projections.property("ap.codFineQuotidiano"), "codFineQuotidiano");
 				properties.add(Projections.property("ap.numCopertinePrecedentiPerRifornimenti"), "numCopertinePrecedentiPerRifornimenti");
@@ -300,7 +302,9 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 		};
 		List<RichiestaRifornimentoDto> copertine = getDao().findByHibernateCallback(action);
 		if (isMultiDl && currCodDl != null) {
-			Map<String, Object> params = new HashMap<String, Object>();
+			if (params == null) {
+				params = new HashMap<String, Object>();
+			}
 			params.put("codFiegDl", currCodDl);
 			if (copertine != null && !copertine.isEmpty()) {
 				richiestaRifornimentoDtoListFilter.filter(copertine, params);
@@ -549,7 +553,7 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 	public List<PubblicazioneDto> getCopertine(final boolean ultimaPubblicazione, final boolean statistiche, final boolean contoDeposito, final Integer codEdicolaMaster, final Integer[] codDl, 
 			final Integer[] codEdicola, final String titolo, final String sottotitolo, final String argomento, final String periodicita, 
 			final BigDecimal prezzo, final Integer codPubblicazione, final String codBarre, final boolean showOnlyUltimoDistribuito, final Timestamp dataStorico, final Integer gruppoSconto, 
-			final boolean showPubblicazioniTuttiDl, final Integer currDlMultiDl,final Integer anagEditori) {
+			final boolean showPubblicazioniTuttiDl, final Integer currDlMultiDl,final Integer anagEditori, final Integer agenziaFatturazione, final Boolean isSecondaCintura, final Timestamp dataPartSecCintura) {
 		HibernateCallback<List<PubblicazioneDto>> action = new HibernateCallback<List<PubblicazioneDto>>() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -579,7 +583,7 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 					sql.append("select * from (");
 				}
 				String sqlPrezzoEdicola = gruppoSconto != null ? "(select t5.prnet9617 from tbl_9617 t5 where t5.coddl9617 = coddl9607 and t5.idtn9617 = idtn9607 and t5.gs9617 = :gruppoSconto) prezzoEdicola," : "";
-				sql.append("select " + hint + " pub.titolo9606 as titolo, pub.ciq9606 as codInizioQuotidiano, pub.cfq9606 as codFineQuotidiano, cop.sottot9607 as sottoTitolo, cop.cpu9607 as codicePubblicazione, cop.num9607 as numeroCopertina, cop.barcode9607 as barcode, arg.descr9217 as argomento, per.descr9216 as periodicita, (per.tipop9216 || '|' || perio9216) as periodicitaPk, cop.prezzo9607 as prezzoCopertina, " + sqlPrezzoEdicola + " cop.datausc9607 as dataUscita, img.nomei9700 as immagine, pub.imgnm9606 as imgMiniaturaName, cop.idtn9607 as idtn, cop.dare9607 as dataRichiamoResa, cop.codinf9607 as codiceInforete, cop.numinf9607 as numeroCopertinaInforete, drr.descr9624 as tipoRichiamoResa, nr.noter9640 as note, nr1.noter9641 as noteByCpu, pub.coddl9606 as coddl, editDl.NOMEA9114 as descrEditoreDlNomeA ");
+				sql.append("select " + hint + " pub.titolo9606 as titolo, pub.edi9606 as editore, pub.ciq9606 as codInizioQuotidiano, pub.cfq9606 as codFineQuotidiano, cop.sottot9607 as sottoTitolo, cop.cpu9607 as codicePubblicazione, cop.num9607 as numeroCopertina, cop.barcode9607 as barcode, arg.descr9217 as argomento, per.descr9216 as periodicita, (per.tipop9216 || '|' || perio9216) as periodicitaPk, cop.prezzo9607 as prezzoCopertina, " + sqlPrezzoEdicola + " cop.datausc9607 as dataUscita, img.nomei9700 as immagine, pub.imgnm9606 as imgMiniaturaName, cop.idtn9607 as idtn, cop.dare9607 as dataRichiamoResa, cop.codinf9607 as codiceInforete, cop.numinf9607 as numeroCopertinaInforete, drr.descr9624 as tipoRichiamoResa, nr.noter9640 as note, nr1.noter9641 as noteByCpu, pub.coddl9606 as coddl, editDl.NOMEA9114 as descrEditoreDlNomeA ");
 				if (hasStatistiche) { 
 					sql.append(",");
 					String dataStatisticheBollaCondition = dataStorico != null ? " and (datbc9611 > :dataStorico) " : "";
@@ -737,6 +741,7 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 					sqlQuery.setInteger("gruppoSconto", gruppoSconto);
 				}
 				sqlQuery.addScalar("titolo", StringType.INSTANCE);
+				sqlQuery.addScalar("editore", IntegerType.INSTANCE);
 				sqlQuery.addScalar("codInizioQuotidiano", IntegerType.INSTANCE);
 				sqlQuery.addScalar("codFineQuotidiano", IntegerType.INSTANCE);
 				sqlQuery.addScalar("sottoTitolo", StringType.INSTANCE);
@@ -784,9 +789,13 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 			}
 		};
 		List<PubblicazioneDto> copertine = getDao().findByHibernateCallback(action);
-		if (codDl.length > 1 && currDlMultiDl != null) {
+		boolean isEdicolaDeviettiTodis = currDlMultiDl != null && (currDlMultiDl.equals(IGerivConstants.COD_FIEG_DL_DEVIETTI) || currDlMultiDl.equals(IGerivConstants.COD_FIEG_DL_TODIS));
+		if ((codDl.length > 1 && currDlMultiDl != null) || isEdicolaDeviettiTodis) {
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("codFiegDl", currDlMultiDl);
+			m.put("agenziaFatturazione", agenziaFatturazione);
+			m.put("isSecondaCintura", isSecondaCintura);
+			m.put("dataPartSecCintura", dataPartSecCintura);
 			if (!Strings.isNullOrEmpty(periodicita)) {
 				m.put("maxRows", getMaxRows(codDl, periodicita));
 			}
@@ -1677,6 +1686,7 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 			@Override
 			public StoricoCopertineVo doInHibernate(Session session) throws HibernateException, SQLException {
 				Criteria criteria = session.createCriteria(StoricoCopertineVo.class, "scvo");
+				criteria.createCriteria("scvo.anagraficaPubblicazioniVo");
 				criteria.add(Restrictions.in("scvo.pk.codDl", coddl));
 				criteria.add(Restrictions.eq("scvo.codiceBarre", barcode));
 				session.disableFilter("StoricoFilter");
@@ -1872,20 +1882,64 @@ class PubblicazioniRepositoryImpl extends BaseRepositoryImpl implements Pubblica
 			Integer codFiegDl = (Integer) params.get("codFiegDl");
 			Integer maxRows = params.get("maxRows") != null ? (Integer) params.get("maxRows") : null;
 			boolean isEdicolaDeviettiTodis = codFiegDl.equals(IGerivConstants.COD_FIEG_DL_DEVIETTI) || codFiegDl.equals(IGerivConstants.COD_FIEG_DL_TODIS);
-			Group<T> group = isEdicolaDeviettiTodis ? group(list, by(on(PubblicazioneFornito.class).getCodicePubblicazioneeNumeroCopertina())) : group(list, by(on(PubblicazioneFornito.class).getCodiceInforeteNumeroCopertinaInforete()));
-			if (group.subgroups().size() > 0) {
-				for (Group<T> subgroup : group.subgroups()) {
-					List<T> findAll = subgroup.findAll();
-					if (findAll.size() > 1) {
-						List<T> pubbFornite = select(findAll, having(on(PubblicazioneFornito.class).getFornito(), greaterThan(0)));
-						if (pubbFornite != null && !pubbFornite.isEmpty()) {
-							list.removeAll(select(findAll, having(on(PubblicazioneFornito.class).getFornito(), lessThanOrEqualTo(0))));
-						} else {
-							list.removeAll(select(findAll, having(on(PubblicazioneFornito.class).getCoddl(), not(equalTo(codFiegDl)))));
+
+			Integer agenziaFatturazione = (Integer) params.get("agenziaFatturazione");
+			Boolean isSecondaCintura =  (Boolean) params.get("isSecondaCintura");
+			Timestamp dtPartenzaSecondaCintura = (Timestamp) params.get("dataPartSecCintura");
+			
+			if (isEdicolaDeviettiTodis && agenziaFatturazione != null && agenziaFatturazione > 0) {
+				Iterator<PubblicazioneFornito> it = (Iterator<PubblicazioneFornito>) list.iterator();
+				while (it.hasNext()) {
+					// TODO SECONDA CINTURA					
+					PubblicazioneFornito dto = it.next();
+					if (dto.isEditoreComune()) {
+						if (isSecondaCintura!=null && isSecondaCintura && dtPartenzaSecondaCintura!=null) {
+							Timestamp dataUscita = dto.getDataUscita();
+							if (dataUscita !=null && dataUscita.compareTo(dtPartenzaSecondaCintura)>=0) {
+								agenziaFatturazione = 2;
+							} else {
+								agenziaFatturazione = 1;
+							}
+						}
+						switch (agenziaFatturazione) {
+						case 1:
+							if (dto.getCoddl().equals(IGerivConstants.COD_FIEG_DL_TODIS)) {
+							    it.remove();
+							}
+							break;
+						case 2:
+							if (dto.getCoddl().equals(IGerivConstants.COD_FIEG_DL_DEVIETTI)) {
+							    it.remove();
+							}
+							break;
+						}
+					}
+				}				
+			} else {
+				/*Group<T> group = group(list,
+						isEdicolaDeviettiTodis 
+						? by(on(PubblicazioneFornito.class).getCodicePubblicazioneeNumeroCopertina())
+						: by(on(PubblicazioneFornito.class).getCodiceInforeteNumeroCopertinaInforete())
+						);*/
+				Group<T> group = group(list,
+						by(on(PubblicazioneFornito.class).getCodiceInforeteNumeroCopertinaInforete())
+						);
+				if (group.subgroups().size() > 0) {
+					for (Group<T> subgroup : group.subgroups()) {
+						List<T> findAll = subgroup.findAll();
+						if (findAll.size() > 1) {
+							List<T> pubbFornite = select(findAll, having(on(PubblicazioneFornito.class).getFornito(), greaterThan(0)));
+							if (pubbFornite != null && !pubbFornite.isEmpty()) {
+								list.removeAll(select(findAll, having(on(PubblicazioneFornito.class).getFornito(), lessThanOrEqualTo(0))));
+							} else {
+								list.removeAll(select(findAll, having(on(PubblicazioneFornito.class).getCoddl(), not(equalTo(codFiegDl)))));
+							}
 						}
 					}
 				}
 			}
+			
+
 			if (isEdicolaDeviettiTodis && maxRows != null && list.size() > (maxRows / 2)) {
 				for (int i = list.size() - 1; i >= (maxRows / 2); i--) {
 					list.remove(i);

@@ -203,6 +203,9 @@ public class AnagraficaAgenziaVo extends BaseVo {
 	@Column(name = "dlwsftppass9107")
 	private String dlWsFtpPass;
 	
+	@Column(name = "dtpartsecci9107")
+	private Timestamp dtPartSecondaCintura;
+	
 	public Boolean getDlInforiv() {
 		return (dlInforiv == null) ? false : dlInforiv;
 	}

@@ -57,8 +57,8 @@ class PubblicazioniServiceImpl extends BaseServiceImpl implements PubblicazioniS
 
 	@Override
 	public List<RichiestaRifornimentoDto> getCopertineByCodPubblicazione(Integer[] codDl, Integer[] codEdicola, Integer codicePubblicazione, Integer codiceInizioQuotidiano, Integer codiceFineQuotidiano, Integer numCopertinePrecedentiPerRifornimenti,
-			Timestamp dataStorico, Timestamp dataUscitaLimite, boolean isMultiDl, Integer currCodDl) {
-		return repository.getCopertineByCodPubblicazione(codDl, codEdicola, codicePubblicazione, codiceInizioQuotidiano, codiceFineQuotidiano, numCopertinePrecedentiPerRifornimenti, dataStorico, dataUscitaLimite, isMultiDl, currCodDl);
+			Timestamp dataStorico, Timestamp dataUscitaLimite, boolean isMultiDl, Integer currCodDl, Integer agenziaFatturazione, Map<String,Object> params) {
+		return repository.getCopertineByCodPubblicazione(codDl, codEdicola, codicePubblicazione, codiceInizioQuotidiano, codiceFineQuotidiano, numCopertinePrecedentiPerRifornimenti, dataStorico, dataUscitaLimite, isMultiDl, currCodDl, agenziaFatturazione, params);
 	}
 	
 	@Override
@@ -83,8 +83,8 @@ class PubblicazioniServiceImpl extends BaseServiceImpl implements PubblicazioniS
 
 	@Override
 	public List<PubblicazioneDto> getCopertine(boolean ultimaPubblicazione, boolean statistiche, boolean contoDeposito, Integer codEdicolaMaster, Integer[] codDl, Integer[] codEdicola, String titolo, String sottotitolo, String argomento,
-			String periodicita, BigDecimal prezzo, Integer codPubblicazione, String codBarre, boolean showOnlyUltimoDistribuito, Timestamp dataStorico, Integer gruppoSconto, boolean showPubblicazioniTuttiDl, Integer currDlMultiDl,Integer anagEditori) {
-		return repository.getCopertine(ultimaPubblicazione, statistiche, contoDeposito, codEdicolaMaster, codDl, codEdicola, titolo, sottotitolo, argomento, periodicita, prezzo, codPubblicazione, codBarre, showOnlyUltimoDistribuito, dataStorico, gruppoSconto, showPubblicazioniTuttiDl, currDlMultiDl, anagEditori);
+			String periodicita, BigDecimal prezzo, Integer codPubblicazione, String codBarre, boolean showOnlyUltimoDistribuito, Timestamp dataStorico, Integer gruppoSconto, boolean showPubblicazioniTuttiDl, Integer currDlMultiDl, Integer anagEditori, Integer agenziaFatturazione, Boolean isSecondaCintura, Timestamp dataPartSecCintura) {
+		return repository.getCopertine(ultimaPubblicazione, statistiche, contoDeposito, codEdicolaMaster, codDl, codEdicola, titolo, sottotitolo, argomento, periodicita, prezzo, codPubblicazione, codBarre, showOnlyUltimoDistribuito, dataStorico, gruppoSconto, showPubblicazioniTuttiDl, currDlMultiDl, anagEditori, agenziaFatturazione, isSecondaCintura, dataPartSecCintura);
 	}
 	
 	@Override

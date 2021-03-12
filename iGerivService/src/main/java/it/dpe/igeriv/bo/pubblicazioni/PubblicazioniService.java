@@ -75,7 +75,7 @@ public interface PubblicazioniService extends BaseService {
 	 * @param isMultiDl 
 	 * @return
 	 */
-	public List<RichiestaRifornimentoDto> getCopertineByCodPubblicazione(Integer[] codDl, Integer[] codEdicola, Integer codicePubblicazione, Integer codiceInizioQuotidiano, Integer codiceFineQuotidiano, Integer numCopertinePrecedentiPerRifornimenti, Timestamp dataStorico, Timestamp dataUscitaLimite, boolean isMultiDl, Integer currCodDl);
+	public List<RichiestaRifornimentoDto> getCopertineByCodPubblicazione(Integer[] codDl, Integer[] codEdicola, Integer codicePubblicazione, Integer codiceInizioQuotidiano, Integer codiceFineQuotidiano, Integer numCopertinePrecedentiPerRifornimenti, Timestamp dataStorico, Timestamp dataUscitaLimite, boolean isMultiDl, Integer currCodDl, Integer agenziaFatturazione, Map<String,Object> params);
 	
 	/**
 	 * @param codFiegDl
@@ -129,7 +129,7 @@ public interface PubblicazioniService extends BaseService {
 	 * @param numMaxResults
 	 * @return
 	 */
-	public List<PubblicazioneDto> getCopertine(boolean ultimaPubblicazione, boolean statistiche, boolean contoDeposito, Integer codEdicolaMaster, Integer[] codDl, Integer[] codEdicola, String titolo, String sottotitolo, String argomento, String periodicita, BigDecimal prezzo, Integer codPubblicazione, String codBarre, boolean showOnlyUltimoDistribuito, Timestamp dataStorico, Integer gruppoSconto, boolean showPubblicazioniTuttiDl, Integer currDlMultiDl, Integer anagEditori);
+	public List<PubblicazioneDto> getCopertine(boolean ultimaPubblicazione, boolean statistiche, boolean contoDeposito, Integer codEdicolaMaster, Integer[] codDl, Integer[] codEdicola, String titolo, String sottotitolo, String argomento, String periodicita, BigDecimal prezzo, Integer codPubblicazione, String codBarre, boolean showOnlyUltimoDistribuito, Timestamp dataStorico, Integer gruppoSconto, boolean showPubblicazioniTuttiDl, Integer currDlMultiDl, Integer anagEditori, Integer agenziaFatturazione, Boolean isSecondaCintura, Timestamp dataPartSecCintura);
 	
 	
 	/**

@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 public class BollaVoDto extends BaseDto {
 	private static final long serialVersionUID = 1L;
 	private BollaPk pk;
+	private Integer codFornitore;
 	private String titolo;
 	private String sottoTitolo;
 	private String numeroCopertina;

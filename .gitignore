@@ -1,4 +1,6 @@
 iGeriv/target/
+iGeriv/WebContent/css
+iGeriv/WebContent/js-transient
 iGerivAdm/target/
 iGerivBatch/target/
 iGerivCleaner/target/

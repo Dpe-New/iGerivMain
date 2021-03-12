@@ -88,7 +88,11 @@ public class GruppoModuliVo extends BaseVo {
 	private Boolean isBollaConsegnaReadOnly; // Bolla di consegna read only 0=No 1=Si
 	@Column(name = "fgborerdonly9209")
 	private Boolean isBollaResaReadOnly; // Bolla di resa read only 0=No 1=Si
-	
-	
+	@Column(name = "fgdisvarrif9209")
+	private Boolean isDisVarRif; 		// Disabilito richiesta variazioni in form rifornimenti 0=No 1=Si
+	@Column(name = "fgdisvistrif9209")
+	private Boolean isDisVisStaRif; 	// Disabilito visualizzazione statistica in form rifornimenti 0=No 1=Si
+	@Column(name = "fgriccolres9209")
+	private Boolean isRicColRes; 		// Richiesta numero colli in bolla di resa 0=No 1=Si
 	
 }

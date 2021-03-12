@@ -84,8 +84,10 @@ public class BollaResaRiassuntoVo extends BaseVo implements BollaResaRiassunto {
 	@Formula(value = "(select t7.crivw9228 from tbl_9228 t7 where t7.crivw9228 = crivw9620 and datbr9620 between t7.din9228 and t7.dif9228)")
 	@Basic(fetch = FetchType.LAZY)
 	private Integer edicolaInFerie;
-	@Column(name = "dtmein9620")	
+	@Column(name = "dtmein9620")
 	private Timestamp dtMemorizzazioneInvio;
+	@Column(name = "ncoll9620")
+	private Integer numeroColli;
 	
 	@Formula(value = "(select count(1) from tbl_9621 t1 where t1.coddl9621 = coddl9620 and t1.crivw9621 = crivw9620 and t1.datbr9621 = datbr9620 and t1.tipbr9621 = tipbr9620 and t1.QDIST9621 > 0 )")
 	@Basic(fetch = FetchType.LAZY)

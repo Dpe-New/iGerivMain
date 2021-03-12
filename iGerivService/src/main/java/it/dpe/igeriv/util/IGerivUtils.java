@@ -66,6 +66,18 @@ public class IGerivUtils {
     	}
 		return null;
 	}
+
+	public static Boolean isFornitoreDevTodisComune(Integer codFornitore) {
+		return codFornitore != null && (
+				codFornitore.equals(16) 			// M-Dis
+				|| codFornitore.equals(246) 		// To-Dis
+				/*|| codFornitore.equals(287) 		// NUOVA MERATE PRESS
+				|| codFornitore.equals(360) 		// SOCIETA' PRELUM
+				|| codFornitore.equals(403) 		// PUBLICHIERI
+				|| codFornitore.equals(998) 		// PUBLICHIERI
+				|| codFornitore.equals(999)			// To-Dis*/ 
+				);
+	}
 	
 	/**
 	 * Ritorna l'alias di Apache che punta alla cartella locale dove risiedono le immagini.

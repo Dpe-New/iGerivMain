@@ -122,6 +122,14 @@ public class AbbinamentoEdicolaDlVo extends BaseVo {
 	private Boolean checkConsegneGazzetta;
 	@Column(name = "accde9206")
 	private Boolean accettoResaCD;
+	// Vittorio 26/08/2020
+	@Column(name = "gessep9206")
+	private Boolean gesSepDevTod;
+
+	// Vittorio 26/01/2021
+	@Column(name = "edseci9206")
+	private Boolean edSecCintura;
+	
 	@Formula("to_char(crivw9206)") 
 	private String codDpeWebEdicolaString;
 	
