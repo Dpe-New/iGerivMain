@@ -120,6 +120,11 @@
 			<name>Spring Framework Maven Snapshot Repository</name>
 			<url>http://maven.springframework.org/snapshot</url>
 		</repository>
+		
+		<repository>
+			<id>dpe</id>
+			<url>${dpe.repository}</url>
+		</repository>
 	</repositories>
 
 	<dependencies>

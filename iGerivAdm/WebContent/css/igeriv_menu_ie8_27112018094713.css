@@ -1,0 +1,91 @@
+.horizontalcssmenuEd ul{	
+margin-left:30px;
+width:550px; 
+padding:0 0 0 0;
+height:10px; 
+float:left;
+background:#fff;
+text-align:left;
+vertical-align:middle; 
+color:#003399; 
+text-transform:uppercase;
+position:absolute;
+font-size:12px; 
+font-weight:bold;
+font-family:Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+cursor:auto;
+top:30px;  
+z-index:0;
+}
+	
+/*Top level list items*/
+.horizontalcssmenuEd ul li{
+width:130px;  
+#display:inline;
+display: -moz-inline-block;
+display: inline-block;
+border-left:solid 1px #ccc;
+background:#e1ddd9;
+}
+
+/*Top level menu link items style*/
+.horizontalcssmenuEd ul li a{
+text-decoration:none; 
+#display:inline; 
+display: -moz-inline-block;
+display: inline-block;
+color:#003399;
+padding-left: 5px;	
+padding-bottom:5px; 
+}
+
+/*Top level menu link items style*/
+.horizontalcssmenuEd ul li a:hover{
+color:#f7941d;
+background:#e1ddd9;
+}
+
+/*Sub level menu*/
+.horizontalcssmenuEd ul li ul{
+visibility: hidden;
+display: none;
+width:130px; 	
+top:0;
+text-align:left;
+margin-left:0;
+margin-right:0;
+float:left; 
+padding-top:0px; 
+vertical-align:middle; 
+color:#003399; 
+text-transform:uppercase;
+position:relative;
+z-index:0;
+font-weight:normal;
+background:#e1ddd9;
+}
+
+/*Sub level menu list items*/
+.horizontalcssmenuEd ul li ul li{
+#display:inline;
+display: -moz-inline-block;
+display: inline-block;
+border-left:0px;
+width:130px;
+background:#e1ddd9;
+}
+
+/* Sub level menu links style */
+.horizontalcssmenuEd ul li ul li a{
+border:none;
+padding-top:2px; 
+background:#e1ddd9;
+}
+
+.horizontalcssmenuEd ul li a:hover{
+color:#f7941d;
+}
+
+.horizontalcssmenuEd ul li ul li a:hover{
+color:#f7941d;
+}

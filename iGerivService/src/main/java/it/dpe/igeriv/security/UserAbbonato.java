@@ -12,9 +12,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -26,41 +23,25 @@ import org.springframework.security.core.userdetails.User;
  * @author Marcello Romano (marcello74@gmail.com)
  * 
  */
-@Getter
-@Setter
 public class UserAbbonato extends User {
 	private static final long serialVersionUID = 1L;
 	private Calendar cal = Calendar.getInstance();
 	private Integer id;
 	private Integer[] arrId;
 	private String codUtente;
-	@Getter(AccessLevel.NONE)
 	private String ragioneSocialeDl;
-	@Getter(AccessLevel.NONE)
 	private String ragioneSocialeEdicola;
-	@Getter(AccessLevel.NONE)
 	private String indirizzoEdicolaPrimaRiga;
-	@Getter(AccessLevel.NONE)
 	private String indirizzoAgenziaPrimaRiga;
-	@Getter(AccessLevel.NONE)
 	private String localitaEdicolaPrimaRiga;
-	@Getter(AccessLevel.NONE)
 	private String provinciaEdicola;
-	@Getter(AccessLevel.NONE)
 	private String capEdicola;
-	@Getter(AccessLevel.NONE)
 	private String localitaAgenziaPrimaRiga;
-	@Getter(AccessLevel.NONE)
 	private String provinciaAgenzia;
-	@Getter(AccessLevel.NONE)
 	private String capAgenzia;
-	@Getter(AccessLevel.NONE)
 	private String pivaAgenzia;
-	@Getter(AccessLevel.NONE)
 	private String nome;
-	@Getter(AccessLevel.NONE)
 	private String cognome;
-	@Getter(AccessLevel.NONE)
 	private String email;
 	private String emailDl;
 	private boolean admin;
@@ -76,7 +57,6 @@ public class UserAbbonato extends User {
 	private List<List<List<MenuModuloVo>>> moduli;
 	private boolean changePassword;
 	private String imgFolder;
-	@Getter(AccessLevel.NONE)
 	private Integer numMaxCpuResaDimenticata;
 	private boolean moduleCustomizable;
 	@SuppressWarnings("unused")
@@ -88,7 +68,6 @@ public class UserAbbonato extends User {
 	private String ftpServerGestionalePwd;
 	private String ftpServerGestionaleDir;
 	private Integer gruppoSconto;
-	@Getter(AccessLevel.NONE)
 	private Boolean visualizzaSemaforoGiacenza;
 	private boolean rtaeAccessEnabled;
 	private Timestamp dtSospensioneEdicola;
@@ -107,15 +86,11 @@ public class UserAbbonato extends User {
 	private boolean isMultiDl;
 	private boolean emailReplyToInstantMessages;
 	private boolean dlInforiv;
-	@Getter(AccessLevel.NONE)
 	private Timestamp dataStorico;
-	@Getter(AccessLevel.NONE)
 	private boolean emailValido;
 	private Integer giornoSettimanaPermessaResaDimenticata;
 	private Integer tipoControlloPubblicazioniRespinte;
-	@Getter(AccessLevel.NONE)
 	private Boolean abilitataCorrezioneBarcode;
-	@Getter(AccessLevel.NONE)
 	private Boolean hasEdicoleAutorizzateAggiornaBarcode;
 	private List<AnagraficaAgenziaVo> listDl;
 	private Boolean hasButtonCopiaDifferenze;
@@ -130,7 +105,6 @@ public class UserAbbonato extends User {
 	private Boolean hasClienti;
 	private Boolean hasProdottiVari;
 	private Boolean hasPrenotazioni;
-	@Getter(AccessLevel.NONE)
 	private Boolean edicolaTestPerModifiche;
 	private Boolean campagnaInvitaColleghiAbilitata;
 	private Boolean gestioneAnagraficaRivenditaObbligatoria;
@@ -138,9 +112,7 @@ public class UserAbbonato extends User {
 	private Boolean condizioniUsoAccettate;
 	private Boolean visualizzaResoRiscontratoStatistica;
 	private Boolean permetteInserimentoRichiesteRifornimentoFuture;
-	@Getter(AccessLevel.NONE)
 	private Boolean spuntaObbligatoriaBollaConsegna;
-	@Getter(AccessLevel.NONE)
 	private Boolean suddivisioneQuotidianiPeriodiciReportVenduto;
 	private Boolean prenotazioniEvasioneQuantitaEvasaEmpty;
 	private Boolean edicoleVedonoMessaggiDpe;
@@ -152,7 +124,6 @@ public class UserAbbonato extends User {
 	private Integer httpProxyPort;
 	private Boolean hasMessaggioDocumentoDisponibile;
 	private boolean isEdicolaPromo;
-	@Getter(AccessLevel.NONE)
 	private Boolean hasLivellamenti;
 	//Gestione Profili
 	private Boolean viewImageByProfile;
@@ -318,6 +289,746 @@ public class UserAbbonato extends User {
 		int i = new Integer(getUsername()) + tipoUtente;
 		int j = new Integer(((UserAbbonato)rhs).getUsername()) + ((UserAbbonato)rhs).tipoUtente;
 		return i == j;
+	}
+
+	public Calendar getCal() {
+		return cal;
+	}
+
+	public void setCal(Calendar cal) {
+		this.cal = cal;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer[] getArrId() {
+		return arrId;
+	}
+
+	public void setArrId(Integer[] arrId) {
+		this.arrId = arrId;
+	}
+
+	public String getCodUtente() {
+		return codUtente;
+	}
+
+	public void setCodUtente(String codUtente) {
+		this.codUtente = codUtente;
+	}
+
+	public String getEmailDl() {
+		return emailDl;
+	}
+
+	public void setEmailDl(String emailDl) {
+		this.emailDl = emailDl;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public boolean isStatoAttivo() {
+		return statoAttivo;
+	}
+
+	public void setStatoAttivo(boolean statoAttivo) {
+		this.statoAttivo = statoAttivo;
+	}
+
+	public Integer getCodEdicolaDl() {
+		return codEdicolaDl;
+	}
+
+	public void setCodEdicolaDl(Integer codEdicolaDl) {
+		this.codEdicolaDl = codEdicolaDl;
+	}
+
+	public Integer getCodFiegDl() {
+		return codFiegDl;
+	}
+
+	public void setCodFiegDl(Integer codFiegDl) {
+		this.codFiegDl = codFiegDl;
+	}
+
+	public Integer getCodFiegDlSecondario() {
+		return codFiegDlSecondario;
+	}
+
+	public void setCodFiegDlSecondario(Integer codFiegDlSecondario) {
+		this.codFiegDlSecondario = codFiegDlSecondario;
+	}
+
+	public Integer getCodFiegDlMaster() {
+		return codFiegDlMaster;
+	}
+
+	public void setCodFiegDlMaster(Integer codFiegDlMaster) {
+		this.codFiegDlMaster = codFiegDlMaster;
+	}
+
+	public Integer getCodEdicolaMaster() {
+		return codEdicolaMaster;
+	}
+
+	public void setCodEdicolaMaster(Integer codEdicolaMaster) {
+		this.codEdicolaMaster = codEdicolaMaster;
+	}
+
+	public Integer[] getArrCodFiegDl() {
+		return arrCodFiegDl;
+	}
+
+	public void setArrCodFiegDl(Integer[] arrCodFiegDl) {
+		this.arrCodFiegDl = arrCodFiegDl;
+	}
+
+	public Integer getCodDpeWebEdicola() {
+		return codDpeWebEdicola;
+	}
+
+	public void setCodDpeWebEdicola(Integer codDpeWebEdicola) {
+		this.codDpeWebEdicola = codDpeWebEdicola;
+	}
+
+	public Integer getCodDpeWebEdicolaSecodaria() {
+		return codDpeWebEdicolaSecodaria;
+	}
+
+	public void setCodDpeWebEdicolaSecodaria(Integer codDpeWebEdicolaSecodaria) {
+		this.codDpeWebEdicolaSecodaria = codDpeWebEdicolaSecodaria;
+	}
+
+	public List<List<List<MenuModuloVo>>> getModuli() {
+		return moduli;
+	}
+
+	public void setModuli(List<List<List<MenuModuloVo>>> moduli) {
+		this.moduli = moduli;
+	}
+
+	public boolean isChangePassword() {
+		return changePassword;
+	}
+
+	public void setChangePassword(boolean changePassword) {
+		this.changePassword = changePassword;
+	}
+
+	public String getImgFolder() {
+		return imgFolder;
+	}
+
+	public void setImgFolder(String imgFolder) {
+		this.imgFolder = imgFolder;
+	}
+
+	public boolean isModuleCustomizable() {
+		return moduleCustomizable;
+	}
+
+	public void setModuleCustomizable(boolean moduleCustomizable) {
+		this.moduleCustomizable = moduleCustomizable;
+	}
+
+	public Integer getTipoUtente() {
+		return tipoUtente;
+	}
+
+	public void setTipoUtente(Integer tipoUtente) {
+		this.tipoUtente = tipoUtente;
+	}
+
+	public boolean isPwdCriptata() {
+		return pwdCriptata;
+	}
+
+	public void setPwdCriptata(boolean pwdCriptata) {
+		this.pwdCriptata = pwdCriptata;
+	}
+
+	public String getFtpServerGestionaleAddress() {
+		return ftpServerGestionaleAddress;
+	}
+
+	public void setFtpServerGestionaleAddress(String ftpServerGestionaleAddress) {
+		this.ftpServerGestionaleAddress = ftpServerGestionaleAddress;
+	}
+
+	public String getFtpServerGestionaleUser() {
+		return ftpServerGestionaleUser;
+	}
+
+	public void setFtpServerGestionaleUser(String ftpServerGestionaleUser) {
+		this.ftpServerGestionaleUser = ftpServerGestionaleUser;
+	}
+
+	public String getFtpServerGestionalePwd() {
+		return ftpServerGestionalePwd;
+	}
+
+	public void setFtpServerGestionalePwd(String ftpServerGestionalePwd) {
+		this.ftpServerGestionalePwd = ftpServerGestionalePwd;
+	}
+
+	public String getFtpServerGestionaleDir() {
+		return ftpServerGestionaleDir;
+	}
+
+	public void setFtpServerGestionaleDir(String ftpServerGestionaleDir) {
+		this.ftpServerGestionaleDir = ftpServerGestionaleDir;
+	}
+
+	public Integer getGruppoSconto() {
+		return gruppoSconto;
+	}
+
+	public void setGruppoSconto(Integer gruppoSconto) {
+		this.gruppoSconto = gruppoSconto;
+	}
+
+	public boolean isRtaeAccessEnabled() {
+		return rtaeAccessEnabled;
+	}
+
+	public void setRtaeAccessEnabled(boolean rtaeAccessEnabled) {
+		this.rtaeAccessEnabled = rtaeAccessEnabled;
+	}
+
+	public Timestamp getDtSospensioneEdicola() {
+		return dtSospensioneEdicola;
+	}
+
+	public void setDtSospensioneEdicola(Timestamp dtSospensioneEdicola) {
+		this.dtSospensioneEdicola = dtSospensioneEdicola;
+	}
+
+	public Timestamp getDtAttivazioneEdicola() {
+		return dtAttivazioneEdicola;
+	}
+
+	public void setDtAttivazioneEdicola(Timestamp dtAttivazioneEdicola) {
+		this.dtAttivazioneEdicola = dtAttivazioneEdicola;
+	}
+
+	public List<Integer> getGiroTipo() {
+		return giroTipo;
+	}
+
+	public void setGiroTipo(List<Integer> giroTipo) {
+		this.giroTipo = giroTipo;
+	}
+
+	public List<Integer> getGiri() {
+		return giri;
+	}
+
+	public void setGiri(List<Integer> giri) {
+		this.giri = giri;
+	}
+
+	public List<Integer> getZonaTipo() {
+		return zonaTipo;
+	}
+
+	public void setZonaTipo(List<Integer> zonaTipo) {
+		this.zonaTipo = zonaTipo;
+	}
+
+	public List<Integer> getZone() {
+		return zone;
+	}
+
+	public void setZone(List<Integer> zone) {
+		this.zone = zone;
+	}
+
+	public Long getCodContabileCliente() {
+		return codContabileCliente;
+	}
+
+	public void setCodContabileCliente(Long codContabileCliente) {
+		this.codContabileCliente = codContabileCliente;
+	}
+
+	public String getCodiceFiscale() {
+		return codiceFiscale;
+	}
+
+	public void setCodiceFiscale(String codiceFiscale) {
+		this.codiceFiscale = codiceFiscale;
+	}
+
+	public String getPiva() {
+		return piva;
+	}
+
+	public void setPiva(String piva) {
+		this.piva = piva;
+	}
+
+	public String getImgLogo() {
+		return imgLogo;
+	}
+
+	public void setImgLogo(String imgLogo) {
+		this.imgLogo = imgLogo;
+	}
+
+	public String getUrlDL() {
+		return urlDL;
+	}
+
+	public void setUrlDL(String urlDL) {
+		this.urlDL = urlDL;
+	}
+
+	public Boolean getRicercaProdottiVari() {
+		return ricercaProdottiVari;
+	}
+
+	public void setRicercaProdottiVari(Boolean ricercaProdottiVari) {
+		this.ricercaProdottiVari = ricercaProdottiVari;
+	}
+
+	public Boolean getEdicolaTest() {
+		return edicolaTest;
+	}
+
+	public void setEdicolaTest(Boolean edicolaTest) {
+		this.edicolaTest = edicolaTest;
+	}
+
+	public boolean isMultiDl() {
+		return isMultiDl;
+	}
+
+	public void setMultiDl(boolean isMultiDl) {
+		this.isMultiDl = isMultiDl;
+	}
+
+	public boolean isEmailReplyToInstantMessages() {
+		return emailReplyToInstantMessages;
+	}
+
+	public void setEmailReplyToInstantMessages(boolean emailReplyToInstantMessages) {
+		this.emailReplyToInstantMessages = emailReplyToInstantMessages;
+	}
+
+	public boolean isDlInforiv() {
+		return dlInforiv;
+	}
+
+	public void setDlInforiv(boolean dlInforiv) {
+		this.dlInforiv = dlInforiv;
+	}
+
+	public Integer getGiornoSettimanaPermessaResaDimenticata() {
+		return giornoSettimanaPermessaResaDimenticata;
+	}
+
+	public void setGiornoSettimanaPermessaResaDimenticata(Integer giornoSettimanaPermessaResaDimenticata) {
+		this.giornoSettimanaPermessaResaDimenticata = giornoSettimanaPermessaResaDimenticata;
+	}
+
+	public Integer getTipoControlloPubblicazioniRespinte() {
+		return tipoControlloPubblicazioniRespinte;
+	}
+
+	public void setTipoControlloPubblicazioniRespinte(Integer tipoControlloPubblicazioniRespinte) {
+		this.tipoControlloPubblicazioniRespinte = tipoControlloPubblicazioniRespinte;
+	}
+
+	public List<AnagraficaAgenziaVo> getListDl() {
+		return listDl;
+	}
+
+	public void setListDl(List<AnagraficaAgenziaVo> listDl) {
+		this.listDl = listDl;
+	}
+
+	public Boolean getHasButtonCopiaDifferenze() {
+		return hasButtonCopiaDifferenze;
+	}
+
+	public void setHasButtonCopiaDifferenze(Boolean hasButtonCopiaDifferenze) {
+		this.hasButtonCopiaDifferenze = hasButtonCopiaDifferenze;
+	}
+
+	public Boolean getHasResaAnticipata() {
+		return hasResaAnticipata;
+	}
+
+	public void setHasResaAnticipata(Boolean hasResaAnticipata) {
+		this.hasResaAnticipata = hasResaAnticipata;
+	}
+
+	public boolean isEdicolaInGruppoScontoBase() {
+		return edicolaInGruppoScontoBase;
+	}
+
+	public void setEdicolaInGruppoScontoBase(boolean edicolaInGruppoScontoBase) {
+		this.edicolaInGruppoScontoBase = edicolaInGruppoScontoBase;
+	}
+
+	public Boolean getEdicolaStarter() {
+		return edicolaStarter;
+	}
+
+	public void setEdicolaStarter(Boolean edicolaStarter) {
+		this.edicolaStarter = edicolaStarter;
+	}
+
+	public Boolean getRichiestaProva() {
+		return richiestaProva;
+	}
+
+	public void setRichiestaProva(Boolean richiestaProva) {
+		this.richiestaProva = richiestaProva;
+	}
+
+	public Boolean getReturnReceiptTo() {
+		return returnReceiptTo;
+	}
+
+	public void setReturnReceiptTo(Boolean returnReceiptTo) {
+		this.returnReceiptTo = returnReceiptTo;
+	}
+
+	public Date getDataInizioEstrattoContoPdf() {
+		return dataInizioEstrattoContoPdf;
+	}
+
+	public void setDataInizioEstrattoContoPdf(Date dataInizioEstrattoContoPdf) {
+		this.dataInizioEstrattoContoPdf = dataInizioEstrattoContoPdf;
+	}
+
+	public Boolean getHasBolle() {
+		return hasBolle;
+	}
+
+	public void setHasBolle(Boolean hasBolle) {
+		this.hasBolle = hasBolle;
+	}
+
+	public Boolean getHasVendite() {
+		return hasVendite;
+	}
+
+	public void setHasVendite(Boolean hasVendite) {
+		this.hasVendite = hasVendite;
+	}
+
+	public Boolean getHasClienti() {
+		return hasClienti;
+	}
+
+	public void setHasClienti(Boolean hasClienti) {
+		this.hasClienti = hasClienti;
+	}
+
+	public Boolean getHasProdottiVari() {
+		return hasProdottiVari;
+	}
+
+	public void setHasProdottiVari(Boolean hasProdottiVari) {
+		this.hasProdottiVari = hasProdottiVari;
+	}
+
+	public Boolean getHasPrenotazioni() {
+		return hasPrenotazioni;
+	}
+
+	public void setHasPrenotazioni(Boolean hasPrenotazioni) {
+		this.hasPrenotazioni = hasPrenotazioni;
+	}
+
+	public Boolean getCampagnaInvitaColleghiAbilitata() {
+		return campagnaInvitaColleghiAbilitata;
+	}
+
+	public void setCampagnaInvitaColleghiAbilitata(Boolean campagnaInvitaColleghiAbilitata) {
+		this.campagnaInvitaColleghiAbilitata = campagnaInvitaColleghiAbilitata;
+	}
+
+	public Boolean getGestioneAnagraficaRivenditaObbligatoria() {
+		return gestioneAnagraficaRivenditaObbligatoria;
+	}
+
+	public void setGestioneAnagraficaRivenditaObbligatoria(Boolean gestioneAnagraficaRivenditaObbligatoria) {
+		this.gestioneAnagraficaRivenditaObbligatoria = gestioneAnagraficaRivenditaObbligatoria;
+	}
+
+	public Boolean getAnagraficaCompilata() {
+		return anagraficaCompilata;
+	}
+
+	public void setAnagraficaCompilata(Boolean anagraficaCompilata) {
+		this.anagraficaCompilata = anagraficaCompilata;
+	}
+
+	public Boolean getCondizioniUsoAccettate() {
+		return condizioniUsoAccettate;
+	}
+
+	public void setCondizioniUsoAccettate(Boolean condizioniUsoAccettate) {
+		this.condizioniUsoAccettate = condizioniUsoAccettate;
+	}
+
+	public Boolean getVisualizzaResoRiscontratoStatistica() {
+		return visualizzaResoRiscontratoStatistica;
+	}
+
+	public void setVisualizzaResoRiscontratoStatistica(Boolean visualizzaResoRiscontratoStatistica) {
+		this.visualizzaResoRiscontratoStatistica = visualizzaResoRiscontratoStatistica;
+	}
+
+	public Boolean getPermetteInserimentoRichiesteRifornimentoFuture() {
+		return permetteInserimentoRichiesteRifornimentoFuture;
+	}
+
+	public void setPermetteInserimentoRichiesteRifornimentoFuture(Boolean permetteInserimentoRichiesteRifornimentoFuture) {
+		this.permetteInserimentoRichiesteRifornimentoFuture = permetteInserimentoRichiesteRifornimentoFuture;
+	}
+
+	public Boolean getPrenotazioniEvasioneQuantitaEvasaEmpty() {
+		return prenotazioniEvasioneQuantitaEvasaEmpty;
+	}
+
+	public void setPrenotazioniEvasioneQuantitaEvasaEmpty(Boolean prenotazioniEvasioneQuantitaEvasaEmpty) {
+		this.prenotazioniEvasioneQuantitaEvasaEmpty = prenotazioniEvasioneQuantitaEvasaEmpty;
+	}
+
+	public Boolean getEdicoleVedonoMessaggiDpe() {
+		return edicoleVedonoMessaggiDpe;
+	}
+
+	public void setEdicoleVedonoMessaggiDpe(Boolean edicoleVedonoMessaggiDpe) {
+		this.edicoleVedonoMessaggiDpe = edicoleVedonoMessaggiDpe;
+	}
+
+	public Boolean getFotoEdicolaInserita() {
+		return fotoEdicolaInserita;
+	}
+
+	public void setFotoEdicolaInserita(Boolean fotoEdicolaInserita) {
+		this.fotoEdicolaInserita = fotoEdicolaInserita;
+	}
+
+	public Integer getCodGruppo() {
+		return codGruppo;
+	}
+
+	public void setCodGruppo(Integer codGruppo) {
+		this.codGruppo = codGruppo;
+	}
+
+	public Boolean getVenditeEsauritoControlloGiacenzaDL() {
+		return venditeEsauritoControlloGiacenzaDL;
+	}
+
+	public void setVenditeEsauritoControlloGiacenzaDL(Boolean venditeEsauritoControlloGiacenzaDL) {
+		this.venditeEsauritoControlloGiacenzaDL = venditeEsauritoControlloGiacenzaDL;
+	}
+
+	public Boolean getHasPopupConfermaSuMemorizzaInviaBolle() {
+		return hasPopupConfermaSuMemorizzaInviaBolle;
+	}
+
+	public void setHasPopupConfermaSuMemorizzaInviaBolle(Boolean hasPopupConfermaSuMemorizzaInviaBolle) {
+		this.hasPopupConfermaSuMemorizzaInviaBolle = hasPopupConfermaSuMemorizzaInviaBolle;
+	}
+
+	public String getHttpProxyServer() {
+		return httpProxyServer;
+	}
+
+	public void setHttpProxyServer(String httpProxyServer) {
+		this.httpProxyServer = httpProxyServer;
+	}
+
+	public Integer getHttpProxyPort() {
+		return httpProxyPort;
+	}
+
+	public void setHttpProxyPort(Integer httpProxyPort) {
+		this.httpProxyPort = httpProxyPort;
+	}
+
+	public Boolean getHasMessaggioDocumentoDisponibile() {
+		return hasMessaggioDocumentoDisponibile;
+	}
+
+	public void setHasMessaggioDocumentoDisponibile(Boolean hasMessaggioDocumentoDisponibile) {
+		this.hasMessaggioDocumentoDisponibile = hasMessaggioDocumentoDisponibile;
+	}
+
+	public boolean isEdicolaPromo() {
+		return isEdicolaPromo;
+	}
+
+	public void setEdicolaPromo(boolean isEdicolaPromo) {
+		this.isEdicolaPromo = isEdicolaPromo;
+	}
+
+	public Boolean getViewImageByProfile() {
+		return viewImageByProfile;
+	}
+
+	public void setViewImageByProfile(Boolean viewImageByProfile) {
+		this.viewImageByProfile = viewImageByProfile;
+	}
+
+	public Integer getRoleIdProfile() {
+		return roleIdProfile;
+	}
+
+	public void setRoleIdProfile(Integer roleIdProfile) {
+		this.roleIdProfile = roleIdProfile;
+	}
+
+	public String getRoleNameProfile() {
+		return roleNameProfile;
+	}
+
+	public void setRoleNameProfile(String roleNameProfile) {
+		this.roleNameProfile = roleNameProfile;
+	}
+
+	public GruppoModuliVo getGruppoModuliVo() {
+		return gruppoModuliVo;
+	}
+
+	public void setGruppoModuliVo(GruppoModuliVo gruppoModuliVo) {
+		this.gruppoModuliVo = gruppoModuliVo;
+	}
+
+	public Boolean getCheckConsegneGazzetta() {
+		return checkConsegneGazzetta;
+	}
+
+	public void setCheckConsegneGazzetta(Boolean checkConsegneGazzetta) {
+		this.checkConsegneGazzetta = checkConsegneGazzetta;
+	}
+
+	public Boolean getAccettoResaCD() {
+		return accettoResaCD;
+	}
+
+	public void setAccettoResaCD(Boolean accettoResaCD) {
+		this.accettoResaCD = accettoResaCD;
+	}
+
+	public void setRagioneSocialeDl(String ragioneSocialeDl) {
+		this.ragioneSocialeDl = ragioneSocialeDl;
+	}
+
+	public void setRagioneSocialeEdicola(String ragioneSocialeEdicola) {
+		this.ragioneSocialeEdicola = ragioneSocialeEdicola;
+	}
+
+	public void setIndirizzoEdicolaPrimaRiga(String indirizzoEdicolaPrimaRiga) {
+		this.indirizzoEdicolaPrimaRiga = indirizzoEdicolaPrimaRiga;
+	}
+
+	public void setIndirizzoAgenziaPrimaRiga(String indirizzoAgenziaPrimaRiga) {
+		this.indirizzoAgenziaPrimaRiga = indirizzoAgenziaPrimaRiga;
+	}
+
+	public void setLocalitaEdicolaPrimaRiga(String localitaEdicolaPrimaRiga) {
+		this.localitaEdicolaPrimaRiga = localitaEdicolaPrimaRiga;
+	}
+
+	public void setProvinciaEdicola(String provinciaEdicola) {
+		this.provinciaEdicola = provinciaEdicola;
+	}
+
+	public void setCapEdicola(String capEdicola) {
+		this.capEdicola = capEdicola;
+	}
+
+	public void setLocalitaAgenziaPrimaRiga(String localitaAgenziaPrimaRiga) {
+		this.localitaAgenziaPrimaRiga = localitaAgenziaPrimaRiga;
+	}
+
+	public void setProvinciaAgenzia(String provinciaAgenzia) {
+		this.provinciaAgenzia = provinciaAgenzia;
+	}
+
+	public void setCapAgenzia(String capAgenzia) {
+		this.capAgenzia = capAgenzia;
+	}
+
+	public void setPivaAgenzia(String pivaAgenzia) {
+		this.pivaAgenzia = pivaAgenzia;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setNumMaxCpuResaDimenticata(Integer numMaxCpuResaDimenticata) {
+		this.numMaxCpuResaDimenticata = numMaxCpuResaDimenticata;
+	}
+
+	public void setUserSalt(String userSalt) {
+		this.userSalt = userSalt;
+	}
+
+	public void setVisualizzaSemaforoGiacenza(Boolean visualizzaSemaforoGiacenza) {
+		this.visualizzaSemaforoGiacenza = visualizzaSemaforoGiacenza;
+	}
+
+	public void setDataStorico(Timestamp dataStorico) {
+		this.dataStorico = dataStorico;
+	}
+
+	public void setEmailValido(boolean emailValido) {
+		this.emailValido = emailValido;
+	}
+
+	public void setAbilitataCorrezioneBarcode(Boolean abilitataCorrezioneBarcode) {
+		this.abilitataCorrezioneBarcode = abilitataCorrezioneBarcode;
+	}
+
+	public void setHasEdicoleAutorizzateAggiornaBarcode(Boolean hasEdicoleAutorizzateAggiornaBarcode) {
+		this.hasEdicoleAutorizzateAggiornaBarcode = hasEdicoleAutorizzateAggiornaBarcode;
+	}
+
+	public void setEdicolaTestPerModifiche(Boolean edicolaTestPerModifiche) {
+		this.edicolaTestPerModifiche = edicolaTestPerModifiche;
+	}
+
+	public void setSpuntaObbligatoriaBollaConsegna(Boolean spuntaObbligatoriaBollaConsegna) {
+		this.spuntaObbligatoriaBollaConsegna = spuntaObbligatoriaBollaConsegna;
+	}
+
+	public void setSuddivisioneQuotidianiPeriodiciReportVenduto(Boolean suddivisioneQuotidianiPeriodiciReportVenduto) {
+		this.suddivisioneQuotidianiPeriodiciReportVenduto = suddivisioneQuotidianiPeriodiciReportVenduto;
+	}
+
+	public void setHasLivellamenti(Boolean hasLivellamenti) {
+		this.hasLivellamenti = hasLivellamenti;
 	}
 
 }

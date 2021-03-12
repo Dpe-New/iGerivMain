@@ -23,7 +23,7 @@
 		class="it.dpe.igeriv.resources.ExposablePropertyPaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>file:/C:/igeriv/iGeriv.properties</value>
+				<value>file:/${IGERIV_PATH}/iGeriv.properties</value>
 				<value>file:/D:/apache-activemq-5.6.0/conf/credentials-enc.properties</value>
 			</list>
 		</property>

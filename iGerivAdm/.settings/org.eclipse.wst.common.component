@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
-    <wb-module deploy-name="igeriv-adm">
                 
-        <wb-resource deploy-path="/WEB-INF/web.xml" source-path="/target/jspweb.xml"/>
-                
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                
-        <property name="context-root" value="igeriv-adm"/>
-                
-        <property name="java-output-path" value="/igeriv-adm/target/classes"/>
-                
-        <property name="component.exclusion.patterns" value="${packaging.exclude.files}WEB-INF/web_CDL.xml,WEB-INF/web_MENTA.xml,WEB-INF/web_CDL.xml,WEB-INF/web_iGeriv.xml,WEB-INF/web_Chiminelli.xml,WEB-INF/web_DPNA.xml,favicon_CDL.ico,favicon_iGeriv.ico,META-INF/context_CDL.xml,META-INF/context_Chiminelli.xml,META-INF/context_MENTA.xml,META-INF/context_DPNA.xml,META-INF/context_iGeriv.xml,WEB-INF/classes/,WEB-INF/jsp/,WEB-INF/index.jsp,WEB-INF/lib/mail*.jar"/>
-            
-    </wb-module>
     
+    
+    <wb-module deploy-name="igeriv-adm">
+                                
+        
+        
+        <wb-resource deploy-path="/WEB-INF/web.xml" source-path="/target/jspweb.xml"/>
+                                
+        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+                                
+        
+        
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+                                
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+                                
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+                                
+        
+        
+        <property name="context-root" value="igeriv-adm"/>
+                                
+        
+        
+        <property name="java-output-path" value="/igeriv-adm/target/classes"/>
+                                
+        
+        
+        <property name="component.exclusion.patterns" value="${packaging.exclude.files}WEB-INF/web_CDL.xml,WEB-INF/web_MENTA.xml,WEB-INF/web_CDL.xml,WEB-INF/web_iGeriv.xml,WEB-INF/web_Chiminelli.xml,WEB-INF/web_DPNA.xml,favicon_CDL.ico,favicon_iGeriv.ico,META-INF/context_CDL.xml,META-INF/context_Chiminelli.xml,META-INF/context_MENTA.xml,META-INF/context_DPNA.xml,META-INF/context_iGeriv.xml,WEB-INF/classes/,WEB-INF/jsp/,WEB-INF/index.jsp,WEB-INF/lib/mail*.jar"/>
+                            
+    
+    
+    </wb-module>
+            
+
+
 </project-modules>

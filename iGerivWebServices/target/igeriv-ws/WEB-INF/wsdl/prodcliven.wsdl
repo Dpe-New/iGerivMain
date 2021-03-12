@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://it.dpe.igeriv/prod/client/ven/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sch="http://it.dpe.igeriv/prod/client/ven/schemas" targetNamespace="http://it.dpe.igeriv/prod/client/ven/schemas">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:pcv="http://it.dpe.igeriv/prod/client/ven/schemas" elementFormDefault="qualified" targetNamespace="http://it.dpe.igeriv/prod/client/ven/schemas">	
+	
+	<xs:element name="ProdottiClientVenditeRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" name="coddl" type="xs:integer"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="ProdottiClientVenditeResponse">
+		<xs:complexType>
+         <xs:sequence>
+         	<xs:element maxOccurs="1" minOccurs="1" name="edicola" type="pcv:Edicola"/>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="listProdotti" type="pcv:ProdottoClientVendite"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="state" type="xs:integer"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="message" type="xs:string"/>
+         </xs:sequence>
+      </xs:complexType>
+	</xs:element>
+    
+    <xs:complexType name="Edicola">
+		<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" name="nome" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="localita" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="provincia" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="cap" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="indirizzo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>	
+	
+	<xs:complexType name="ProdottoClientVendite">
+		<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" name="barcode" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="idtn" type="xs:integer"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="titolo" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="sottotitolo" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="dataUscita" type="xs:date"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="numeroCopertina" type="xs:string"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="prezzo" type="xs:decimal"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="coddl" type="xs:integer"/>
+				<xs:element minOccurs="1" maxOccurs="1" name="cpu" type="xs:integer" />
+				<xs:element minOccurs="0" maxOccurs="1" name="ciq" type="xs:integer" />
+				<xs:element minOccurs="0" maxOccurs="1" name="cfq" type="xs:integer" />
+		</xs:sequence>
+	</xs:complexType>		
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ProdottiClientVenditeResponse">
+    <wsdl:part element="tns:ProdottiClientVenditeResponse" name="ProdottiClientVenditeResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProdottiClientVenditeRequest">
+    <wsdl:part element="tns:ProdottiClientVenditeRequest" name="ProdottiClientVenditeRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="it.dpe.igeriv/prod/client/ven/schemas">
+    <wsdl:operation name="ProdottiClientVendite">
+      <wsdl:input message="tns:ProdottiClientVenditeRequest" name="ProdottiClientVenditeRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ProdottiClientVenditeResponse" name="ProdottiClientVenditeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="it.dpe.igeriv/prod/client/ven/schemasSoap11" type="tns:it.dpe.igeriv/prod/client/ven/schemas">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ProdottiClientVendite">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ProdottiClientVenditeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ProdottiClientVenditeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="it.dpe.igeriv/prod/client/ven/schemasService">
+    <wsdl:port binding="tns:it.dpe.igeriv/prod/client/ven/schemasSoap11" name="it.dpe.igeriv/prod/client/ven/schemasSoap11">
+      <soap:address location="http://localhost:8080/igeriv-ws/ws/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
-    <wb-module deploy-name="igeriv-ws">
-                
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                
-        <property name="context-root" value="${app.build.warname}"/>
-                
-        <property name="java-output-path" value="/igeriv-ws/target/classes"/>
-                
-        <property name="component.exclusion.patterns" value="${packaging.exclude.files}META-INF/context_CDL.xml,META-INF/context_iGeriv.xml,WEB-INF/classes/,WEB-INF/web_iGeriv.xml,WEB-INF/jsp/,WEB-INF/index.jsp,WEB-INF/lib/mail*.jar"/>
-            
-    </wb-module>
+                    
     
+    
+    
+    <wb-module deploy-name="igeriv-ws">
+                                        
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+                                        
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+                                        
+        
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+                                        
+        
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="igeriv-service-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/igeriv-service/igeriv-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                                        
+        
+        
+        
+        <property name="context-root" value="${app.build.warname}"/>
+                                        
+        
+        
+        
+        <property name="java-output-path" value="/igeriv-ws/target/classes"/>
+                                        
+        
+        
+        
+        <property name="component.exclusion.patterns" value="${packaging.exclude.files}META-INF/context_CDL.xml,META-INF/context_iGeriv.xml,WEB-INF/classes/,WEB-INF/web_iGeriv.xml,WEB-INF/jsp/,WEB-INF/index.jsp,WEB-INF/lib/mail*.jar"/>
+                                    
+    
+    
+    
+    </wb-module>
+                
+
+
+
 </project-modules>

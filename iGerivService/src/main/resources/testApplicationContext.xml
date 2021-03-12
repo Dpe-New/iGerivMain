@@ -22,7 +22,7 @@
 	<bean id="igerivProperties"
 		class="it.dpe.igeriv.web.resources.ExposablePropertyPaceholderConfigurer">
 		<property name="location">
-			<value>file:/C:/igeriv/iGeriv.properties</value>
+			<value>file:/${IGERIV_PATH}/iGeriv.properties</value>
 		</property>
 	</bean>
 

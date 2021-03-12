@@ -36,7 +36,7 @@ public class InforivRichiestaRifornimentoExporterTest {
 	public void Setup() {
 		mockingContext = new JUnit4Mockery();
 		systemUnderTest = new InforivRichiestaRifornimentoExporter();
-		systemUnderTest.setExportPathDir("C:/igeriv/edicole/inforiv/out");
+		systemUnderTest.setExportPathDir("${IGERIV_PATH}/edicole/inforiv/out");
 		iGerivBo = mockingContext.mock(IGerivBatchService.class);
 		exportBo = mockingContext.mock(InforivExportService.class);
 		fixedFormatManagerTest = mockingContext.mock(FixedFormatManager.class);

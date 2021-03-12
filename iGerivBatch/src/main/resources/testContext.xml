@@ -36,8 +36,8 @@
 		class="it.dpe.igeriv.resources.ExposablePropertyPaceholderConfigurer">
 		<beans:property name="locations">
 			<beans:list>
-				<beans:value>file:/C:/igeriv/iGeriv.properties</beans:value>
-				<beans:value>file:C:/apache-activemq-5.6.0/conf/credentials-enc.properties</beans:value>
+				<beans:value>file:/${IGERIV_PATH}/iGeriv.properties</beans:value>
+				<beans:value>file:/${ACTIVEMQ_PATH}/conf/credentials-enc.properties</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
@@ -57,8 +57,8 @@
 		<beans:constructor-arg ref="configurationEncryptor" />
 		<beans:property name="locations">
 			<beans:list>
-				<beans:value>file:/C:/igeriv/iGeriv.properties</beans:value>
-				<beans:value>file:C:/apache-activemq-5.6.0/conf/credentials-enc.properties</beans:value>
+				<beans:value>file:/${IGERIV_PATH}/iGeriv.properties</beans:value>
+				<beans:value>file:${ACTIVE_MQ}/conf/credentials-enc.properties</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
