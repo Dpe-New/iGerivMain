@@ -1,9 +1,8 @@
-#!/bin/bash
-#merge
+@echo off
 git config pull.rebase false 
 git add .
 git add -u .
-git commit -m "Paolo Workstation Linux"
+git commit -m "Adolfo IGeriv"
 git pull
 git commit
 git push
@@ -11,4 +10,4 @@ echo .
 echo .
 echo .
 echo "battere invio per continuare"
-read
+pause
