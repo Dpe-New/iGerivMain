@@ -17,7 +17,7 @@
 	<!-- Definizione dei profili usati nel build, da chiamare nella command line: -P id_profilo -->
 	<profiles>
 		<profile>
-			<id>dpe</id>
+			<id>eng</id>
 			<activation>
 				<property>
 					<name>env</name>

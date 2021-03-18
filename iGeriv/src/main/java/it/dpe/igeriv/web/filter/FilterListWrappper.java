@@ -16,6 +16,8 @@ import org.springframework.web.filter.GenericFilterBean;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 @Component("filterListWrappper")
 public class FilterListWrappper extends GenericFilterBean {
 	private List<GenericFilterBean> filterList = new ArrayList<GenericFilterBean>();
@@ -41,13 +43,6 @@ public class FilterListWrappper extends GenericFilterBean {
 			filterChains.add(loopChain);
 		}
 		filterChains.lastElement().doFilter(request, response);
-	}
-	public void setFilterList(List<GenericFilterBean> filterList) {
-		this.filterList = filterList;
-	}
-	
-	public List<GenericFilterBean> getFilterList() {
-		return filterList;
 	}
 
 }

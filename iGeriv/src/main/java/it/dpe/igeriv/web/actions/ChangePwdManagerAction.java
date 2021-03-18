@@ -90,6 +90,24 @@ public class ChangePwdManagerAction extends RestrictedAccessBaseAction implement
 		userVo.setChangePassword(0);
 		userVo.setPwdCriptata(1);
 		accountService.saveBaseVo(userVo);
+
+		/*if (getAuthUser() != null && getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) {
+			Integer[] arrId = getAuthUser().getArrId();
+			if (arrId.length > 1) {
+				for (Integer idCorr: arrId) {
+					if (!idCorr.toString().equals(id)) {
+						UserVo userCorrVo = accountService.getEdicolaByCodice(idCorr.toString());
+						if (userCorrVo != null) {
+							userCorrVo.setPwd(pwd);
+							userCorrVo.setChangePassword(0);
+							userCorrVo.setPwdCriptata(1);
+							accountService.saveBaseVo(userCorrVo);
+						}
+					}
+				}
+			}
+		}*/
+
 		SecurityContextHolder.clearContext();
 		return IGerivConstants.REDIRECT;
 	}

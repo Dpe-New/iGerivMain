@@ -53,7 +53,7 @@
 		<property name="locations">
 			<list>
 				<value>file:/${IGERIV_PATH}/iGeriv.properties</value>
-				<value>file:/${ACTIVE_MQ}/conf/credentials-enc.properties</value>
+				<value>file:/${ACTIVEMQ_PATH}/conf/credentials-enc.properties</value>
 			</list>
 		</property>
 	</bean>

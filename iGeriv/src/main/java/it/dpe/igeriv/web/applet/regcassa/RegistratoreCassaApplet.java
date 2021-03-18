@@ -149,7 +149,6 @@ public class RegistratoreCassaApplet extends Applet {
 		super.init();
 		Logger.getLogger("foo");
 		logger = Logger.getAnonymousLogger();
-		
 		window = JSObject.getWindow(this);
 		parentFrame = getParentFrame(this);
 		centerWindow(parentFrame);

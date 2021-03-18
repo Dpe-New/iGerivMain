@@ -2,10 +2,16 @@ iGeriv/target/
 iGeriv/WebContent/css
 iGeriv/WebContent/js-transient
 iGerivAdm/target/
+iGerivAdm/WebContent/css
+iGerivAdm/WebContent/js-transient
 iGerivBatch/target/
 iGerivCleaner/target/
 iGerivCliente/target/
+iGerivCliente/WebContent/css
+iGerivCliente/WebContent/js-transient
 iGerivDl/target/
+iGerivDl/WebContent/css
+iGerivDl/WebContent/js-transient
 iGerivService/target/
 iGerivWebService/target/
 

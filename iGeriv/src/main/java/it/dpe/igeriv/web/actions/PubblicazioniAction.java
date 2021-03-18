@@ -280,7 +280,7 @@ public class PubblicazioniAction<T extends BaseVo> extends
 			sottotitolo = (sottotitolo != null && !sottotitolo.equals(""))?"%"+sottotitolo+"%":sottotitolo;	
 		}
 				
-		listPubblicazioni = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), codDl, getAuthUser().getArrId(), titolo, sottotitolo, argomento, periodicita, prezzoBd, codPubblicazioneInt, codBarre, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore);
+		listPubblicazioni = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), codDl, getAuthUser().getArrId(), titolo, sottotitolo, argomento, periodicita, prezzoBd, codPubblicazioneInt, codBarre, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore, getAuthUser().getAgenziaFatturazione(), getAuthUser().getEdSecCintura(), getAuthUser().getDtPartSecondaCintura());
 		final List<Integer> listCodFiegDl = Arrays.asList(getAuthUser().getArrCodFiegDl());
 		CollectionUtils.forAllDo(listPubblicazioni, new Closure() {
 			public void execute(final Object obj) {
@@ -312,15 +312,23 @@ public class PubblicazioniAction<T extends BaseVo> extends
 		Integer int_anagEditore = (anagEditore != null && !anagEditore.equals("")) ? Integer.parseInt(anagEditore) : null;
 		
 		BigDecimal prezzoBd = (prezzo != null && !prezzo.equals("")) ? new BigDecimal(prezzo) : null;
-		Integer[] codDl = (getAuthUser().isMultiDl() || (getAuthUser().isDlInforiv() && getAuthUser().getTipoUtente().equals(IGerivConstants.TIPO_UTENTE_CLIENTE_EDICOLA))) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		//Integer[] codDl = (getAuthUser().isMultiDl() || (getAuthUser().isDlInforiv() && getAuthUser().getTipoUtente().equals(IGerivConstants.TIPO_UTENTE_CLIENTE_EDICOLA))) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		// Vittorio 26/08/2020
+		Integer[] codDl = ((getAuthUser().isMultiDl() && !getAuthUser().getGesSepDevTod()) || (getAuthUser().isDlInforiv() && getAuthUser().getTipoUtente().equals(IGerivConstants.TIPO_UTENTE_CLIENTE_EDICOLA))) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
 		
 		ParametriEdicolaVo paramModalitaRicerca = edicoleService.getParametroEdicola(getAuthUser().getCodEdicolaMaster(), IGerivConstants.COD_PARAMETRO_RICERCA_MODALITA_CONTENUTO);
 		if (paramModalitaRicerca != null && paramModalitaRicerca.getValue().equals("true")) {
 			titolo = (titolo != null && !titolo.equals(""))?"%"+titolo+"%":titolo;
 			sottotitolo = (sottotitolo != null && !sottotitolo.equals(""))?"%"+sottotitolo+"%":sottotitolo;	
 		}
-		listPubblicazioni = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), codDl, getAuthUser().getArrId(), titolo, sottotitolo, argomento, periodicita, prezzoBd, codPubblicazioneInt, codBarre, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore);
 		
+		if (getAuthUser().getEdSecCintura() != null && getAuthUser().getEdSecCintura()) {
+			listPubblicazioni = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), codDl, getAuthUser().getArrId(), titolo, sottotitolo, argomento, periodicita, prezzoBd, codPubblicazioneInt, codBarre, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore, null, null, null);
+			
+		} else {
+			listPubblicazioni = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), codDl, getAuthUser().getArrId(), titolo, sottotitolo, argomento, periodicita, prezzoBd, codPubblicazioneInt, codBarre, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore,getAuthUser().getGesSepDevTod() ? getAuthUser().getAgenziaFatturazione() : null, null, null);
+		}
+
 		final List<Integer> listCodFiegDl = Arrays.asList(getAuthUser().getArrCodFiegDl());
 		CollectionUtils.forAllDo(listPubblicazioni, new Closure() {
 			public void execute(final Object obj) {
@@ -351,7 +359,7 @@ public class PubblicazioniAction<T extends BaseVo> extends
 			titolo = (titolo != null && !titolo.equals(""))?"%"+titolo+"%":titolo;
 			sottotitolo = (sottotitolo != null && !sottotitolo.equals(""))?"%"+sottotitolo+"%":sottotitolo;	
 		}
-		listPubblicazioni = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), codDl, getAuthUser().getArrId(), titolo, sottotitolo, argomento, periodicita, prezzoBd, codPubblicazioneInt, codBarre, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore);
+		listPubblicazioni = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), codDl, getAuthUser().getArrId(), titolo, sottotitolo, argomento, periodicita, prezzoBd, codPubblicazioneInt, codBarre, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore,null,null,null);
 		requestMap.put("listPubblicazioni", listPubblicazioni);
 		if (listPubblicazioni == null || listPubblicazioni.isEmpty()) {
 			nessunRisultato = getText("igeriv.nessun.risultato");
@@ -394,7 +402,7 @@ public class PubblicazioniAction<T extends BaseVo> extends
 		Integer codPubblicazioneInt = (codPubblicazione != null && !codPubblicazione.equals("")) ? Integer.parseInt(codPubblicazione) : null;
 		Integer int_anagEditore = (anagEditore != null && !anagEditore.equals("")) ? Integer.parseInt(anagEditore) : null;
 		
-		listPubblicazioni = pubblicazioniService.getCopertine(false, false, true, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, null, null, codPubblicazioneInt, null, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore);
+		listPubblicazioni = pubblicazioniService.getCopertine(false, false, true, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, null, null, codPubblicazioneInt, null, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore,null,null,null);
 		requestMap.put("listPubblicazioni", listPubblicazioni);
 		if (listPubblicazioni.size() > 0) {
 			String titolo = ((PubblicazioneDto) listPubblicazioni.get(0)).getTitolo();
@@ -409,7 +417,7 @@ public class PubblicazioniAction<T extends BaseVo> extends
 		Integer int_anagEditore = (anagEditore != null && !anagEditore.equals("")) ? Integer.parseInt(anagEditore) : null;
 		
 		if (codPubblicazioneInt != null) {
-			listPubblicazioni = pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, codPubblicazioneInt, null, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore);
+			listPubblicazioni = pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, codPubblicazioneInt, null, false, dataStorico, getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),int_anagEditore,null,null,null);
 			Integer idtn = Strings.isNullOrEmpty(this.idtn) ? null : new Integer(this.idtn);
 			if (idtn != null) {
 				PubblicazioneDto copertina = selectUnique(listPubblicazioni, having(on(PubblicazioneDto.class).getIdtn(), equalTo(idtn)));
@@ -490,8 +498,10 @@ public class PubblicazioniAction<T extends BaseVo> extends
 	@SkipValidation
 	public String reportContoDeposito() {
 		actionName = "infoPubblicazioni_reportContoDeposito.action";
-		List<ContoDepositoDto> listContoDeposito = pubblicazioniService.getPubblicazioniContoDeposito(getAuthUser().getArrCodFiegDl(), 
-				getAuthUser().getArrId(), getAuthUser().getGruppoSconto(), titolo, codBarre);
+		Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+		List<ContoDepositoDto> listContoDeposito = pubblicazioniService.getPubblicazioniContoDeposito(arrCodFiegDl, 
+				arrId, getAuthUser().getGruppoSconto(), titolo, codBarre);
 		requestMap.put("listContoDeposito", listContoDeposito);
 		tableTitle = getText("igeriv.pubblicazioni.conto.deposito");
 		return IGerivConstants.ACTION_REPORT_CONTO_DEPOSITO;

@@ -409,7 +409,7 @@ public class JSONAction<T extends BaseVo> extends RestrictedAccessBaseAction imp
 			PubblicazionePiuVendutaDto pubblicazionePiuVendutaByCpu = pubblicazioniService.getPubblicazionePiuVendutaByCpu(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), cpu);
 			if (getAuthUser().getEdicolaDeviettiTodis()) {
 				pubblicazionePiuVendutaByCpu = null;
-				 List<PubblicazioneDto> list = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, null, null, cpu, null, false, getAuthUser().getDataStorico(), getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),null);
+				 List<PubblicazioneDto> list = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, null, null, cpu, null, false, getAuthUser().getDataStorico(), getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(), null, null, null, null);
 				 if (list != null && !list.isEmpty()) {
 					 Set<Integer> cpuBarreSceltaRapidaPubblicazioni = pubblicazioniService.getCpuBarreSceltaRapidaPubblicazioni(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId());
 					 if (cpuBarreSceltaRapidaPubblicazioni != null && cpuBarreSceltaRapidaPubblicazioni.size() > 0) {
@@ -1646,14 +1646,43 @@ public class JSONAction<T extends BaseVo> extends RestrictedAccessBaseAction imp
 				
 				//StoricoCopertineVo copertinaVo = pubblicazioniService.getStoricoCopertinaByBarcode(getAuthUser().getCodFiegDl(), barcode);
 				// 01/03/2017 Edismart multidl
-				StoricoCopertineVo copertinaVo = pubblicazioniService.getStoricoCopertinaByBarcode(getAuthUser().getArrCodFiegDl(), barcode);
-										
-//				if (cpu != null) {
+
+				// Vittorio 26/08/2020
+				//StoricoCopertineVo copertinaVo = pubblicazioniService.getStoricoCopertinaByBarcode(getAuthUser().getArrCodFiegDl(), barcode);
+				Integer[] codDl = ((getAuthUser().isMultiDl() && !getAuthUser().getGesSepDevTod()) || (getAuthUser().isDlInforiv() && getAuthUser().getTipoUtente().equals(IGerivConstants.TIPO_UTENTE_CLIENTE_EDICOLA))) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+				Integer agenziaFatturazione = getAuthUser().getAgenziaFatturazione();
+
+				String errMsgPubblicazioneNonFornitaDalDlDiCompetenza = null;
+
+				StoricoCopertineVo copertinaVo = pubblicazioniService.getStoricoCopertinaByBarcode(codDl, barcode);
+				
+				if (copertinaVo != null && getAuthUser().isMultiDl() && getAuthUser().getGesSepDevTod() && agenziaFatturazione != null) {
+					Boolean editoreComune = IGerivUtils.isFornitoreDevTodisComune(copertinaVo.getAnagraficaPubblicazioniVo().getCodFornitore()); 
+					if (editoreComune) {
+						if (agenziaFatturazione == 2 && getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_DEVIETTI)) {
+							errMsgPubblicazioneNonFornitaDalDlDiCompetenza = getText("error.pubblicazione.non.fornita.dal.dl.corrente.1");
+						}
+						// TODO SECONDA CINTURA
+						Boolean isEdicolaSecondaCintura = getAuthUser().getEdSecCintura();
+						Timestamp dtPartenzaSecondaCintura = getAuthUser().getDtPartSecondaCintura();
+						Timestamp dataUscita = copertinaVo.getDataUscita();
+						if (isEdicolaSecondaCintura != null && isEdicolaSecondaCintura && dtPartenzaSecondaCintura != null && dataUscita != null) {
+							if (getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_DEVIETTI) && dataUscita.compareTo(dtPartenzaSecondaCintura)>=0) {
+								errMsgPubblicazioneNonFornitaDalDlDiCompetenza = getText("error.pubblicazione.non.fornita.dal.dl.corrente.1");
+							}
+							if (getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_TODIS) && dataUscita.compareTo(dtPartenzaSecondaCintura)<0) {
+								errMsgPubblicazioneNonFornitaDalDlDiCompetenza = getText("error.pubblicazione.non.fornita.dal.dl.corrente.1");
+							}
+							
+						}
+					}
+				}
+				
 				if (copertinaVo != null) {
 					Integer cpu = copertinaVo.getCodicePubblicazione();
 					Integer codFiegDl = getAuthUser().getCodFiegDl();
 					Integer codEdicola = getAuthUser().getId();
-					if (getAuthUser().isMultiDl()) {
+					if (getAuthUser().isMultiDl() && !getAuthUser().getGesSepDevTod()) {
 						PubblicazioneDto copertinaByBarcode = pubblicazioniService.getCopertinaByCpuNum(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), cpu, copertinaVo.getComplementoDistribuzione(), copertinaVo.getNumeroCopertina(), getAuthUser().isMultiDl());
 						if (copertinaByBarcode != null) {
 							codFiegDl = copertinaByBarcode.getCoddl();
@@ -1686,7 +1715,6 @@ public class JSONAction<T extends BaseVo> extends RestrictedAccessBaseAction imp
 						vo.getCodMotivoRespinto() != null) {
 						pubbDaRespingere = vo.getCodMotivoRespinto() > 0 && (vo.getCodMotivoRespinto() != 2 || controllonNuovo);
 					}
-					String errMsgPubblicazioneNonFornitaDalDlDiCompetenza = null;
 					if (getAuthUser().getEdicolaDeviettiTodis() && !getAuthUser().getEdicolaTestPerModifiche()) {
 						List<PubblicazioneDto> listCopertine = pubblicazioniService.getCopertineByTitoloBarcodeCpu(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, true, false, new Integer(cpu), null, null, null, null, getAuthUser().isDlInforiv());
 						if (listCopertine.isEmpty() || (!listCopertine.isEmpty() && !listCopertine.get(0).getCoddl().equals(codFiegDl))) {

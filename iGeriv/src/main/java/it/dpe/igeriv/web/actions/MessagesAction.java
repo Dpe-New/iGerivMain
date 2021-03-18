@@ -430,7 +430,8 @@ public class MessagesAction<T extends BaseVo> extends
 				emails = extract(emailDlList, on(EmailDlDto.class).getEmail());
 				destinatari = extract(emailDlList, on(EmailDlDto.class).getNome());
 			} else {
-				emails = Arrays.asList(sessionMap.get(IGerivConstants.SESSION_VAR_EMAIL_DL).toString());
+				//emails = Arrays.asList(sessionMap.get(IGerivConstants.SESSION_VAR_EMAIL_DL).toString());
+				emails = Arrays.asList(getAuthUser().getEmailDl());
 			}
 			File out = null; 
 			String fileName = null;

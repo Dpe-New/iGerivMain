@@ -44,6 +44,11 @@ public class IGerivDaoAuthenticationProvider extends DaoAuthenticationProvider{
         	bNotAuthenticated = !userDetails.getPassword().equals(presentedPassword);
         }
         
+        
+        //VITTORIO 29/06/20 TOGLIERE !!!!!!!!
+        //bNotAuthenticated = false;
+        
+        
         if (((UserAbbonato) userDetails).isPwdCriptata() && bNotAuthenticated) {
         	salt = "" + ((((UserAbbonato) userDetails).getId() + NumberUtils.getOnlyNumerics(((UserAbbonato) userDetails).getCodUtente())) * IGerivConstants.ENCODE_FACTOR);
         	bNotAuthenticated = !getPasswordEncoder().isPasswordValid(userDetails.getPassword(), presentedPassword, salt);

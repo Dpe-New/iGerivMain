@@ -1,5 +1,6 @@
 package it.dpe.igeriv.web.extremecomponents;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -9,7 +10,9 @@ import org.extremecomponents.table.bean.Column;
 import org.extremecomponents.table.cell.DisplayCell;
 import org.extremecomponents.table.core.TableModel;
 
+import it.dpe.igeriv.dto.BollaDettaglioDto;
 import it.dpe.igeriv.util.DPEWebContants;
+import it.dpe.igeriv.util.DateUtilities;
 import it.dpe.igeriv.util.IGerivConstants;
 
 public class DpeDisplayCell extends DisplayCell {
@@ -19,14 +22,23 @@ public class DpeDisplayCell extends DisplayCell {
 		Object bean = model.getCurrentRowBean();
 		try {
 			if (column.getAlias().equals("tipoFondoBolla")) {
-				String property = null; 
+				String property = null;
+				Timestamp dataFatturazione = null;
 				try {
 					property = BeanUtils.getProperty(bean, "indicatoreValorizzare");
 				} catch (NoSuchMethodException e) {}
+				if (bean instanceof BollaDettaglioDto) {
+					BollaDettaglioDto dto = (BollaDettaglioDto)bean;
+					dataFatturazione = dto.getDataFatturazionePrevista();
+				}
 				Integer indicatoreValorizzare = (property != null) ? Integer.valueOf(property) : null;
 				if (indicatoreValorizzare != null) {
 					if (indicatoreValorizzare.equals(IGerivConstants.INDICATORE_CONTO_DEPOSITO)) {
-						return model.getMessages().getMessage(IGerivConstants.CONTO_DEPOSITO);
+						String result = model.getMessages().getMessage(IGerivConstants.CONTO_DEPOSITO);
+						if (dataFatturazione != null) {
+							result += " " + DateUtilities.getTimestampAsString(dataFatturazione, "dd-MM-yyyy");
+						}
+						return result;
 					} else if (indicatoreValorizzare.equals(IGerivConstants.INDICATORE_NON_VALORIZZARE)) {
 						return model.getMessages().getMessage(IGerivConstants.NON_VALORIZZARE);
 					} 

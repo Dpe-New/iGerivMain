@@ -2,7 +2,7 @@
 <project name="maven-antrun-" default="main"  >
 <target name="main">
   <pathconvert pathsep=" " property="runtimelibs.path">
-    <fileset dir="C:\work_java\workspace\iGerivMain\iGerivWebServices/target/igeriv-ws/WEB-INF/lib">
+    <fileset dir="C:\Progetti\Java\Web\work_java\workspace\iGerivMain\iGerivWebServices/target/igeriv-ws/WEB-INF/lib">
       <include name="*.jar"/>
     </fileset>
     <mapper>
@@ -12,8 +12,8 @@
       </chainedmapper>
     </mapper>
   </pathconvert>
-  <jar destfile="C:\work_java\workspace\iGerivMain\iGerivWebServices/target/igeriv-ws/WEB-INF/lib/classes.jar">
-    <fileset dir="C:\work_java\workspace\iGerivMain\iGerivWebServices\target\classes">
+  <jar destfile="C:\Progetti\Java\Web\work_java\workspace\iGerivMain\iGerivWebServices/target/igeriv-ws/WEB-INF/lib/classes.jar">
+    <fileset dir="C:\Progetti\Java\Web\work_java\workspace\iGerivMain\iGerivWebServices\target\classes">
       <include name="**/*"/>
     </fileset>
     <manifest>
@@ -21,7 +21,7 @@
       <attribute name="Class-Path" value="${runtimelibs.path}"/>
     </manifest>
   </jar>
-  <copy file="C:\work_java\workspace\iGerivMain\iGerivWebServices/WebContent/META-INF/context_iGeriv.xml" tofile="C:\work_java\workspace\iGerivMain\iGerivWebServices\target/igeriv-ws/META-INF/context.xml" overwrite="true"/>
-  <property file="C:\work_java\workspace\iGerivMain\iGerivWebServices/src/main/resources/package_it.properties"/>
+  <copy file="C:\Progetti\Java\Web\work_java\workspace\iGerivMain\iGerivWebServices/WebContent/META-INF/context_iGeriv.xml" tofile="C:\Progetti\Java\Web\work_java\workspace\iGerivMain\iGerivWebServices\target/igeriv-ws/META-INF/context.xml" overwrite="true"/>
+  <property file="C:\Progetti\Java\Web\work_java\workspace\iGerivMain\iGerivWebServices/src/main/resources/package_it.properties"/>
 </target>
 </project>

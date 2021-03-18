@@ -106,9 +106,10 @@ public class DeviettiTodisEdicoleFilter extends GenericFilterBean {
 					if(!ua.getEdicolaIlChiosco() && !ua.isEdicolaCDLBologna()){
 						
 						// vittorio 09/11/2018 ????
-						if (ua.getModuli().get(0).size() > 4) {
-							ua.getModuli().get(0).get(4).remove(selectFirst(flatten, having(on(MenuModuloVo.class).getTitolo(), equalTo(IGerivMessageBundle.get("igeriv.menu.88")))));
-						}
+						// Vittorio 26/08/2020
+						//if (ua.getModuli().get(0).size() > 4) {
+						//	ua.getModuli().get(0).get(4).remove(selectFirst(flatten, having(on(MenuModuloVo.class).getTitolo(), equalTo(IGerivMessageBundle.get("igeriv.menu.88")))));
+						//}
 					}
 				for (String uri : uriListFilterDlSingolo) {
 					if (currentUri.endsWith(uri)) {

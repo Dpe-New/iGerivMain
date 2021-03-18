@@ -158,6 +158,16 @@ public class IGerivLoginSessionConfigurer {
 		Boolean isProfileBollaResaReadOnly 		=  userVo.getDlGruppoModuliVo().getGruppoModuli().getIsBollaResaReadOnly();
 		session.setAttribute("isProfileBollaResaReadOnly", isProfileBollaResaReadOnly);
 
+		Boolean isDisVarRif =  userVo.getDlGruppoModuliVo().getGruppoModuli().getIsDisVarRif();
+		session.setAttribute("isDisVarRif", isDisVarRif);
+
+		Boolean isDisVisStaRif =  userVo.getDlGruppoModuliVo().getGruppoModuli().getIsDisVisStaRif();
+		session.setAttribute("isDisVisStaRif", isDisVisStaRif);
+
+		Boolean isRicColRes =  userVo.getDlGruppoModuliVo().getGruppoModuli().getIsRicColRes();
+		session.setAttribute("isRicColRes", isRicColRes);
+		
+		
 		//17/01/2016 - Inserito per gestire in CDL il profilo BASIC
 		session.setAttribute("roleIdProfile", userVo.getDlGruppoModuliVo().getGruppoModuli().getId());
 		session.setAttribute("roleNameProfile", userVo.getDlGruppoModuliVo().getGruppoModuli().getRoleName());

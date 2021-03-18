@@ -145,8 +145,13 @@ public class BollaRivenditaSpuntaAction<T extends BaseDto> extends RestrictedAcc
 		String tipo = st.nextToken().replaceFirst(IGerivConstants.TIPO, "").trim();
 		Boolean enabled = Boolean.valueOf(st.nextToken().trim());
 		Timestamp dtBolla = DateUtilities.parseDate(strData, DateUtilities.FORMATO_DATA);
-		Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
-		Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+
+		// Vittorio 26/08/2020
+		//Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		//Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+		Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+		
 		itensBolla = bolleService.getDettaglioBolla(arrCodFiegDl, arrId, dtBolla, tipo, false, getAuthUser().isMultiDl());
 		List<?> dettagliFondoBolla = bolleService.getDettagliFondoBolla(arrCodFiegDl, arrId, dtBolla, tipo, false, true, getAuthUser().isMultiDl());
 		messaggiBolla = messaggiService.getMessaggiBolla(arrCodFiegDl, arrId, dtBolla, tipo);
@@ -265,8 +270,12 @@ public class BollaRivenditaSpuntaAction<T extends BaseDto> extends RestrictedAcc
 	}
 	
 	private void doShowFilter() {
-		Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
-		Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+		// Vittorio 26/08/2020
+		//Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		//Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+		Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+
 		bolleRiassunto = bolleService.getBolleRiassunto(arrCodFiegDl, arrId, null);
 		if (getAuthUser().isMultiDl()) {
 			Collection<BollaRiassuntoVo> selectDistinct = selectDistinct(bolleRiassunto, new Comparator<BollaRiassuntoVo>() {

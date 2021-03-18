@@ -317,6 +317,7 @@ public class LivellamentiAction extends RestrictedAccessBaseAction implements St
 		Integer codEdicolaVenditrice = listLivellamenti.get(0).getEdicola().getCodEdicola();
 		Integer codEdicolaRichiedente = listLivellamenti.get(0).getRichiesta().getEdicolaRichiedente().getCodEdicola();
 		Integer codDLEdicolaRichiedente = listLivellamenti.get(0).getRichiesta().getEdicolaRichiedente().getCoddl();
+		//Integer codDLEdicolaRichiedente = listLivellamenti.get(0).getRichiesta().getCoddl();
 		messaggiService.saveBaseVo(buildMessaggio(codDLEdicolaRichiedente, codEdicolaRichiedente ,getText("igeriv.message.vendita.rete.edicole.aggiornamento")));
 	}
 	

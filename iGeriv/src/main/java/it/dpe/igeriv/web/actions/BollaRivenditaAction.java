@@ -51,12 +51,14 @@ import it.dpe.igeriv.bo.pubblicazioni.PubblicazioniService;
 import it.dpe.igeriv.bo.rifornimenti.RifornimentiService;
 import it.dpe.igeriv.dto.BaseDto;
 import it.dpe.igeriv.dto.BollaDettaglioDto;
+import it.dpe.igeriv.dto.BollaVoDto;
 import it.dpe.igeriv.dto.DateTipiBollaDto;
 import it.dpe.igeriv.dto.FondoBollaDettaglioDto;
 import it.dpe.igeriv.dto.KeyValueDto;
 import it.dpe.igeriv.dto.ParametriEdicolaDto;
 import it.dpe.igeriv.dto.PrenotazioneDto;
 import it.dpe.igeriv.dto.PubblicazioneDto;
+import it.dpe.igeriv.dto.PubblicazioneFornito;
 import it.dpe.igeriv.dto.RichiestaClienteDto;
 import it.dpe.igeriv.dto.RichiestaRifornimentoDto;
 import it.dpe.igeriv.enums.StatoRichiestaLivellamento;
@@ -373,6 +375,44 @@ public class BollaRivenditaAction<T extends BaseDto> extends RestrictedAccessBas
 			Boolean enabled = Boolean.valueOf(st.nextToken().trim());
 			Timestamp dtBolla = DateUtilities.parseDate(strData, DateUtilities.FORMATO_DATA);
 			itensBolla = bolleService.getBollaVoSonoInoltreUscite(getAuthUser().getCodFiegDl(), getAuthUser().getId(), dtBolla, tipo);
+
+			boolean isEdicolaDeviettiTodis = getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_DEVIETTI) || getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_TODIS);
+			Integer agenziaFatturazione = getAuthUser().getAgenziaFatturazione();
+			if (getAuthUser().isMultiDl() && isEdicolaDeviettiTodis && getAuthUser().getGesSepDevTod() && agenziaFatturazione != null && agenziaFatturazione > 0) {
+				Boolean isEdicolaSecondaCintura = getAuthUser().getEdSecCintura();
+				Timestamp dtPartenzaSecondaCintura = getAuthUser().getDtPartSecondaCintura();
+				if (isEdicolaSecondaCintura && dtPartenzaSecondaCintura != null) {
+					if (dtBolla.compareTo(dtPartenzaSecondaCintura)>=0) {
+						agenziaFatturazione = 2;
+					} else {
+						agenziaFatturazione = 1;
+					}
+				}
+
+				Iterator<BollaVoDto> it = (Iterator<BollaVoDto>) itensBolla.iterator();
+				while (it.hasNext()) {
+					BollaVoDto dto = it.next();
+					Boolean editoreComune = iGerivUtils.isFornitoreDevTodisComune(dto.getCodFornitore());
+					
+					//TODO SECONDA CINTURA
+					if (editoreComune) {
+						switch (agenziaFatturazione) {
+						case 1:
+							if ( dto.getPk().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_TODIS)) {
+							    it.remove();
+							}
+							break;
+						case 2:
+							if ( dto.getPk().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_DEVIETTI)) {
+							    it.remove();
+							}
+							break;
+						}
+					}
+						
+				}
+			}
+			
 			int count = 0;
 			for (Object vo : itensBolla) {
 				BeanUtils.setProperty(vo, "rownum", ++count);
@@ -407,9 +447,13 @@ public class BollaRivenditaAction<T extends BaseDto> extends RestrictedAccessBas
 				Integer coddl = Strings.isNullOrEmpty(this.coddl) ? getAuthUser().getCodFiegDl() : new Integer(this.coddl);
 				Integer codEdicola = Strings.isNullOrEmpty(this.coddl) ? getAuthUser().getId() : iGerivUtils.getCorrispondenzaCodEdicolaMultiDl(coddl, getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId());
 				Integer idtnInt = new Integer(idtn);
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("agenziaFatturazione", getAuthUser().getAgenziaFatturazione());
+				params.put("isSecondaCintura", getAuthUser().getEdSecCintura());
+				params.put("dataPartSecCintura", getAuthUser().getDtPartSecondaCintura());
 				//Mod 23/09/2014 -> Rifornimenti per data periodo : idtnInt, getAuthUser().isMultiDl(), dataStorico
 				//Mod 24/09/2014 -> Rifornimenti per data periodo : idtnInt, false, dataStorico
-				richiesteRifornimento = rifornimentiService.getRichiesteRifornimenti(coddl, getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), idtnInt, getAuthUser().isMultiDl(), dataStorico, getAuthUser().getCodFiegDl());
+				richiesteRifornimento = rifornimentiService.getRichiesteRifornimenti(coddl, getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), idtnInt, getAuthUser().isMultiDl(), dataStorico, getAuthUser().getCodFiegDl(), params);
 				//richiesteRifornimento = rifornimentiService.getPubblicazioniPossibiliPerRichiesteRifornimenti(coddl, getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), idtnInt, getAuthUser().isMultiDl(), dataStorico, getAuthUser().getCodFiegDl());
 				if (richiesteRifornimento == null || richiesteRifornimento.isEmpty()) {
 					throw new IGerivBusinessException(getText("igeriv.pubblicazione.non.disponibile.per.rifornimento"));
@@ -469,8 +513,18 @@ public class BollaRivenditaAction<T extends BaseDto> extends RestrictedAccessBas
 				
 				PubblicazioneDto copertina = pubblicazioniService.getCopertinaByIdtn(coddl, idtnInt);
 				isQuotidiano = copertina.getCodInizioQuotidiano() != null && copertina.getCodFineQuotidiano() != null && !copertina.getCodInizioQuotidiano().equals(copertina.getCodFineQuotidiano());
-				List statistiche = pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, copertina.getCodicePubblicazione(), null, false, dataStorico, null, false, getAuthUser().getCodFiegDl(),null);
-				requestMap.put("statistica", statistiche);
+
+				// Integer agenziaFatturazione, Boolean isSecondaCintura, Timestamp dataPartSecCintura
+				Integer agenziaFatturazione = getAuthUser().getAgenziaFatturazione();
+				Boolean isEdicolaSecondaCintura = getAuthUser().getEdSecCintura();
+				Timestamp dtPartenzaSecondaCintura = getAuthUser().getDtPartSecondaCintura();
+				/*if (isEdicolaSecondaCintura != null && isEdicolaSecondaCintura) {
+					requestMap.put("statistica", pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, copertina.getCodicePubblicazione(), null, false, dataStorico, null, false, getAuthUser().getCodFiegDl(),null, null, null, null));
+				} else {
+					requestMap.put("statistica", pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, copertina.getCodicePubblicazione(), null, false, dataStorico, null, false, getAuthUser().getCodFiegDl(),null, agenziaFatturazione, isEdicolaSecondaCintura, dtPartenzaSecondaCintura));
+				}*/
+				requestMap.put("statistica", pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, copertina.getCodicePubblicazione(), null, false, dataStorico, null, false, getAuthUser().getCodFiegDl(),null, null, null, null));
+				
 				if (requestMap.get("prenotazioneVo") == null) {
 					RichiestaRifornimentoDto rfvo = (RichiestaRifornimentoDto) richiesteRifornimento.get(0);
 					prenotazioneVo = rifornimentiService.getPrenotazione(coddl, codEdicola, rfvo.getCodicePubblicazione());
@@ -543,7 +597,7 @@ public class BollaRivenditaAction<T extends BaseDto> extends RestrictedAccessBas
 					showOnlyUltimoDistribuito = true;
 				}
 			}
-			List statistiche = pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, copertina.getCodicePubblicazione(), null, showOnlyUltimoDistribuito, dataStorico, null, false, getAuthUser().getCodFiegDl(),null);
+			List statistiche = pubblicazioniService.getCopertine(false, true, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, periodicita, null, copertina.getCodicePubblicazione(), null, showOnlyUltimoDistribuito, dataStorico, null, false, getAuthUser().getCodFiegDl(),null, null, null, null);
 			requestMap.put("statistica", statistiche);
 			if (!prenotazioneVo.isEnabled()) {
 				prenotazioneDisabled = "true";

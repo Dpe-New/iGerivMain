@@ -685,7 +685,7 @@ public class VenditeCardRpcAction<T extends BaseVo> extends RestrictedAccessBase
 		Integer cpuInt = new Integer(cpu);
 		PubblicazioneDto copertina = pubblicazioniService.getLastPubblicazioneDto(new Integer(coddl), cpuInt);
 		if (getAuthUser().getEdicolaDeviettiTodis()) {
-			 List<PubblicazioneDto> list = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, null, null, cpuInt, null, false, getAuthUser().getDataStorico(), getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),null);
+			 List<PubblicazioneDto> list = pubblicazioniService.getCopertine(true, false, false, getAuthUser().getCodEdicolaMaster(), getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null, null, null, null, null, cpuInt, null, false, getAuthUser().getDataStorico(), getAuthUser().getGruppoSconto(), false, getAuthUser().getCodFiegDl(),null,null,null,null);
 			 if (list != null && !list.isEmpty()) {
 				 copertina = (PubblicazioneDto) sort(list, on(PubblicazioneDto.class).getDataUscita(), DESCENDING).get(0);
 			 }

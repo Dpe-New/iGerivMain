@@ -56,6 +56,12 @@ public class DlScaricoDatiController {
         }
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/test2/codDpeWebDl/{codDpeWebDl}/tipoDati/{tipoDati}")
+	public ModelAndView test2(@PathVariable Integer codDpeWebDl, @PathVariable Integer tipoDati) {
+		return new ModelAndView("orderViewJson", "dl", "Test");
+		
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/scarico-dati/codDpeWebDl/{codDpeWebDl}/tipoDati/{tipoDati}")
 	public ModelAndView getScaricoDati(@PathVariable Integer codDpeWebDl, @PathVariable Integer tipoDati) {
 		ScaricoDatiDto dto;

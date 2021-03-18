@@ -43,10 +43,13 @@ import it.dpe.igeriv.dto.BollaResaDettaglioDto;
 import it.dpe.igeriv.dto.DateTipiBollaDto;
 import it.dpe.igeriv.dto.LavorazioneResaImmagineDto;
 import it.dpe.igeriv.dto.PubblicazioneDto;
+import it.dpe.igeriv.dto.PubblicazioneFornito;
 import it.dpe.igeriv.dto.QuadraturaResaDto;
+import it.dpe.igeriv.exception.IGerivBusinessException;
 import it.dpe.igeriv.exception.IGerivRuntimeException;
 import it.dpe.igeriv.util.DateUtilities;
 import it.dpe.igeriv.util.IGerivConstants;
+import it.dpe.igeriv.util.IGerivUtils;
 import it.dpe.igeriv.vo.AnagraficaAgenziaVo;
 import it.dpe.igeriv.vo.BaseVo;
 import it.dpe.igeriv.vo.BollaResa;
@@ -120,6 +123,7 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 	private Boolean soloResoConGiacenza;
 	private Boolean hasBolleQuotidianiPeriodiciDivise;
 	private AgenzieService agenzieService;
+	private String nroCesteResa;
 	
 	public BollaResaAction() {
 		this.bolleService = null;
@@ -189,6 +193,7 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 			if (!Strings.isNullOrEmpty(autoincrement) && autoincrement.contains(",")) {
 				autoincrement = autoincrement.substring(0, autoincrement.indexOf(",")).trim();
 			}
+
 		} catch (IGerivRuntimeException e) {
 			throw e;
 		} catch (Throwable e) {
@@ -202,7 +207,11 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 	public String showFilter() {
 		filterTitle = getText("igeriv.bolla.resa");
 		actionName = "bollaResa_showBollaResa.action";
-		Set<BollaResaRiassuntoVo> bolleResaRiassunto = bolleService.getBolleResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null);
+		// Vittorio 26/08/2020
+//		Set<BollaResaRiassuntoVo> bolleResaRiassunto = bolleService.getBolleResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null);
+		Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+		Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+		Set<BollaResaRiassuntoVo> bolleResaRiassunto = bolleService.getBolleResaRiassunto(arrCodFiegDl, arrId, null);
 		doShowFilter(bolleResaRiassunto);
 		return SUCCESS;
 	}
@@ -210,6 +219,7 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 	@BreadCrumb("%{crumbNameResaDim}")
 	@SkipValidation
 	public String showFilterResaDimenticata() {
+		// TODO VITTORIO
 		filterTitle = getText("igeriv.resa.dimenticata");
 		actionName = "resaDimenticata_showBollaResaDimenticata.action";
 		Set<BollaResaRiassuntoVo> bolleResaRiassunto = bolleService.getBolleResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null);
@@ -237,12 +247,20 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 			if (dataTipoBolla == null || dataTipoBolla.equals("")) {
 				return "input";
 			}
-			Set<BollaResaRiassuntoVo> bolleResaRiassunto = bolleService.getBolleResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null);
+			// Vittorio 26/08/2020
+			//Set<BollaResaRiassuntoVo> bolleResaRiassunto = bolleService.getBolleResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), null);
+			Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+			Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+			Set<BollaResaRiassuntoVo> bolleResaRiassunto = bolleService.getBolleResaRiassunto(arrCodFiegDl, arrId, null);
 			doShowFilter(bolleResaRiassunto); 
 			setDataTipoBolla();
-			
-			
-			
+			List<BollaResaRiassuntoVo> bolleResaRiassuntoData = bolleService.getBollaResaRiassunto(new Integer[]{getAuthUser().getCodFiegDl()}, new Integer[]{getAuthUser().getCodDpeWebEdicola()}, dtBolla, tipoBolla);
+			if (bolleResaRiassuntoData!= null && !bolleResaRiassuntoData.isEmpty()) {
+				BollaResaRiassuntoVo bollaResaRiassuntoData = bolleResaRiassuntoData.get(0);
+				nroCesteResa = bollaResaRiassuntoData.getNumeroColli()!=null
+						? bollaResaRiassuntoData.getNumeroColli().toString()
+						: "";
+			}
 			
 			// 25/01/2017 Gestione Ceste CDL - Ordinamento standard raggruppato per tipo cesta
 			if(getAuthUser().isEdicolaCDLBologna()){
@@ -253,8 +271,8 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 				boolean cdlOrdinamentoRaggruppatoPerCesta = true;
 				if(cdlOrdinamentoRaggruppatoPerCesta && tipoBolla.equals("B")){
 					
-					itensBolla_cestaB1 = bolleService.getDettaglioBollaResaCDLCeste(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza,IGerivConstants.CDL_CESTA_1);
-					itensBolla_cestaB2 = bolleService.getDettaglioBollaResaCDLCeste(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza,IGerivConstants.CDL_CESTA_2);
+					itensBolla_cestaB1 = bolleService.getDettaglioBollaResaCDLCeste(arrCodFiegDl, arrId, dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza,IGerivConstants.CDL_CESTA_1);
+					itensBolla_cestaB2 = bolleService.getDettaglioBollaResaCDLCeste(arrCodFiegDl, arrId, dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza,IGerivConstants.CDL_CESTA_2);
 					itensBolla = new ArrayList<BollaResaDettaglioDto>();
 					
 					Iterator<BollaResaDettaglioDto> it_B1 = itensBolla_cestaB1.iterator();
@@ -268,19 +286,19 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 						itensBolla.add(bollaResaDettaglioDto_B2);
 					}
 				}else{
-					itensBolla = bolleService.getDettaglioBollaResa(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza);	
+					itensBolla = bolleService.getDettaglioBollaResa(arrCodFiegDl, arrId, dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza);	
 				}
 
 			}else{
 				/* Recupero dati bolla  */
-				itensBolla = bolleService.getDettaglioBollaResa(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza);
+				itensBolla = bolleService.getDettaglioBollaResa(arrCodFiegDl, arrId, dtBolla, tipoBolla, soloResoDaInserire,soloResoConGiacenza);
 			}
 		
 			
 
 			
-			List dettaglioRichiamoPersonalizzato = bolleService.getDettaglioRichiamoPersonalizzato(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla, soloResoDaInserire);
-			List dettaglioFuoriVoce = bolleService.getDettaglioFuoriVoce(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla, soloResoDaInserire);
+			List dettaglioRichiamoPersonalizzato = bolleService.getDettaglioRichiamoPersonalizzato(arrCodFiegDl, arrId, dtBolla, tipoBolla, soloResoDaInserire);
+			List dettaglioFuoriVoce = bolleService.getDettaglioFuoriVoce(arrCodFiegDl, arrId, dtBolla, tipoBolla, soloResoDaInserire);
 			itensBolla.addAll(dettaglioRichiamoPersonalizzato);
 			itensBolla = buildOrderedBollaResaDettagliList(itensBolla, dettaglioFuoriVoce);
 			String time = itensBolla != null && !itensBolla.isEmpty() && ((BollaResaBaseDto) itensBolla.get(0)) != null && ((BollaResaBaseDto) itensBolla.get(0)).getCreated() != null ? DateUtilities.getTimestampAsString(((BollaResaBaseDto) itensBolla.get(0)).getCreated(), DateUtilities.FORMATO_DATA_YYYYMMDDHHMMSS) : DateUtilities.getTimestampAsString(new Date(), DateUtilities.FORMATO_DATA_YYYYMMDDHHMMSS);
@@ -346,10 +364,32 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 	
 	public String showBollaResaFuoriVoce() {
 		try {
- 			AnagraficaAgenziaVo agenziaVo = agenzieService.getAgenziaByCodice(getAuthUser().getCodFiegDl());
+			AnagraficaAgenziaVo agenziaVo = agenzieService.getAgenziaByCodice(getAuthUser().getCodFiegDl());
 			setDataTipoGruppoScontoBolla();
 			if (!Strings.isNullOrEmpty(cpu) && !Strings.isNullOrEmpty(coddl) && !Strings.isNullOrEmpty(crivw)) {
 				itensBollaResaFuoriVoce = bolleService.buildNuoviDettagliFuoriVoce(new Integer(coddl), new Integer(crivw), dtBolla, tipoBolla, new Integer(cpu), gruppoSconto, showNumeriOmogenei, getAuthUser().getDataStorico(),agenziaVo.getTipoResaNoContoDeposito(), getAuthUser().getAccettoResaCD());
+				// TODO SECONDA CINTURA
+				boolean isEdicolaDeviettiTodis = getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_DEVIETTI) || getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_TODIS);
+				Integer agenziaFatturazione = getAuthUser().getAgenziaFatturazione();
+				if (getAuthUser().isMultiDl() && isEdicolaDeviettiTodis && getAuthUser().getGesSepDevTod() && agenziaFatturazione != null && agenziaFatturazione > 0) {
+					Boolean isEdicolaSecondaCintura = getAuthUser().getEdSecCintura();
+					Timestamp dtPartenzaSecondaCintura = getAuthUser().getDtPartSecondaCintura();
+					if (isEdicolaSecondaCintura != null && isEdicolaSecondaCintura && dtPartenzaSecondaCintura != null) {
+						Iterator<BollaResaFuoriVoceVo> it = (Iterator<BollaResaFuoriVoceVo>) itensBollaResaFuoriVoce.iterator();
+						while (it.hasNext()) {
+							BollaResaFuoriVoceVo vo = it.next();
+							if (vo.getDataUscita() != null && vo.getEditore()!=null && IGerivUtils.isFornitoreDevTodisComune(vo.getEditore())) {
+								if (getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_DEVIETTI) && vo.getDataUscita().compareTo(dtPartenzaSecondaCintura)>=0) {
+									it.remove();
+								}
+								if (getAuthUser().getCodFiegDl().equals(IGerivConstants.COD_FIEG_DL_TODIS) && vo.getDataUscita().compareTo(dtPartenzaSecondaCintura)<0) {
+									it.remove();
+								}
+							}
+						}
+
+					}
+				}
 			} 
 			
 			// CDL 17/03/17 - 08/05/2017 ADD LANZA
@@ -400,8 +440,28 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 	
 	public String save() {
 		try {
+			Integer nroCeste = null;
+			if (nroCesteResa != null && !nroCesteResa.trim().equals("")) {
+				try {
+					nroCeste = new Integer(nroCesteResa.trim().replaceAll("\\+", ""));
+					if (nroCeste > 99) {
+						requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + MessageFormat.format(getText("dpe.validation.msg.numero.colli"), 99) + IGerivConstants.END_EXCEPTION_TAG);
+						throw new IGerivRuntimeException();
+					} else if (nroCeste < 0) {
+						requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + getText("dpe.validation.msg.numero.colli") + IGerivConstants.END_EXCEPTION_TAG);
+						throw new IGerivRuntimeException();
+					}
+				} catch (Exception e) {
+					requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + getText("dpe.validation.msg.numero.colli") + IGerivConstants.END_EXCEPTION_TAG);
+					throw new IGerivRuntimeException();
+				}
+			}
 			setDataTipoBolla();
-			List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla);
+			// Vittorio 26/08/2020
+			// List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla);
+			Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+			Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+			List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(arrCodFiegDl, arrId, dtBolla, tipoBolla);
 			if (select(bollaResaRiassunto, having(on(BollaResaRiassuntoVo.class).getBollaTrasmessaDl().intValue(), greaterThanOrEqualTo(IGerivConstants.INDICATORE_RECORD_IN_TRASMISSIONE_DL))).size() > 0) {
 	    		requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + getText("impossibile.salvare.bolla.gia.trasmessa") + IGerivConstants.END_EXCEPTION_TAG);
 	    		throw new IGerivRuntimeException();
@@ -410,6 +470,9 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 			Map<String, String> resoFuoriVoceMod = new HashMap<String, String>();
 			Map<String, String> resoRichiamoMod = new HashMap<String, String>();
 			buildModifiedMaps(resoMod, resoFuoriVoceMod, resoRichiamoMod);
+			for (BollaResaRiassuntoVo vo: bollaResaRiassunto) {
+				vo.setNumeroColli(nroCeste);
+			}
 			bolleService.saveBollaResa(resoMod, resoFuoriVoceMod, resoRichiamoMod, bollaResaRiassunto);
 			//bolleService.saveBollaResa(resoMod, resoFuoriVoceMod, resoRichiamoMod);
 		} catch (IGerivRuntimeException e) {
@@ -423,8 +486,28 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 
 	public String send() {
 		try {
+			Integer nroCeste = null;
+			if (nroCesteResa != null && !nroCesteResa.trim().equals("")) {
+				try {
+					nroCeste = new Integer(nroCesteResa.trim().replaceAll("\\+", ""));
+					if (nroCeste > 99) {
+						requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + MessageFormat.format(getText("dpe.validation.msg.numero.colli"), 99) + IGerivConstants.END_EXCEPTION_TAG);
+						throw new IGerivRuntimeException();
+					} else if (nroCeste < 0) {
+						requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + getText("dpe.validation.msg.numero.colli") + IGerivConstants.END_EXCEPTION_TAG);
+						throw new IGerivRuntimeException();
+					}
+				} catch (Exception e) {
+					requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + getText("dpe.validation.msg.numero.colli") + IGerivConstants.END_EXCEPTION_TAG);
+					throw new IGerivRuntimeException();
+				}
+			}
 			setDataTipoBolla();
-			List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla);
+			// Vittorio 26/08/2020
+			//List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla);
+			Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+			Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+			List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(arrCodFiegDl, arrId, dtBolla, tipoBolla);
 			if (select(bollaResaRiassunto, having(on(BollaResaRiassuntoVo.class).getBollaTrasmessaDl().intValue(), greaterThanOrEqualTo(IGerivConstants.INDICATORE_RECORD_IN_TRASMISSIONE_DL))).size() > 0) {
 				requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + getText("impossibile.salvare.bolla.gia.trasmessa") + IGerivConstants.END_EXCEPTION_TAG);
 				throw new IGerivRuntimeException();
@@ -433,6 +516,9 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 			Map<String, String> resoFuoriVoceMod = new HashMap<String, String>();
 			Map<String, String> resoRichiamoMod = new HashMap<String, String>();
 			buildModifiedMaps(resoMod, resoFuoriVoceMod, resoRichiamoMod);
+			for (BollaResaRiassuntoVo vo: bollaResaRiassunto) {
+				vo.setNumeroColli(nroCeste);
+			}
 			bolleService.saveAndSendBollaResa(resoMod, resoFuoriVoceMod, resoRichiamoMod, bollaResaRiassunto);
 		} catch (IGerivRuntimeException e) {
 			throw e;
@@ -450,7 +536,13 @@ public class BollaResaAction<T extends BaseVo> extends RestrictedAccessBaseActio
 			List<BollaResaFuoriVoceVo> itensBolla = (List<BollaResaFuoriVoceVo>) requestMap.get("itensBollaResaFuoriVoce");
 			List<BollaResaFuoriVoceVo> listBollaDettaglioVo = buildListBollaDettaglioVo(itensBolla, resoFuoriVoce);
 			List<BollaResaRichiamoPersonalizzatoVo> listResaRichiamoPersonalizzato = extractListRichiamoPersonalizzato(listBollaDettaglioVo);
-			List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla);
+
+			// Vittorio 26/08/2020
+//			List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(getAuthUser().getArrCodFiegDl(), getAuthUser().getArrId(), dtBolla, tipoBolla);
+			Integer[] arrCodFiegDl = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrCodFiegDl() : new Integer[]{getAuthUser().getCodFiegDl()};
+			Integer[] arrId = (getAuthUser().isMultiDl() && !getAuthUser().isDlInforiv() && !getAuthUser().getGesSepDevTod()) ? getAuthUser().getArrId() : new Integer[]{getAuthUser().getCodDpeWebEdicola()};
+			List<BollaResaRiassuntoVo> bollaResaRiassunto = bolleService.getBollaResaRiassunto(arrCodFiegDl, arrId, dtBolla, tipoBolla);
+			
 			if (select(bollaResaRiassunto, having(on(BollaResaRiassuntoVo.class).getBollaTrasmessaDl().intValue(), greaterThanOrEqualTo(IGerivConstants.INDICATORE_RECORD_IN_TRASMISSIONE_DL))).size() > 0) {
 				requestMap.put("igerivException", IGerivConstants.START_EXCEPTION_TAG + getText("impossibile.salvare.bolla.gia.trasmessa") + IGerivConstants.END_EXCEPTION_TAG);
 	    		throw new IGerivRuntimeException();

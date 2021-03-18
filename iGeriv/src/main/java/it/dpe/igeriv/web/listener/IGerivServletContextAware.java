@@ -115,6 +115,7 @@ public class IGerivServletContextAware implements ServletContextAware {
 		arg0.setAttribute("help", helpService.getAllHelp());
 		arg0.setAttribute("listBanche", clientiService.getBanche());
 		arg0.setAttribute(IGerivConstants.APPLICATION_VAR_CDL_CODE, IGerivConstants.CDL_CODE);
+		arg0.setAttribute(IGerivConstants.APPLICATION_VAR_COMUZZI_CODE, IGerivConstants.COMUZZI_CODE);
 		Map nameToValueMap = IGerivConstants.getNameToValueMap();
 		nameToValueMap.putAll(RestConstants.getNameToValueMap());
 		arg0.setAttribute(IGerivConstants.ID, Collections.unmodifiableMap(nameToValueMap));

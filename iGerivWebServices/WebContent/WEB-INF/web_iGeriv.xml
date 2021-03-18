@@ -92,7 +92,7 @@
 	
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
-		<param-value>/WEB-INF/log4j-iGerivWS.properties</param-value>
+		<param-value>/WEB-INF/log4j-iGerivWS_ENG.properties</param-value>
 	</context-param>
 
  	<context-param>

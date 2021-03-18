@@ -56,6 +56,10 @@ public class InforivImportBoImpl implements InforivImportBo {
 	@Value("${inforiv.numero.giorni.trial.version}")
 	private String giorniTrial;
 	
+	public InforivImportBoImpl() {
+		System.out.println("Init import ftp");
+	}
+	
 	@Override
 	public ImportazioneInforivReplyDto importEdicolaInforiv(Edicola edicola) {
 		ImportazioneInforivReplyDto reply = null;
