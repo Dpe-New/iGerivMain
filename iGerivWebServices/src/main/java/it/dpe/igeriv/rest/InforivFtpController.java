@@ -43,7 +43,7 @@ import it.dpe.inforiv.dto.ResultDto;
 @RequestMapping("/inforiv")
 public class InforivFtpController {
 	public InforivFtpController() {
-		System.out.println("Init Ftp Controller");
+		
 	}
 	private final Logger log = Logger.getLogger(getClass());
 	private Tika tika = new Tika();

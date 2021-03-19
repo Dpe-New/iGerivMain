@@ -64,10 +64,10 @@ public class DlAllegatiController {
 	*/
 	
 	@RequestMapping(value="/allegati", method=RequestMethod.POST)
-	public ResultRestDto allegati(	@RequestParam("fileAllegato") 	MultipartFile fileAllegato, 
-									@RequestParam("codDL") 			Integer codDL, 
-									@RequestParam("oggetto") 		String oggetto, 
-									@RequestParam("testo") 			String testo)
+	public ResultRestDto allegati(	@RequestParam("fileAllegato") 	MultipartFile	fileAllegato, 
+									@RequestParam("codDL") 			Integer			codDL, 
+									@RequestParam("oggetto") 		String			oggetto, 
+									@RequestParam("testo") 			String			testo)
 	{
 		
 		ResultRestDto result = new ResultRestDto();

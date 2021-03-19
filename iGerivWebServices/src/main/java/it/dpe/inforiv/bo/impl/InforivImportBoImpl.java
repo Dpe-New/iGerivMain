@@ -57,7 +57,7 @@ public class InforivImportBoImpl implements InforivImportBo {
 	private String giorniTrial;
 	
 	public InforivImportBoImpl() {
-		System.out.println("Init import ftp");
+		
 	}
 	
 	@Override
