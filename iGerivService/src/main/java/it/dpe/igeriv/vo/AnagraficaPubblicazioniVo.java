@@ -92,8 +92,8 @@ public class AnagraficaPubblicazioniVo extends BaseVo {
 	private byte[] imgMiniatura;
 	@Column(name = "imgnm9606")
 	private String imgMiniaturaName;
-	//@Column(name="ARGODL9606")
-	//private Integer argomentoDl;
+	@Column(name="ARGODL9606")
+	private Integer argomentoDl;
 	
 	
 }
