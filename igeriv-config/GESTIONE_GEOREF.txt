@@ -1,0 +1,38 @@
+WP User Avatar
+Fast Secure Contact Form
+
+
+http://webedicola.cdlbo.it/cdlonline/georef_*
+
+
+
+Key for server apps (with IP locking)
+API key: 	
+AIzaSyCJ3N-po7-Dv8cFEsh3PvL-Ijc5ZcF-tgM
+IPs: 	
+192.168.249.1
+Activated on: 	Apr 8, 2015 7:05 AM
+Activated by: 	centrodiffusionelogistica@gmail.com – you 
+
+
+Key for browser apps (with referers)
+API key: 	
+AIzaSyA138ggo65FXH_4MCtPaaZBBOSTUQ9aXJI
+Referers: 	
+http://webedicola.cdlbo.it/cdlonline/georef_*
+Activated on: 	Apr 8, 2015 12:57 AM
+Activated by: 	centrodiffusionelogistica@gmail.com – you 
+
+
+
+Key for browser apps (with referers)
+API key: 	
+AIzaSyDHXT5YbxZD0xU8J2zCLIswWZJFF-iMygw
+Referers: 	
+Any referer allowed
+Activated on: 	Apr 8, 2015 12:50 AM
+Activated by: 	centrodiffusionelogistica@gmail.com – you 
+
+
+
+http://www.igeriv.it/igeriv/georef_*

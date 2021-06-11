@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<param name="flv" value="Redic_Inversioni2.flv" />
+	<param name="width" value="720" />
+	<param name="height" value="480" />
+	<param name="autoplay" value="0" />
+	<param name="autoload" value="0" />
+	<param name="buffer" value="5" />
+	<param name="title" value="Redic_Inversioni2" />	
+	<param name="margin" value="0" />
+	<param name="srt" value="0" />
+	<param name="showstop" value="1" />
+	<param name="showvolume" value="1" />
+	<param name="showtime" value="1" />
+	<param name="loop" value="0" />
+	<param name="startimage" value="start_frame.jpg" />
+	<param name="playercolor" value="3d60a5" />
+	<param name="loadingcolor" value="bbbbbb" />
+	<param name="bgcolor" value="3d60a5" />
+	<param name="bgcolor1" value="3a5b9e" />
+	<param name="bgcolor2" value="3d60a5" />
+	<param name="buttoncolor" value="ffffff" />
+	<param name="buttonovercolor" value="dbdbdb" />
+	<param name="slidercolor1" value="ffffff" />
+	<param name="slidercolor2" value="bbbbbb" />
+	<param name="sliderovercolor" value="dbdbdb" />
+	<param name="loadonstop" value="0" />
+</config>

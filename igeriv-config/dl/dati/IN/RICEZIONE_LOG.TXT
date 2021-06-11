@@ -1,0 +1,175 @@
+test 1
+test 2
+test 3
+test 4
+test 1
+test 2
+test 3
+test 4
+test 1
+test 2
+test 3
+test 4
+test 1
+test 2
+test 3
+test 4
+-- Inizio elaborazione file U02_530123_20110608_174028.BAT --
+Codice DPEWEB del DL inesistente
+-- Fine   elaborazione file U02_530123_20110608_174028.BAT -- con Avvisi
+-- Inizio elaborazione file U01_852159_20121017_180001.BAT --
+DL --> 999  DPE srl
+-- Fine   elaborazione file U01_852159_20121017_180001.BAT --
+-- Inizio elaborazione file U01_654321_20121017_180001.BAT --
+DL --> 76  F.lli Rossi snc
+-- Fine   elaborazione file U01_654321_20121017_180001.BAT --
+-- Inizio elaborazione file U01_654321_20121017_180001.BAT --
+DL --> 76  F.lli Rossi snc
+-- Fine   elaborazione file U01_654321_20121017_180001.BAT --
+-- Inizio elaborazione file U01_852159_20121017_180001.BAT --
+DL --> 999  DPE srl
+-- Fine   elaborazione file U01_852159_20121017_180001.BAT --
+-- Inizio elaborazione file U01_852159_20121017_180001.BAT --
+DL --> 999  DPE srl
+-- Fine   elaborazione file U01_852159_20121017_180001.BAT --
+-- Inizio elaborazione file U01_654321_20121017_180001.BAT --
+DL --> 76  F.lli Rossi snc
+-- Fine   elaborazione file U01_654321_20121017_180001.BAT --
+-- Inizio elaborazione file U01_852159_20121017_180001.BAT --
+DL --> 999  DPE srl
+-- Fine   elaborazione file U01_852159_20121017_180001.BAT --
+-- Inizio elaborazione file U02_123123_20121018_143504.BAT --
+DL --> 74  RG STAMPA SRL
+Rec.N.9709 DL=74 Abbinamento Edicola 17 NON trovato (Caricamento record tipo 8a)
+Rec.N.9714 DL=74 Abbinamento Edicola 47 NON trovato (Caricamento record tipo 8a)
+Rec.N.9716 DL=74 Abbinamento Edicola 53 NON trovato (Caricamento record tipo 8a)
+Rec.N.9717 DL=74 Abbinamento Edicola 53 NON trovato (Caricamento record tipo 8a)
+Rec.N.9718 DL=74 Abbinamento Edicola 53 NON trovato (Caricamento record tipo 8a)
+Rec.N.9719 DL=74 Abbinamento Edicola 57 NON trovato (Caricamento record tipo 8a)
+Rec.N.9720 DL=74 Abbinamento Edicola 57 NON trovato (Caricamento record tipo 8a)
+Rec.N.9721 DL=74 Abbinamento Edicola 58 NON trovato (Caricamento record tipo 8a)
+Rec.N.9722 DL=74 Abbinamento Edicola 58 NON trovato (Caricamento record tipo 8a)
+Rec.N.9727 DL=74 Abbinamento Edicola 90 NON trovato (Caricamento record tipo 8a)
+Rec.N.9728 DL=74 Abbinamento Edicola 91 NON trovato (Caricamento record tipo 8a)
+Rec.N.9729 DL=74 Abbinamento Edicola 92 NON trovato (Caricamento record tipo 8a)
+Rec.N.9730 DL=74 Abbinamento Edicola 97 NON trovato (Caricamento record tipo 8a)
+Rec.N.9731 DL=74 Abbinamento Edicola 99 NON trovato (Caricamento record tipo 8a)
+Rec.N.9732 DL=74 Abbinamento Edicola 100 NON trovato (Caricamento record tipo 8a)
+Rec.N.9733 DL=74 Abbinamento Edicola 104 NON trovato (Caricamento record tipo 8a)
+Rec.N.9734 DL=74 Abbinamento Edicola 108 NON trovato (Caricamento record tipo 8a)
+Rec.N.9735 DL=74 Abbinamento Edicola 109 NON trovato (Caricamento record tipo 8a)
+Rec.N.9737 DL=74 Abbinamento Edicola 114 NON trovato (Caricamento record tipo 8a)
+Rec.N.9738 DL=74 Abbinamento Edicola 114 NON trovato (Caricamento record tipo 8a)
+Rec.N.9747 DL=74 Abbinamento Edicola 126 NON trovato (Caricamento record tipo 8a)
+Rec.N.9748 DL=74 Abbinamento Edicola 126 NON trovato (Caricamento record tipo 8a)
+Rec.N.9749 DL=74 Abbinamento Edicola 127 NON trovato (Caricamento record tipo 8a)
+Rec.N.9750 DL=74 Abbinamento Edicola 127 NON trovato (Caricamento record tipo 8a)
+Rec.N.9756 DL=74 Abbinamento Edicola 142 NON trovato (Caricamento record tipo 8a)
+Rec.N.9757 DL=74 Abbinamento Edicola 142 NON trovato (Caricamento record tipo 8a)
+Rec.N.9765 DL=74 Abbinamento Edicola 170 NON trovato (Caricamento record tipo 8a)
+Rec.N.9766 DL=74 Abbinamento Edicola 170 NON trovato (Caricamento record tipo 8a)
+Rec.N.9767 DL=74 Abbinamento Edicola 170 NON trovato (Caricamento record tipo 8a)
+Rec.N.9768 DL=74 Abbinamento Edicola 172 NON trovato (Caricamento record tipo 8a)
+Rec.N.9769 DL=74 Abbinamento Edicola 173 NON trovato (Caricamento record tipo 8a)
+Rec.N.9772 DL=74 Abbinamento Edicola 184 NON trovato (Caricamento record tipo 8a)
+Rec.N.9782 DL=74 Abbinamento Edicola 208 NON trovato (Caricamento record tipo 8a)
+Rec.N.9786 DL=74 Abbinamento Edicola 235 NON trovato (Caricamento record tipo 8a)
+Rec.N.9804 DL=74 Abbinamento Edicola 355 NON trovato (Caricamento record tipo 8a)
+Rec.N.9805 DL=74 Abbinamento Edicola 355 NON trovato (Caricamento record tipo 8a)
+Rec.N.9809 DL=74 Abbinamento Edicola 371 NON trovato (Caricamento record tipo 8a)
+Rec.N.9814 DL=74 Abbinamento Edicola 381 NON trovato (Caricamento record tipo 8a)
+Rec.N.9815 DL=74 Abbinamento Edicola 405 NON trovato (Caricamento record tipo 8a)
+Rec.N.9816 DL=74 Abbinamento Edicola 405 NON trovato (Caricamento record tipo 8a)
+Rec.N.9817 DL=74 Abbinamento Edicola 407 NON trovato (Caricamento record tipo 8a)
+Rec.N.9820 DL=74 Abbinamento Edicola 421 NON trovato (Caricamento record tipo 8a)
+Rec.N.9821 DL=74 Abbinamento Edicola 423 NON trovato (Caricamento record tipo 8a)
+Rec.N.9822 DL=74 Abbinamento Edicola 431 NON trovato (Caricamento record tipo 8a)
+Rec.N.9823 DL=74 Abbinamento Edicola 431 NON trovato (Caricamento record tipo 8a)
+Rec.N.9824 DL=74 Abbinamento Edicola 434 NON trovato (Caricamento record tipo 8a)
+Rec.N.9825 DL=74 Abbinamento Edicola 434 NON trovato (Caricamento record tipo 8a)
+Rec.N.9826 DL=74 Abbinamento Edicola 437 NON trovato (Caricamento record tipo 8a)
+Rec.N.9829 DL=74 Abbinamento Edicola 440 NON trovato (Caricamento record tipo 8a)
+Rec.N.9830 DL=74 Abbinamento Edicola 440 NON trovato (Caricamento record tipo 8a)
+Rec.N.9831 DL=74 Abbinamento Edicola 440 NON trovato (Caricamento record tipo 8a)
+Rec.N.9832 DL=74 Abbinamento Edicola 440 NON trovato (Caricamento record tipo 8a)
+Rec.N.9833 DL=74 Abbinamento Edicola 440 NON trovato (Caricamento record tipo 8a)
+Rec.N.9834 DL=74 Abbinamento Edicola 440 NON trovato (Caricamento record tipo 8a)
+Rec.N.9835 DL=74 Abbinamento Edicola 443 NON trovato (Caricamento record tipo 8a)
+Rec.N.9841 DL=74 Abbinamento Edicola 449 NON trovato (Caricamento record tipo 8a)
+Rec.N.9842 DL=74 Abbinamento Edicola 449 NON trovato (Caricamento record tipo 8a)
+Rec.N.9845 DL=74 Abbinamento Edicola 451 NON trovato (Caricamento record tipo 8a)
+Rec.N.9846 DL=74 Abbinamento Edicola 451 NON trovato (Caricamento record tipo 8a)
+Rec.N.9847 DL=74 Abbinamento Edicola 451 NON trovato (Caricamento record tipo 8a)
+Rec.N.9854 DL=74 Abbinamento Edicola 466 NON trovato (Caricamento record tipo 8a)
+Rec.N.9873 DL=74 Abbinamento Edicola 514 NON trovato (Caricamento record tipo 8a)
+Rec.N.9874 DL=74 Abbinamento Edicola 525 NON trovato (Caricamento record tipo 8a)
+Rec.N.9877 DL=74 Abbinamento Edicola 542 NON trovato (Caricamento record tipo 8a)
+Rec.N.9878 DL=74 Abbinamento Edicola 553 NON trovato (Caricamento record tipo 8a)
+Rec.N.9896 DL=74 Abbinamento Edicola 577 NON trovato (Caricamento record tipo 8a)
+Rec.N.9904 DL=74 Abbinamento Edicola 588 NON trovato (Caricamento record tipo 8a)
+Rec.N.9908 DL=74 Abbinamento Edicola 603 NON trovato (Caricamento record tipo 8a)
+Rec.N.9912 DL=74 Abbinamento Edicola 626 NON trovato (Caricamento record tipo 8a)
+Rec.N.9924 DL=74 Abbinamento Edicola 653 NON trovato (Caricamento record tipo 8a)
+Rec.N.9925 DL=74 Abbinamento Edicola 653 NON trovato (Caricamento record tipo 8a)
+Rec.N.9926 DL=74 Abbinamento Edicola 657 NON trovato (Caricamento record tipo 8a)
+Rec.N.9927 DL=74 Abbinamento Edicola 701 NON trovato (Caricamento record tipo 8a)
+Rec.N.9928 DL=74 Abbinamento Edicola 702 NON trovato (Caricamento record tipo 8a)
+Rec.N.9929 DL=74 Abbinamento Edicola 702 NON trovato (Caricamento record tipo 8a)
+Rec.N.9935 DL=74 Abbinamento Edicola 708 NON trovato (Caricamento record tipo 8a)
+Rec.N.9936 DL=74 Abbinamento Edicola 708 NON trovato (Caricamento record tipo 8a)
+Rec.N.9937 DL=74 Abbinamento Edicola 709 NON trovato (Caricamento record tipo 8a)
+Rec.N.9949 DL=74 Abbinamento Edicola 728 NON trovato (Caricamento record tipo 8a)
+Rec.N.9950 DL=74 Abbinamento Edicola 729 NON trovato (Caricamento record tipo 8a)
+Rec.N.9952 DL=74 Abbinamento Edicola 734 NON trovato (Caricamento record tipo 8a)
+Rec.N.9955 DL=74 Abbinamento Edicola 749 NON trovato (Caricamento record tipo 8a)
+Rec.N.9964 DL=74 Abbinamento Edicola 759 NON trovato (Caricamento record tipo 8a)
+Rec.N.9965 DL=74 Abbinamento Edicola 759 NON trovato (Caricamento record tipo 8a)
+Rec.N.9974 DL=74 Abbinamento Edicola 802 NON trovato (Caricamento record tipo 8a)
+Rec.N.9984 DL=74 Abbinamento Edicola 806 NON trovato (Caricamento record tipo 8a)
+Rec.N.9985 DL=74 Abbinamento Edicola 807 NON trovato (Caricamento record tipo 8a)
+Rec.N.9990 DL=74 Abbinamento Edicola 812 NON trovato (Caricamento record tipo 8a)
+Rec.N.9991 DL=74 Abbinamento Edicola 813 NON trovato (Caricamento record tipo 8a)
+Rec.N.9995 DL=74 Abbinamento Edicola 821 NON trovato (Caricamento record tipo 8a)
+-- Fine   elaborazione file U02_123123_20121018_143504.BAT -- con Avvisi
+-- Inizio elaborazione file U02_123123_20121018_144049.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U02_123123_20121018_144049.BAT --
+-- Inizio elaborazione file U01_123123_20121017_070501.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U01_123123_20121017_070501.BAT --
+-- Inizio elaborazione file U01_123123_20121018_070501.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U01_123123_20121018_070501.BAT --
+-- Inizio elaborazione file U02_123123_20121017_075328.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U02_123123_20121017_075328.BAT --
+-- Inizio elaborazione file U02_123123_20121018_075842.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U02_123123_20121018_075842.BAT --
+-- Inizio elaborazione file U01_123123_20121012_070501.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U01_123123_20121012_070501.BAT --
+-- Inizio elaborazione file U01_123123_20121013_070501.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U01_123123_20121013_070501.BAT --
+-- Inizio elaborazione file U01_123123_20121014_070501.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U01_123123_20121014_070501.BAT --
+-- Inizio elaborazione file U01_123123_20121015_070501.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U01_123123_20121015_070501.BAT --
+-- Inizio elaborazione file U01_123123_20121016_070501.BAT --
+DL --> 74  RG STAMPA SRL
+-- Fine   elaborazione file U01_123123_20121016_070501.BAT --
+-- Inizio elaborazione file U02_448931_20150203_142843.BAT --
+DL --> 162  TOSCANO GAETANO SAS
+Rec.N.280: Caricamento Fondo Bolla Rivendita -1400 ORA-01400: impossibile inserire NULL in ("IGERIV_DATI"."TBL_9612"."POSIZ9612")
+-- Fine   elaborazione file U02_448931_20150203_142843.BAT -- con Errori
+-- Inizio elaborazione file U02_448931_20150203_142843.BAT --
+DL --> 162  TOSCANO GAETANO SAS
+Rec.N.280: Caricamento Fondo Bolla Rivendita -1400 ORA-01400: impossibile inserire NULL in ("IGERIV_DATI"."TBL_9612"."POSIZ9612")
+-- Fine   elaborazione file U02_448931_20150203_142843.BAT -- con Errori
+-- Inizio elaborazione file U02_448931_20150203_142843.BAT --
+DL --> 162  TOSCANO GAETANO SAS
+Rec.N.280: Caricamento Fondo Bolla Rivendita -1400 ORA-01400: impossibile inserire NULL in ("IGERIV_DATI"."TBL_9612"."POSIZ9612")
+-- Fine   elaborazione file U02_448931_20150203_142843.BAT -- con Errori

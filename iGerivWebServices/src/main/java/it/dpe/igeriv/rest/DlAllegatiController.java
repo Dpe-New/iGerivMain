@@ -48,20 +48,6 @@ public class DlAllegatiController {
 	public DlAllegatiController() {
 		
 	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/test")
-	public ResultRestDto test() {
-		ResultRestDto result = new ResultRestDto();
-		result.setCode(0);
-		result.setOk(true);
-		result.setMessage("TEST2");
-		return result;
-		
-	}
-	
-	/*
-		public ResultRestDto allegati(@RequestParam("codDL") Integer codDL, @RequestParam("oggetto") String oggetto, @RequestParam("testo") String testo,  @RequestParam("fileAllegato") MultipartFile fileAllegato){
-	*/
 	
 	@RequestMapping(value="/allegati", method=RequestMethod.POST)
 	public ResultRestDto allegati(	@RequestParam("fileAllegato") 	MultipartFile	fileAllegato, 

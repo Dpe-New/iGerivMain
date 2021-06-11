@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<sws:annotation-driven />
+	
+	<!--
+	<sws:static-wsdl id="inforiv" location="/WEB-INF/wsdl/inforiv.wsdl" />
+	-->
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>file:/${IGERIV_PATH}/iGeriv.properties</value>
+		</property>
+	</bean>
+	
+	<sws:interceptors>
+  		<sws:payloadRoot namespaceUri="http://it.dpe.igeriv/inforiv/schemas">
+  			<ref bean="tokenSecurityInterceptor"/>
+  		</sws:payloadRoot>
+  		<sws:payloadRoot namespaceUri="http://it.dpe.igeriv/gdo/bol/schemas">
+  			<ref bean="gdoTokenSecurityInterceptor"/>
+  		</sws:payloadRoot>
+  		<sws:payloadRoot namespaceUri="http://it.dpe.igeriv/gdo/ven/schemas">
+  			<ref bean="gdoTokenSecurityInterceptor"/>
+  		</sws:payloadRoot>
+  		<sws:payloadRoot namespaceUri="http://it.dpe.igeriv/prod/client/ven/schemas">
+  			<ref bean="clientVendTokenSecurityInterceptor"/>
+  		</sws:payloadRoot>
+	</sws:interceptors>
+	
+	<bean id="tokenSecurityInterceptor"
+		class="it.dpe.igeriv.security.IGerivInforivWsSecurityInterceptor">
+  		<property name="passwordEncoder" ref="passwordEncoder"/>
+  	</bean>
+  	
+  	<bean id="gdoTokenSecurityInterceptor"
+		class="it.dpe.igeriv.security.IGerivGdoWsSecurityInterceptor">
+  		<property name="passwordEncoder" ref="passwordEncoder"/>
+  		<property name="iGerivBo" ref="IGerivWSService"/>
+  		<property name="saltSource" ref="saltSource"/>
+  	</bean>
+  	
+  	<bean id="clientVendTokenSecurityInterceptor"
+		class="it.dpe.igeriv.security.IGerivClientVenditeWsSecurityInterceptor">
+		<property name="passwordEncoder" ref="passwordEncoder"/>
+  		<property name="iGerivBo" ref="IGerivWSService"/>
+  		<property name="saltSource" ref="saltSource"/>
+  		<property name="downloadSite" value="${igeriv.client.vendite.download.site}"/>
+	</bean>
+    		
+	<bean id="keyStoreSecurityInterceptor"
+        class="org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor">
+        <property name="policyConfiguration" value="classpath:securityPolicy.xml"/>
+        <property name="callbackHandlers">
+            <list>
+                <ref bean="keyStoreHandler"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="keyStoreHandler" class="org.springframework.ws.soap.security.xwss.callback.KeyStoreCallbackHandler">
+        <property name="trustStore" ref="trustStore"/>
+    </bean>
+
+    <bean id="trustStore" class="org.springframework.ws.soap.security.support.KeyStoreFactoryBean">
+        <property name="location" value="classpath:inforivKeystore.jks"/>
+        <property name="password" value="dpeInforiv59261"/>
+    </bean>
+    
+	<bean id="endpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+		<property name="mappings">
+			<props>
+				<prop key="{http://it.dpe.igeriv/inforiv/schemas}EdicolaInforivRequest">defaultEndpoint</prop>
+				<prop key="{http://it.dpe.igeriv/inforiv/schemas}EdicolaInforivRequest">inforivEndPoint</prop>
+				<prop key="{http://it.dpe.igeriv/gdo/bol/schemas}GdoBollaRequest">gdoBollaEndpoint</prop>
+				<prop key="{http://it.dpe.igeriv/gdo/ven/schemas}GdoVenRequest">gdoVenditeEndpoint</prop>
+				<prop key="{http://it.dpe.igeriv/prod/client/ven/schemas}ProdottiClientVenditeRequest">prodottiClientVenditeEndpoint</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!--  IMPORTAZIONE EDICOLA INFORIV -->
+	<bean id="inforivEndPoint" class="it.dpe.igeriv.ws.InforivEndpoint">
+		<constructor-arg ref="InforivImportBo"/>
+	</bean>
+	
+	<!-- 
+	<bean id="inforiv" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema" ref="inforivSchema" />
+		<property name="portTypeName" value="it.dpe.igeriv.inforiv" />
+		<property name="locationUri" value="/ws/" />
+		<property name="targetNamespace" value="http://it.dpe.igeriv/inforiv/schemas" />
+	</bean>
+	 
+	<bean id="inforivSchema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+		<property name="xsd" value="/WEB-INF/xsd/inforiv.xsd" />
+	</bean>
+	-->
+	
+	<bean id="inforiv" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+		<property name="wsdl" value="/WEB-INF/wsdl/inforiv.wsdl"/>
+    </bean>
+	
+	<!--  SCAMBIO DATI GDO -->
+	<bean id="gdoBollaEndpoint" class="it.dpe.igeriv.ws.GdoBollaEndpoint">
+		<constructor-arg index="0" ref="GdoBo"/>
+		<constructor-arg index="1" value="${igeriv.ws.edicole.escluse.controllo.scarico.bolle}"/>
+	</bean>
+	
+	<bean id="gdobol" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+		<property name="wsdl" value="/WEB-INF/wsdl/gdobol.wsdl"/>
+    </bean>
+     
+    <!-- 
+	<bean id="gdobol" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema" ref="gdoBolSchema" />
+		<property name="portTypeName" value="it.dpe.igeriv/gdo/bol/schemas" />
+		<property name="locationUri" value="/ws/" />
+		<property name="targetNamespace" value="http://it.dpe.igeriv/gdo/bol/schemas" />
+	</bean>
+	
+	<bean id="gdoBolSchema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+		<property name="xsd" value="/WEB-INF/xsd/gdobol.xsd" />
+	</bean>
+	 -->
+	  
+	<bean id="gdoVenditeEndpoint" class="it.dpe.igeriv.ws.GdoVenditeEndpoint">
+		<constructor-arg ref="GdoBo"/>
+	</bean>
+	
+	<bean id="gdoven" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+		<property name="wsdl" value="/WEB-INF/wsdl/gdoven.wsdl"/>
+    </bean>
+    
+    <!-- 
+	<bean id="gdoven" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema" ref="gdoVenSchema" />
+		<property name="portTypeName" value="it.dpe.igeriv/gdo/ven/schemas" />
+		<property name="locationUri" value="/ws/" />
+		<property name="targetNamespace" value="http://it.dpe.igeriv/gdo/ven/schemas" />
+	</bean>
+	 
+	<bean id="gdoVenSchema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+		<property name="xsd" value="/WEB-INF/xsd/gdoven.xsd" />
+	</bean>
+	 -->	
+	 
+    <bean id="prodottiClientVenditeEndpoint" class="it.dpe.igeriv.ws.ProdottiClientVenditeEndpoint">
+		<constructor-arg ref="VenditeService"/>
+	</bean>
+    
+    <bean id="prodcliven" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+		<property name="wsdl" value="/WEB-INF/wsdl/prodcliven.wsdl"/>
+    </bean>
+	
+	<!-- 
+    <bean id="prodcliven" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+		<property name="schema" ref="prodottiClientVenditeSchema" />
+		<property name="portTypeName" value="it.dpe.igeriv/prod/client/ven/schemas" />
+		<property name="locationUri" value="/ws/" />
+		<property name="targetNamespace" value="http://it.dpe.igeriv/prod/client/ven/schemas" />
+	</bean>
+	 
+	<bean id="prodottiClientVenditeSchema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+		<property name="xsd" value="/WEB-INF/xsd/prodcliven.xsd" />
+	</bean>
+	-->
+	
+</beans>

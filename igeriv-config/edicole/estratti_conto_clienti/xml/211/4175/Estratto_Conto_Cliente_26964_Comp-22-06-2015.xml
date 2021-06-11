@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<consegne>
+    <header>
+        <dataCreazioneFile>22/06/2015</dataCreazioneFile>
+        <oraCreazioneFile>160101</oraCreazioneFile>
+        <title>Estratto conto dal 09/06/2015 al 22/06/2015</title>
+        <title1>Data Documento: 22/06/2015</title1>
+        <titoloLabel>Titolo/Prodotto</titoloLabel>
+        <prezzoLabel>Prezzo</prezzoLabel>
+        <copieLabel>Quantità</copieLabel>
+        <importoLabel>Importo</importoLabel>
+        <totaleLabel>Importo</totaleLabel>
+        <controllareDatiLabel>Vi preghiamo di controllare i Vs. dati anagrafici e la Partita IVA. Non ci riteniamo responsabili di eventuali errori</controllareDatiLabel>
+        <pagamentoLabel>Pagamento</pagamentoLabel>
+        <edicola>Cartosio Christian    Via Sestri - Genova            Codice Fiscale: null</edicola>
+        <intestazioneCliente>Spett.</intestazioneCliente>
+        <pieDiPagina></pieDiPagina>
+        <valoreMarcaBollo>2,00</valoreMarcaBollo>
+        <fileName>Estratto_Conto_Cliente_26964_Comp-22-06-2015.xml</fileName>
+        <ggDataDocLabel>gg. Data doc.</ggDataDocLabel>
+        <dataScadenzaPagamentoLabel>Scadenza</dataScadenzaPagamentoLabel>
+        <importoScontatoLabel>Importo Totale</importoScontatoLabel>
+        <scontoPerc>0</scontoPerc>
+        <marcaBolloLabel>Marca da Bollo</marcaBolloLabel>
+        <scontoLabel>Sconto Pubblicazioni</scontoLabel>
+        <scontoPneLabel>Sconto Prodotti</scontoPneLabel>
+        <datiEdicola>Cartosio Christian    Via Sestri - Genova            Codice Fiscale: null</datiEdicola>
+        <datiEdicolaInt>Cartosio Christian
+Via Sestri - Genova
+Codice Fiscale: null</datiEdicolaInt>
+        <numeroEstrattoContoLabel>Numero Documento</numeroEstrattoContoLabel>
+    </header>
+    <consegnaPubblicazioni>
+        <codCliente>26964</codCliente>
+        <nome>BAR NUOVO</nome>
+        <titolo>descrizione</titolo>
+        <prezzo>80</prezzo>
+        <copie>1</copie>
+        <tipoLocalita>via</tipoLocalita>
+        <dataCompetenzaEstrattoContoClienti>08/06/2015</dataCompetenzaEstrattoContoClienti>
+        <tipoPagamento>In edicola</tipoPagamento>
+        <sconto>0</sconto>
+        <scontoPne>0</scontoPne>
+        <numeroEstrattoConto>3</numeroEstrattoConto>
+    </consegnaPubblicazioni>
+</consegne>

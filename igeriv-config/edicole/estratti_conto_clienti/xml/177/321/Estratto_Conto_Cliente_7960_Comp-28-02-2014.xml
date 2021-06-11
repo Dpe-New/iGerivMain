@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<consegne>
+    <header>
+        <dataCreazioneFile>19/02/2014</dataCreazioneFile>
+        <oraCreazioneFile>203139</oraCreazioneFile>
+        <title>Periodo di Riferimento fino al 28/02/2014</title>
+        <title1>Data Documento: 19/02/2014</title1>
+        <titoloLabel>Titolo/Prodotto</titoloLabel>
+        <prezzoLabel>Prezzo</prezzoLabel>
+        <copieLabel>Quantità</copieLabel>
+        <importoLabel>Importo</importoLabel>
+        <totaleLabel>Importo</totaleLabel>
+        <controllareDatiLabel>Vi preghiamo di controllare i Vs. dati anagrafici e la Partita IVA. Non ci riteniamo responsabili di eventuali errori</controllareDatiLabel>
+        <pagamentoLabel>Pagamento</pagamentoLabel>
+        <edicola>EDICOLA X CONSEGNE    SAN MICHELE CAMPAGNA 29/A - PARMA            Codice Fiscale: null</edicola>
+        <intestazioneCliente>Spett.</intestazioneCliente>
+        <pieDiPagina></pieDiPagina>
+        <valoreMarcaBollo>2,00</valoreMarcaBollo>
+        <fileName>Estratto_Conto_Cliente_7960_Comp-28-02-2014.xml</fileName>
+        <ggDataDocLabel>gg. Data doc.</ggDataDocLabel>
+        <dataScadenzaPagamentoLabel>Scadenza</dataScadenzaPagamentoLabel>
+        <importoScontatoLabel>Importo Totale</importoScontatoLabel>
+        <scontoPerc>0</scontoPerc>
+        <marcaBolloLabel>Marca da Bollo</marcaBolloLabel>
+        <scontoLabel>Sconto Pubblicazioni</scontoLabel>
+        <scontoPneLabel>Sconto Prodotti</scontoPneLabel>
+        <datiEdicola>EDICOLA X CONSEGNE    SAN MICHELE CAMPAGNA 29/A - PARMA            Codice Fiscale: null</datiEdicola>
+        <datiEdicolaInt>EDICOLA X CONSEGNE
+SAN MICHELE CAMPAGNA 29/A - PARMA
+Codice Fiscale: null</datiEdicolaInt>
+        <numeroEstrattoContoLabel>Numero Documento</numeroEstrattoContoLabel>
+    </header>
+    <consegnaPubblicazioni>
+        <codCliente>7960</codCliente>
+        <nome>TEST</nome>
+        <cognome>TEST</cognome>
+        <titolo>GAZZETTA PARMA MER</titolo>
+        <prezzo>1.3</prezzo>
+        <copie>2</copie>
+        <tipoLocalita>via</tipoLocalita>
+        <dataCompetenzaEstrattoContoClienti>19/02/2014</dataCompetenzaEstrattoContoClienti>
+        <tipoPagamento>In edicola</tipoPagamento>
+        <sconto>0</sconto>
+        <scontoPne>0</scontoPne>
+        <numeroEstrattoConto>6</numeroEstrattoConto>
+    </consegnaPubblicazioni>
+</consegne>

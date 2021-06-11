@@ -230,17 +230,17 @@
 		<repository>
 			<id>repository.springframework.maven.release</id>
 			<name>Spring Framework Maven Release Repository</name>
-			<url>http://maven.springframework.org/release</url>
+			<url>https://maven.springframework.org/release</url>
 		</repository>
 		<repository>
 			<id>repository.springframework.maven.milestone</id>
 			<name>Spring Framework Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
+			<url>https://maven.springframework.org/milestone</url>
 		</repository>
 		<repository>
 			<id>repository.springframework.maven.snapshot</id>
 			<name>Spring Framework Maven Snapshot Repository</name>
-			<url>http://maven.springframework.org/snapshot</url>
+			<url>https://maven.springframework.org/snapshot</url>
 		</repository>
 		<repository>
 			<id>local-dpe</id>
@@ -1827,23 +1827,9 @@
 									</sources>
 								</jscomp>
 
-<!-- 								<jscomp compilationLevel="simple" outputencoding="UTF-8" -->
-<!-- 									warning="quiet" debug="false" -->
-<!-- 									output="${basedir}/WebContent/js-transient/script-min_${generated.timestamp}.js"> -->
-<!-- 									<sources dir="js"> -->
-<!-- 										<file name="script.js" /> -->
-<!-- 									</sources> -->
-<!-- 								</jscomp> -->
 									<copy file="${basedir}/js/script.js" tofile="${basedir}/WebContent/js-transient/script-min_${generated.timestamp}.js" />
 								
 								
-<!-- 								<jscomp compilationLevel="simple" outputencoding="UTF-8" -->
-<!-- 									warning="quiet" debug="false" -->
-<!-- 									output="${basedir}/WebContent/js-transient/bollaRivenditaBase-min_${generated.timestamp}.js"> -->
-<!-- 									<sources dir="js"> -->
-<!-- 										<file name="bollaRivenditaBase.js" /> -->
-<!-- 									</sources> -->
-<!-- 								</jscomp> -->
 								<copy file="${basedir}/js/bollaRivenditaBase.js" tofile="${basedir}/WebContent/js-transient/bollaRivenditaBase-min_${generated.timestamp}.js" />
 								
 								
@@ -1871,22 +1857,9 @@
 										<file name="bollaRivenditaInf.js" />
 									</sources>
 								</jscomp>
-<!-- 								<jscomp compilationLevel="simple" outputencoding="UTF-8" -->
-<!-- 									warning="quiet" debug="false" -->
-<!-- 									output="${basedir}/WebContent/js-transient/bollaSpunta-min_${generated.timestamp}.js"> -->
-<!-- 									<sources dir="js"> -->
-<!-- 										<file name="bollaSpunta.js" /> -->
-<!-- 									</sources> -->
 <!-- 								</jscomp> -->
 								<copy file="${basedir}/js/bollaSpunta.js" tofile="${basedir}/WebContent/js-transient/bollaSpunta-min_${generated.timestamp}.js" />
 								
-								<!-- <jscomp compilationLevel="simple" outputencoding="UTF-8"
-									warning="quiet" debug="false"
-									output="${basedir}/WebContent/js-transient/bollaResa-min_${generated.timestamp}.js">
-									<sources dir="js">
-										<file name="bollaResa.js" />
-									</sources>
-								</jscomp>-->
 							   <copy file="${basedir}/js/bollaResa.js" tofile="${basedir}/WebContent/js-transient/bollaResa-min_${generated.timestamp}.js" /> 
 							   <copy file="${basedir}/js/ordiniCliente.js" tofile="${basedir}/WebContent/js-transient/ordiniCliente-min_${generated.timestamp}.js" /> 
 									
@@ -1899,21 +1872,7 @@
 										<file name="bollaResaFuoriVoce.js" />
 									</sources>
 								</jscomp>
-<!-- 								<jscomp compilationLevel="simple" outputencoding="UTF-8" -->
-<!-- 									warning="quiet" debug="false" -->
-<!-- 									output="${basedir}/WebContent/js-transient/vendite-min_${generated.timestamp}.js"> -->
-<!-- 									<sources dir="js"> -->
-<!-- 										<file name="vendite.js" /> -->
-<!-- 									</sources> -->
-<!-- 								</jscomp> -->
 								<copy file="${basedir}/js/vendite.js" tofile="${basedir}/WebContent/js-transient/vendite-min_${generated.timestamp}.js" />
-								
-								<!-- Test per popup alert modali -->
-<!-- 								<copy file="${basedir}/js/bootstrap.js" tofile="${basedir}/WebContent/js-transient/bootstrap-min_${generated.timestamp}.js" /> -->
-<!-- 								<copy file="${basedir}/js/bootbox.js" tofile="${basedir}/WebContent/js-transient/bootbox-min_${generated.timestamp}.js" /> -->
-								
-<!-- 								<copy file="${basedir}/js/jquery.bpopup.min.js" tofile="${basedir}/WebContent/js-transient/jquery.bpopup.min.js" /> -->
-								
 								
 								<jscomp compilationLevel="simple" outputencoding="UTF-8"
 									warning="quiet" debug="false"
@@ -1959,7 +1918,7 @@
 								
 								
 								<taskdef resource="net/sf/antcontrib/antlib.xml" />
-								<for param="file">
+								<for param="file" >
 									<path>
 										<fileset dir="${basedir}/WebContent/css" includes="*.css" />
 									</path>
@@ -1967,7 +1926,7 @@
 										<propertyregex override="yes" property="file.name.replace"
 											input="@{file}"
 											regexp="(\\*)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]+[\\.]css"
-											replace="${generated.timestamp}.css" global="true" />
+											replace="${generated.timestamp}.css" global="true"  />
 										<move file="@{file}" tofile="${file.name.replace}" />
 									</sequential>
 								</for>

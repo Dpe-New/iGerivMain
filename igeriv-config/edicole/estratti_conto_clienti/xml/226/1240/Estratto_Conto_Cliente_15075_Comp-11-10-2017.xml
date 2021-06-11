@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<consegne>
+    <header>
+        <dataCreazioneFile>11/10/2017</dataCreazioneFile>
+        <oraCreazioneFile>172932</oraCreazioneFile>
+        <logoFileName>C:/igeriv/edicole/immagini_miniature_edicola\226_1240_20120903150233_logo_fattura.JPG</logoFileName>
+        <title>Estratto conto dal 26/11/2014 al 11/10/2017</title>
+        <title1>Data Documento: 11/10/2017</title1>
+        <titoloLabel>Titolo/Prodotto</titoloLabel>
+        <prezzoLabel>Prezzo</prezzoLabel>
+        <copieLabel>Quantità</copieLabel>
+        <importoLabel>Importo</importoLabel>
+        <totaleLabel>Importo</totaleLabel>
+        <controllareDatiLabel>Vi preghiamo di controllare i Vs. dati anagrafici e la Partita IVA. Non ci riteniamo responsabili di eventuali errori</controllareDatiLabel>
+        <pagamentoLabel>Pagamento</pagamentoLabel>
+        <edicola>Edicola Test     - Bologna            Codice Fiscale: null</edicola>
+        <intestazioneCliente>Spett.</intestazioneCliente>
+        <pieDiPagina></pieDiPagina>
+        <valoreMarcaBollo>2,00</valoreMarcaBollo>
+        <fileName>Estratto_Conto_Cliente_15075_Comp-11-10-2017.xml</fileName>
+        <ggDataDocLabel>gg. Data doc.</ggDataDocLabel>
+        <dataScadenzaPagamentoLabel>Scadenza</dataScadenzaPagamentoLabel>
+        <importoScontatoLabel>Importo Totale</importoScontatoLabel>
+        <scontoPerc>0</scontoPerc>
+        <marcaBolloLabel>Marca da Bollo</marcaBolloLabel>
+        <scontoLabel>Sconto Pubblicazioni</scontoLabel>
+        <scontoPneLabel>Sconto Prodotti</scontoPneLabel>
+        <datiEdicola>Edicola Test     - Bologna            Codice Fiscale: null</datiEdicola>
+        <datiEdicolaInt>Edicola Test
+ - Bologna
+Codice Fiscale: null</datiEdicolaInt>
+        <numeroEstrattoContoLabel>Numero Documento</numeroEstrattoContoLabel>
+    </header>
+    <consegnaPubblicazioni>
+        <codCliente>15075</codCliente>
+        <nome>MAURIZIO</nome>
+        <cognome>BOLOGNINI</cognome>
+        <titolo>VIP</titolo>
+        <prezzo>1.5</prezzo>
+        <copie>1</copie>
+        <tipoLocalita>via</tipoLocalita>
+        <indirizzo>Mazzini</indirizzo>
+        <numeroCivico>19</numeroCivico>
+        <provinciaDesc>BO</provinciaDesc>
+        <dataCompetenzaEstrattoContoClienti>27/01/2017</dataCompetenzaEstrattoContoClienti>
+        <tipoPagamento>In edicola</tipoPagamento>
+        <sconto>0</sconto>
+        <scontoPne>0</scontoPne>
+        <numeroEstrattoConto>2</numeroEstrattoConto>
+    </consegnaPubblicazioni>
+</consegne>

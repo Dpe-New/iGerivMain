@@ -1,0 +1,28 @@
+Gestionale di menta : gesdis_az001
+
+//Ricerco IDTN dalla tabella di anagrafica
+Select * From Tbl_0007 Where Cpu7=13972 And Npu7='40008';
+
+//Verifico la presenza del campo BLOB
+Select * From Tbl_0502 Where Idtn502=1041744;
+
+//Verifico la data di invio al web dell'immagine
+Select * From Tbl_0504 Where Idtn504=1041744;
+
+//Elimino il record per poter essere rielaborato dal job ImageExport
+delete From Tbl_0504 Where Idtn504=1041744; 
+
+
+Esecuzione del job imageExport
+10.6.33.101
+dpe/SiraMgrSira
+
+coltellino svizzero: utente/diffusione
+Statistiche -> Visualizzazione copertina -> numero pubblicazione
+
+
+- E' stato cancellato il record corrispondente nella tbl_504 ( idtn / data esportazione )
+- E' stato rilanciato il job per il caricamento delle immagini. 
+
+
+01117271977003007071750016

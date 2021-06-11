@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<consegne>
+    <header>
+        <dataCreazioneFile>26/01/2017</dataCreazioneFile>
+        <oraCreazioneFile>123857</oraCreazioneFile>
+        <title>Estratto conto dal 01/07/2016 al 31/07/2016</title>
+        <title1>Data Documento: 26/01/2017</title1>
+        <titoloLabel>Titolo/Prodotto</titoloLabel>
+        <prezzoLabel>Prezzo</prezzoLabel>
+        <copieLabel>Quantità</copieLabel>
+        <importoLabel>Importo</importoLabel>
+        <totaleLabel>Importo</totaleLabel>
+        <controllareDatiLabel>Vi preghiamo di controllare i Vs. dati anagrafici e la Partita IVA. Non ci riteniamo responsabili di eventuali errori</controllareDatiLabel>
+        <pagamentoLabel>Pagamento</pagamentoLabel>
+        <edicola>L'EDICOLA DA ALEKOS    VIA RISORGIMENTO 175 - ZOLA PREDOSA            Partita IVA: 03309681207</edicola>
+        <intestazioneCliente>Spett.</intestazioneCliente>
+        <pieDiPagina></pieDiPagina>
+        <valoreMarcaBollo>2,00</valoreMarcaBollo>
+        <fileName>Estratto_Conto_Cliente_16944_Comp-31-07-2016.xml</fileName>
+        <ggDataDocLabel>gg. Data doc.</ggDataDocLabel>
+        <dataScadenzaPagamentoLabel>Scadenza</dataScadenzaPagamentoLabel>
+        <importoScontatoLabel>Importo Totale</importoScontatoLabel>
+        <scontoPerc>0</scontoPerc>
+        <marcaBolloLabel>Marca da Bollo</marcaBolloLabel>
+        <scontoLabel>Sconto Pubblicazioni</scontoLabel>
+        <scontoPneLabel>Sconto Prodotti</scontoPneLabel>
+        <datiEdicola>L'EDICOLA DA ALEKOS    VIA RISORGIMENTO 175 - ZOLA PREDOSA            Partita IVA: 03309681207</datiEdicola>
+        <datiEdicolaInt>L'EDICOLA DA ALEKOS
+VIA RISORGIMENTO 175 - ZOLA PREDOSA
+Partita IVA: 03309681207</datiEdicolaInt>
+        <numeroEstrattoContoLabel>Numero Documento</numeroEstrattoContoLabel>
+    </header>
+    <consegnaPubblicazioni>
+        <codCliente>16944</codCliente>
+        <nome>COMUNE</nome>
+        <cognome>ZOLA PREDOSA</cognome>
+        <titolo>REPUBBLICA    DOM.</titolo>
+        <prezzo>1.5</prezzo>
+        <copie>2</copie>
+        <tipoLocalita>piazza</tipoLocalita>
+        <indirizzo>della Repubblica</indirizzo>
+        <estensione>1</estensione>
+        <localitaDesc>ZOLA PREDOSA</localitaDesc>
+        <cap>40069</cap>
+        <provinciaDesc>BO</provinciaDesc>
+        <piva>00529991200</piva>
+        <codiceFiscale>01041340371</codiceFiscale>
+        <dataCompetenzaEstrattoContoClienti>31/07/2016</dataCompetenzaEstrattoContoClienti>
+        <tipoPagamento>In edicola</tipoPagamento>
+        <sconto>0</sconto>
+        <scontoPne>0</scontoPne>
+        <numeroEstrattoConto>16</numeroEstrattoConto>
+    </consegnaPubblicazioni>
+</consegne>

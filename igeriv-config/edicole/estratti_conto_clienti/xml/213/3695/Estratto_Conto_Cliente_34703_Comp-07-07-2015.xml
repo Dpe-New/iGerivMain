@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<consegne>
+    <header>
+        <dataCreazioneFile>07/07/2015</dataCreazioneFile>
+        <oraCreazioneFile>143441</oraCreazioneFile>
+        <title>Estratto conto dal 25/03/2015 al 07/07/2015</title>
+        <title1>Data Documento: 07/07/2015</title1>
+        <titoloLabel>Titolo/Prodotto</titoloLabel>
+        <prezzoLabel>Prezzo</prezzoLabel>
+        <copieLabel>Quantità</copieLabel>
+        <importoLabel>Importo</importoLabel>
+        <totaleLabel>Importo</totaleLabel>
+        <controllareDatiLabel>Vi preghiamo di controllare i Vs. dati anagrafici e la Partita IVA. Non ci riteniamo responsabili di eventuali errori</controllareDatiLabel>
+        <pagamentoLabel>Pagamento</pagamentoLabel>
+        <edicola>Edicola di TEST     -             Codice Fiscale: null</edicola>
+        <intestazioneCliente>Spett.</intestazioneCliente>
+        <pieDiPagina></pieDiPagina>
+        <valoreMarcaBollo>2,00</valoreMarcaBollo>
+        <fileName>Estratto_Conto_Cliente_34703_Comp-07-07-2015.xml</fileName>
+        <ggDataDocLabel>gg. Data doc.</ggDataDocLabel>
+        <dataScadenzaPagamentoLabel>Scadenza</dataScadenzaPagamentoLabel>
+        <importoScontatoLabel>Importo Totale</importoScontatoLabel>
+        <scontoPerc>0</scontoPerc>
+        <marcaBolloLabel>Marca da Bollo</marcaBolloLabel>
+        <scontoLabel>Sconto Pubblicazioni</scontoLabel>
+        <scontoPneLabel>Sconto Prodotti</scontoPneLabel>
+        <datiEdicola>Edicola di TEST     -             Codice Fiscale: null</datiEdicola>
+        <datiEdicolaInt>Edicola di TEST
+ - 
+Codice Fiscale: null</datiEdicolaInt>
+        <numeroEstrattoContoLabel>Numero Documento</numeroEstrattoContoLabel>
+    </header>
+    <consegnaPubblicazioni>
+        <codCliente>34703</codCliente>
+        <nome>BAR ROSSI SNC</nome>
+        <titolo>Vendita a valore</titolo>
+        <prezzo>100</prezzo>
+        <copie>1</copie>
+        <tipoLocalita>via</tipoLocalita>
+        <dataCompetenzaEstrattoContoClienti>07/07/2015</dataCompetenzaEstrattoContoClienti>
+        <tipoPagamento>In edicola</tipoPagamento>
+        <sconto>0</sconto>
+        <scontoPne>0</scontoPne>
+        <marcaBollo>2.00</marcaBollo>
+        <numeroEstrattoConto>6</numeroEstrattoConto>
+    </consegnaPubblicazioni>
+</consegne>

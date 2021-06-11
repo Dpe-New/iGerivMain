@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+  	
+  	<context:component-scan base-package="it.dpe.igeriv.rest" />
+  	<context:property-placeholder location="file:/${IGERIV_PATH}/iGeriv.properties" />
+  	
+  	<mvc:annotation-driven/>
+  	
+  	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+		
+	<bean id="edicoleView" class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<constructor-arg ref="jaxb2Marshaller" />
+	</bean>
+	
+	<bean id="orderViewJson" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+	
+	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>models.EdicolaMappaDto</value>
+                <value>models.ListEdicolaMappa</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+    
+</beans>
